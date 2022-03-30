@@ -3,7 +3,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-        <title>{{ title }}</title>
+        <title>{{ page_title }}</title>
 
         <link type="text/css" href="/css/normalize.css?v={{ core_version }}" />
         <link rel="stylesheet" type="text/css" href="/css/main.css?v={{ core_version }}" />
@@ -24,7 +24,7 @@
             </header>
 
             <section id="content">
-                <h1>{{ title }}</h1>
+                <h1>{{ site_title }}</h1>
                     {% if infos %}
                     <div style="background-color: #3f3f3f; color: #cacaca; padding: 10px 15px;">
                         {% for info in infos %}

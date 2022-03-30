@@ -124,7 +124,8 @@ final class CoreController implements CoreControllerInterface
 
     public function setTemplateTitle(string $variable): void
     {
-        $this->setTemplateVar('title', $variable.' - '.$this->getCoreName());
+        $this->setTemplateVar('page_title', $variable.' - '.$this->getCoreName());
+        $this->setTemplateVar('site_title', $variable);
     }
 
     private function getVersion(): string
