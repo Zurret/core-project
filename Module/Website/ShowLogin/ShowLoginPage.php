@@ -52,7 +52,7 @@ class ShowLoginPage
                 $this->_core->setNotification('Login erfolgreich');
             }
         }
-        $this->__invoke();
+        header("Location: /");
     }
 
     private function checkLogin(string $email, string $password): bool
