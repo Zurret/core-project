@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Core\Module\Core;
 
-use Core\Lib\Session;
 use Core\Lib\Request;
+use Core\Lib\Session;
 use Exception;
 use Noodlehaus\ConfigInterface;
 
@@ -39,7 +39,7 @@ final class CoreController implements CoreControllerInterface
         $this->setTemplateVar('token_form', $this->getTokenInput());
         $this->setTemplateVar('benchmark', $this->getBenchmarkResult());
         $this->setTemplateVar('infos', $this->getNotification());
-        
+
         /**
          * Render page.
          */
@@ -74,7 +74,7 @@ final class CoreController implements CoreControllerInterface
 
     public function setToken(): void
     {
-        Session::setSession('TOKEN', sha1(rand(0,100) . microtime() . rand(0,100)));
+        Session::setSession('TOKEN', sha1(rand(0, 100).microtime().rand(0, 100)));
     }
 
     public function getToken(): string
@@ -82,6 +82,7 @@ final class CoreController implements CoreControllerInterface
         if (Session::checkSessionExist('TOKEN')) {
             $this->setToken();
         }
+
         return Session::getSession('TOKEN');
     }
 
@@ -91,6 +92,7 @@ final class CoreController implements CoreControllerInterface
         $this->setToken();
         if ($token !== Request::postString('core_token')) {
             $this->setNotification('Der Token ist nicht gültig.');
+
             return false;
         }
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Core\Module\Website\ShowLogin;
 
-use Core\Lib\Request;
 use Core\Lib\Auth;
+use Core\Lib\Request;
 use Core\Module\Core\CoreControllerInterface;
 use Core\Orm\Repository\UserRepositoryInterface;
 use Exception;
@@ -56,21 +56,25 @@ class ShowLoginPage
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->_core->setNotification('Keine gültige E-Mail Adresse.');
+
             return false;
         }
         $result = $this->userRepository->getByEmail($email);
         if ($result === null) {
             $this->_core->setNotification('Es gibt keinen Account mit dieser E-Mail Adresse');
+
             return false;
         }
         if (!Auth::checkPassword($password, $result->getPassword())) {
             $this->_core->setNotification('Das Passwort stimmt nicht.');
+
             return false;
         }
 
         $result->setSession(Auth::hashPassword(microtime().'-'.$result->getId()));
         $this->userRepository->save($result);
         Auth::doLogin($result);
+
         return true;
     }
 }

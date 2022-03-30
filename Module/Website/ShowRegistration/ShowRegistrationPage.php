@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Core\Module\Website\ShowRegistration;
 
-use Core\Lib\Request;
 use Core\Lib\Auth;
+use Core\Lib\Request;
 use Core\Module\Core\CoreControllerInterface;
 use Core\Orm\Repository\UserRepositoryInterface;
 use Exception;
@@ -56,22 +56,23 @@ class ShowRegistrationPage
 
     private function createAccount(string $email, string $password, string $password_confirm): bool
     {
-
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->_core->setNotification('Keine gültige E-Mail Adresse.');
+
             return false;
         }
 
         if ($this->userRepository->getByEmail($email)) {
             $this->_core->setNotification('Diese E-Mail Adresse hat schon einen Account');
-            return false;
-        }
-        
-        if ($password !== $password_confirm) {
-            $this->_core->setNotification('Passwörter stimmen nicht überein.');
+
             return false;
         }
 
+        if ($password !== $password_confirm) {
+            $this->_core->setNotification('Passwörter stimmen nicht überein.');
+
+            return false;
+        }
 
         $account = $this->userRepository->prototype();
         $account->setEmail($email);

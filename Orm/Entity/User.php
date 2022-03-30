@@ -45,10 +45,11 @@ class User implements UserInterface
     {
         return $this->email;
     }
-    
+
     public function setEMail(string $email): UserInterface
     {
         $this->email = $email;
+
         return $this;
     }
 
@@ -56,10 +57,11 @@ class User implements UserInterface
     {
         return $this->password;
     }
-    
+
     public function setPassword(string $password): UserInterface
     {
         $this->password = $password;
+
         return $this;
     }
 
@@ -67,10 +69,11 @@ class User implements UserInterface
     {
         return $this->session;
     }
-    
+
     public function setSession(string $session): UserInterface
     {
         $this->session = $session;
+
         return $this;
     }
 }

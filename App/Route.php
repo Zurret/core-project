@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use FastRoute\RouteCollector;
-use Core\Lib\Auth;
 
 /**
  * @readme https://github.com/nikic/FastRoute/blob/master/README.md
