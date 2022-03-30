@@ -34,15 +34,15 @@ final class UserRepository extends EntityRepository implements UserRepositoryInt
     public function getByEmail(string $email): ?UserInterface
     {
         return $this->findOneBy([
-            'email' => $email
+            'email' => $email,
         ]);
     }
 
     public function getByIdAndSession(int $id, string $session): ?UserInterface
     {
         return $this->findOneBy([
-            'id' => $id,
-            'session' => $session
+            'id'      => $id,
+            'session' => $session,
         ]);
     }
 }

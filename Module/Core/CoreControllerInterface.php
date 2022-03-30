@@ -15,7 +15,7 @@ interface CoreControllerInterface
     public function getToken(): string;
 
     public function checkToken(): bool;
-    
+
     public function getTokenInput(): string;
 
     public function setTemplateFile(string $tpl): void;

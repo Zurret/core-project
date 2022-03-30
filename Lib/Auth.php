@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace Core\Lib;
 
 use Core\Orm\Entity\UserInterface;
-use Core\Lib\Session;
 
 class Auth
 {
-
     public static function genPassword(): string
     {
         $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*_';
