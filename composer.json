@@ -1,4 +1,6 @@
 {  
+    "name": "zurret/core-project",
+    "description": "privates projekt",
     "license": "MIT",
     "autoload": {
       "psr-4": {
