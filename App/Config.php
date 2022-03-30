@@ -7,8 +7,8 @@ use Core\Module\Core\CoreController;
 use Core\Module\Core\CoreControllerInterface;
 use Core\Module\Core\Template;
 use Core\Module\Core\TemplateInterface;
-use Doctrine\DBAL\Types\Type;
 use function DI\autowire;
+use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -67,7 +67,8 @@ return [
     CoreControllerInterface::class => autowire(CoreController::class),
     TemplateInterface::class       => autowire(Template::class),
     /**
-     * Doctrine ORM
+     * Doctrine ORM.
+     *
      * @url https://www.doctrine-project.org/
      */
     \Core\Orm\Repository\UserRepositoryInterface::class => function (ContainerInterface $c): \Core\Orm\Repository\UserRepositoryInterface {

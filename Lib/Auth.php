@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace Core\Lib;
 
-use Core\Lib\Helper;
-use Core\Lib\Session;
 
 class Auth
 {
     public static function checkLogin(): bool
     {
-        if (Session::checkSessionExist('user_session'))
-        {
+        if (Session::checkSessionExist('user_session')) {
             return true;
         }
+
         return false;
     }
 

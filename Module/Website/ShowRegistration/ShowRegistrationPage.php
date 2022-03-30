@@ -29,6 +29,7 @@ class ShowRegistrationPage
 
     /**
      * @route POST /register
+     *
      * @throws Exception
      */
     public function doRegistration(): void

@@ -183,7 +183,6 @@ class Request
 
     public static function returnArray(array $result): array
     {
-
         return $result;
     }
 

@@ -15,7 +15,7 @@ interface CoreControllerInterface
     public function setTemplateVar(string $key, $variable): void;
 
     public function setTemplateTitle(string $variable): void;
-    
+
     public function getConfig(string $var): mixed;
 
     public function render(): void;
