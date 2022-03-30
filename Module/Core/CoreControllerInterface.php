@@ -10,6 +10,14 @@ interface CoreControllerInterface
 
     public function getNotification(): ?array;
 
+    public function setToken(): void;
+
+    public function getToken(): string;
+
+    public function checkToken(): bool;
+    
+    public function getTokenInput(): string;
+
     public function setTemplateFile(string $tpl): void;
 
     public function setTemplateVar(string $key, $variable): void;

@@ -10,4 +10,7 @@ use Doctrine\Persistence\ObjectRepository;
 interface UserRepositoryInterface extends ObjectRepository
 {
     public function prototype(): UserInterface;
+    public function save(UserInterface $user): void;
+    public function delete(UserInterface $user): void;
+    public function getByEmail(string $email): ?UserInterface;
 }

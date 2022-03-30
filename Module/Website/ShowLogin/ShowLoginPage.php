@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Core\Module\Website\ShowRegistration;
+namespace Core\Module\Website\ShowLogin;
 
 use Core\Lib\Request;
 use Core\Lib\Auth;
@@ -10,7 +10,7 @@ use Core\Module\Core\CoreControllerInterface;
 use Core\Orm\Repository\UserRepositoryInterface;
 use Exception;
 
-class ShowRegistrationPage
+class ShowLoginPage
 {
     private CoreControllerInterface $_core;
 
@@ -29,9 +29,8 @@ class ShowRegistrationPage
      */
     public function __invoke(): void
     {
-        Auth::checkAccess();
-        $this->_core->setTemplateTitle('Registration');
-        $this->_core->setTemplateFile('Index/Registration.twig');
+        $this->_core->setTemplateTitle('Login');
+        $this->_core->setTemplateFile('Index/Login.twig');
         $this->_core->render();
     }
 
@@ -40,44 +39,38 @@ class ShowRegistrationPage
      *
      * @throws Exception
      */
-    public function doRegistration(): void
+    public function doLogin(): void
     {
         if ($this->_core->checkToken()) {
             $email = Request::postString('email');
             $password = Request::postString('password');
-            $password_confirm = Request::postString('password_confirm');
 
-            if ($this->createAccount($email, $password, $password_confirm)) {
-                $this->_core->setNotification('Account wurde erstellt.');
+            if ($this->checkLogin($email, $password)) {
+                $this->_core->setNotification('Login erfolgreich');
             }
         }
         $this->__invoke();
     }
 
-    private function createAccount(string $email, string $password, string $password_confirm): bool
+    private function checkLogin(string $email, string $password): bool
     {
-
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->_core->setNotification('Keine gültige E-Mail Adresse.');
             return false;
         }
-
-        if ($this->userRepository->getByEmail($email)) {
-            $this->_core->setNotification('Diese E-Mail Adresse hat schon einen Account');
+        $result = $this->userRepository->getByEmail($email);
+        if ($result === null) {
+            $this->_core->setNotification('Es gibt keinen Account mit dieser E-Mail Adresse');
             return false;
         }
-        
-        if ($password !== $password_confirm) {
-            $this->_core->setNotification('Passwörter stimmen nicht überein.');
+        if (!Auth::checkPassword($password, $result->getPassword())) {
+            $this->_core->setNotification('Das Passwort stimmt nicht.');
             return false;
         }
 
-
-        $account = $this->userRepository->prototype();
-        $account->setEmail($email);
-        $account->setPassword(Auth::hashPassword($password));
-        $this->userRepository->save($account);
-
+        $result->setSession(Auth::hashPassword(microtime().'-'.$result->getId()));
+        $this->userRepository->save($result);
+        Auth::doLogin($result);
         return true;
     }
 }

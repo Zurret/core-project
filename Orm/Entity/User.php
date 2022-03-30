@@ -27,6 +27,9 @@ class User implements UserInterface
     /** @Column(type="string", length=255) */
     private $password = '';
 
+    /** @Column(type="string", length=255, nullable=true)) */
+    private $session = '';
+
     /** @Column(type="integer", nullable=true) */
     private $player_id = '';
 
@@ -36,5 +39,38 @@ class User implements UserInterface
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getEMail(): string
+    {
+        return $this->email;
+    }
+    
+    public function setEMail(string $email): UserInterface
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+    
+    public function setPassword(string $password): UserInterface
+    {
+        $this->password = $password;
+        return $this;
+    }
+
+    public function getSession(): string
+    {
+        return $this->session;
+    }
+    
+    public function setSession(string $session): UserInterface
+    {
+        $this->session = $session;
+        return $this;
     }
 }

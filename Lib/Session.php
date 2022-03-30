@@ -23,7 +23,7 @@ class Session
 
     public static function checkSessionExist(string $key): bool
     {
-        return !empty(self::getSession($key)) && !is_null(self::getSession($key));
+        return self::getSession($key) === null;
     }
 
     public static function setCookie(string $key, string $value, int $lifetime = 3600): void
@@ -38,7 +38,7 @@ class Session
 
     public static function checkCookieExist(string $key): bool
     {
-        return !empty(self::getCookie($key)) && !is_null(self::getCookie($key));
+        return self::getCookie($key) === null;
     }
 
     public static function delCookie(string $key): void

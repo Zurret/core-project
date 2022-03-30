@@ -30,4 +30,19 @@ final class UserRepository extends EntityRepository implements UserRepositoryInt
         $em->remove($user);
         $em->flush();
     }
+
+    public function getByEmail(string $email): ?UserInterface
+    {
+        return $this->findOneBy([
+            'email' => $email
+        ]);
+    }
+
+    public function getByIdAndSession(int $id, string $session): ?UserInterface
+    {
+        return $this->findOneBy([
+            'id' => $id,
+            'session' => $session
+        ]);
+    }
 }

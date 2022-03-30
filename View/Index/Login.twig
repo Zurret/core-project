@@ -1,12 +1,11 @@
 {% extends "Layout/web.twig" %}
 {% block content %}
 
-    <form action="/register" method="post">
+    <form action="/login" method="post">
         {{ token_form|raw }}
         <input type="email" name="email" value="" placeholder="E-Mail Adresse" required>
         <input type="password" name="password" value="" placeholder="Passwort" required>
-        <input type="password" name="password_confirm" value="" placeholder="Passwort bestätigen" required>
-        <button type="submit">Regestireren</button>
+        <button type="submit">Einloggen</button>
     </form>
 
 {% endblock %}
