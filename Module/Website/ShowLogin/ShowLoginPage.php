@@ -24,9 +24,6 @@ class ShowLoginPage
         $this->_core = $_core;
     }
 
-    /**
-     * @route GET /register
-     */
     public function __invoke(): void
     {
         $this->_core->setTemplateTitle('Login');
@@ -34,11 +31,17 @@ class ShowLoginPage
         $this->_core->render();
     }
 
-    /**
-     * @route POST /register
-     *
-     * @throws Exception
-     */
+    public function doLogout(string $token): void
+    {
+        if ($this->_core->getToken() == $token) {
+            $this->_core->setNotification('Logout erfolgreich.');
+            Auth::logout();
+        } else {
+            $this->_core->setNotification('Logout fehlgeschlagen.');
+            $this->__invoke();
+        }
+    }
+
     public function doLogin(): void
     {
         if ($this->_core->checkToken()) {

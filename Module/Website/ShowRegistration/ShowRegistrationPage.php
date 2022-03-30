@@ -29,7 +29,6 @@ class ShowRegistrationPage
      */
     public function __invoke(): void
     {
-        Auth::checkAccess();
         $this->_core->setTemplateTitle('Registration');
         $this->_core->setTemplateFile('Index/Registration.twig');
         $this->_core->render();

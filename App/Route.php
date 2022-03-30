@@ -13,8 +13,9 @@ $dispatcher = FastRoute\simpleDispatcher(static function (RouteCollector $r): vo
     $r->addRoute('POST', '/register', ['Core\Module\Website\ShowRegistration\ShowRegistrationPage', 'doRegistration']);
     $r->addRoute('GET', '/login', 'Core\Module\Website\ShowLogin\ShowLoginPage');
     $r->addRoute('POST', '/login', ['Core\Module\Website\ShowLogin\ShowLoginPage', 'doLogin']);
+    $r->addRoute('GET', '/logout/{token}', ['Core\Module\Website\ShowLogin\ShowLoginPage', 'doLogout']);
     $r->addGroup('/game', function (RouteCollector $r) {
-        $r->addRoute('GET', '/maindesk', 'Core\Module\Website\ShowIndex\ShowIndexPage');
+        $r->addRoute('GET', '/maindesk', 'Core\Module\Maindesk\ShowMaindeskPage');
     });
 });
 

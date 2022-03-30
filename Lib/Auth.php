@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Core\Lib;
 
 use Core\Orm\Entity\UserInterface;
+use Core\Orm\Repository\UserRepositoryInterface;
 
 class Auth
 {
@@ -25,13 +26,11 @@ class Auth
         return password_verify($input_pw, $db_pw);
     }
 
-    public static function checkAccess(): bool
+    public static function checkAccess(): void
     {
-        if (self::checkSession()) {
-            return true;
+        if (!self::checkSession()) {
+            header("Location: /");
         }
-
-        return false;
     }
 
     private static function checkSession(): bool
@@ -43,10 +42,25 @@ class Auth
         return true;
     }
 
+    public static function logout(): void
+    {
+        Session::delSession('ACCOUNT_ID');
+        Session::delSession('ACCOUNT_SSTR');
+        Session::delSession('LOGIN');
+        header("Location: /");
+    }
+
     public static function doLogin(UserInterface $user): void
     {
         Session::setSession('ACCOUNT_ID', $user->getId());
         Session::setSession('ACCOUNT_SSTR', $user->getSession());
         Session::setSession('LOGIN', true);
+    }
+
+    public static function getUser()
+    {
+        global $container;
+        $user = $container->get(UserRepositoryInterface::class);
+        return $user->getByIdAndSession(Session::getSession('ACCOUNT_ID') ?? 0, Session::getSession('ACCOUNT_SSTR') ?? '');
     }
 }
