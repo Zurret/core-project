@@ -8,7 +8,6 @@ use Core\Lib\Auth;
 use Core\Lib\Request;
 use Core\Module\Core\CoreControllerInterface;
 use Core\Orm\Repository\UserRepositoryInterface;
-use Exception;
 
 class ShowLoginPage
 {
@@ -52,7 +51,7 @@ class ShowLoginPage
                 $this->_core->setNotification('Login erfolgreich');
             }
         }
-        header("Location: /");
+        header('Location: /');
     }
 
     private function checkLogin(string $email, string $password): bool
