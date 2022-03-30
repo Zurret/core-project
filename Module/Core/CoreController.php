@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Core\Module\Core;
 
+use Core\Lib\Auth;
 use Core\Lib\Request;
 use Core\Lib\Session;
-use Core\Lib\Auth;
 use Core\Orm\Entity\UserInterface;
 use Exception;
 use Noodlehaus\ConfigInterface;

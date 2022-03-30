@@ -29,7 +29,7 @@ class Auth
     public static function checkAccess(): void
     {
         if (!self::checkSession()) {
-            header("Location: /");
+            header('Location: /');
         }
     }
 
@@ -47,7 +47,7 @@ class Auth
         Session::delSession('ACCOUNT_ID');
         Session::delSession('ACCOUNT_SSTR');
         Session::delSession('LOGIN');
-        header("Location: /");
+        header('Location: /');
     }
 
     public static function doLogin(UserInterface $user): void
@@ -61,6 +61,7 @@ class Auth
     {
         global $container;
         $user = $container->get(UserRepositoryInterface::class);
+
         return $user->getByIdAndSession(Session::getSession('ACCOUNT_ID') ?? 0, Session::getSession('ACCOUNT_SSTR') ?? '');
     }
 }
