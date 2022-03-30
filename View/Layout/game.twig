@@ -13,9 +13,11 @@
             <header id="header">
                 <nav id="nav">
                     <ul>
-                        <li><a href="/">Hauptseite</a></li>
-                        <li><a href="/register">Registrieren</a></li> 
-                        <li><a href="/login">Login</a></li> 
+                        <li><a href="/game/maindesk">Hauptbildschirm</a></li>
+                        <li><a href="/game/colonies">Kolonien</a></li>
+                        <li><a href="/game/ships">Schiffe</a></li>
+                        <li><a href="/game/stations">Stationen</a></li>
+                        <li><a href="/game/research">Forschung</a></li>
                     </ul>
                     <div class="clear"></div>
                 </nav>
@@ -40,10 +42,8 @@
 
             <aside id="sidebar">
                 <div class="panel">
-                    <h3>Status</h3>  
-                        <div style="text-align: center;" class="gamestate gamestate_1">
-                            <span>Online</span>
-                        </div>
+                    <h3>Willkommen</h3>  
+                    <p>...{{ core_account.getEMail }} ..</p>
                 </div>
             </aside>
 
