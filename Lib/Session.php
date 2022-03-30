@@ -45,5 +45,4 @@ class Session
     {
         self::setCookie($key, '', -3600);
     }
-
 }

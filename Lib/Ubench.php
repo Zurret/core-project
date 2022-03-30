@@ -65,7 +65,7 @@ class Ubench
     /**
      * Returns the elapsed time, readable or not.
      *
-     * @param bool $raw
+     * @param bool        $raw
      * @param string|null $format The format to display (printf format)
      *
      * @return float|string
@@ -88,20 +88,22 @@ class Ubench
     /**
      * Returns the memory usage at the end checkpoint.
      *
-     * @param bool $raw
+     * @param bool        $raw
      * @param string|null $format The format to display (printf format)
+     *
      * @return string|float
      */
     public function getMemoryUsage(bool $raw = false, ?string $format = null): string|float
     {
-        return $raw ? $this->memory_usage : self::readableSize((int)$this->memory_usage, $format);
+        return $raw ? $this->memory_usage : self::readableSize((int) $this->memory_usage, $format);
     }
 
     /**
      * Returns the memory peak, readable or not.
      *
-     * @param bool $raw
+     * @param bool        $raw
      * @param string|null $format The format to display (printf format)
+     *
      * @return string|float
      */
     public function getMemoryPeak(bool $raw = false, ?string $format = null): string|float
@@ -116,6 +118,7 @@ class Ubench
      *
      * Additional arguments passed to this method will be passed to
      * the callable.
+     *
      * @throws Exception
      */
     public function run(callable $callable): mixed
@@ -132,9 +135,10 @@ class Ubench
     /**
      * Returns a human readable memory size.
      *
-     * @param int $size
+     * @param int         $size
      * @param string|null $format The format to display (printf format)
-     * @param int $round
+     * @param int         $round
+     *
      * @return string
      */
     public static function readableSize(int $size, ?string $format = null, int $round = 3): string
@@ -160,9 +164,10 @@ class Ubench
     /**
      * Returns a human readable elapsed time.
      *
-     * @param float $microtime
-     * @param string|null $format The format to display (printf format)
-     * @param int $round
+     * @param float       $microtime
+     * @param string|null $format    The format to display (printf format)
+     * @param int         $round
+     *
      * @return string
      */
     public static function readableElapsedTime(float $microtime, ?string $format = null, int $round = 3): string

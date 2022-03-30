@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Core\Module\Core;
 
+use Core\Lib\Session;
 use Exception;
 use Noodlehaus\ConfigInterface;
-use Core\Lib\Session;
 
 final class CoreController implements CoreControllerInterface
 {
@@ -59,11 +59,12 @@ final class CoreController implements CoreControllerInterface
         $this->notification[] = $notification;
         Session::setSession('INFOS', $this->notification);
     }
-    
+
     public function getNotification(): ?array
     {
         $return = Session::getSession('INFOS');
         Session::delSession('INFOS');
+
         return $return;
     }
 
