@@ -22,6 +22,7 @@
                     <ul>
                         <li><a href="/">Hauptseite</a></li>
                         {% if core_account %}
+                            <li><a href="/game/maindesk">Game</a></li>
                             <li><a href="/logout/{{ core_token }}">Ausloggen</a></li> 
                         {% else %}
                             <li><a href="/register">Registrieren</a></li> 
