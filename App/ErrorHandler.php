@@ -6,5 +6,11 @@
     use Whoops\Run;
 
     $whoops = new Run();
-    $whoops->pushHandler(new PrettyPageHandler());
-    $whoops->register();
+    $errorPage = new PrettyPageHandler();
+     
+        $errorPage->setPageTitle("It's broken!");
+        $errorPage->setEditor("vscode");
+        
+        $whoops->pushHandler($errorPage);
+        $whoops->register();
+        

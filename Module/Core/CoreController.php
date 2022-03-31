@@ -21,12 +21,17 @@ final class CoreController implements CoreControllerInterface
 
     private array $notification = [];
 
+    private $app;
+
     public function __construct(
         ConfigInterface $config,
         TemplateInterface $template
     ) {
         $this->config = $config;
         $this->template = $template;
+        
+        global $app;
+        $this->app = $app;
     }
 
     /**
@@ -85,6 +90,11 @@ final class CoreController implements CoreControllerInterface
     public function getConfig(string $var): mixed
     {
         return $this->config->get($var) ?? null;
+    }
+
+    public function getContainer(string $contrainer): mixed
+    {
+        return $this->app->getContainer()->get('container.' . $contrainer);
     }
 
     public function setNotification(mixed $notification): void
@@ -160,13 +170,12 @@ final class CoreController implements CoreControllerInterface
      */
     private function getBenchmarkResult(): array
     {
-        global $app;
-        $app->getBenchmark()->end();
+        $this->app->getBenchmark()->end();
 
         return [
-            'executionTime'   => $app->getBenchmark()->getTime(),
-            'memoryUsage'     => $app->getBenchmark()->getMemoryUsage(),
-            'memoryPeakUsage' => $app->getBenchmark()->getMemoryPeak(),
+            'executionTime'   => $this->app->getBenchmark()->getTime(),
+            'memoryUsage'     => $this->app->getBenchmark()->getMemoryUsage(),
+            'memoryPeakUsage' => $this->app->getBenchmark()->getMemoryPeak(),
         ];
     }
 }

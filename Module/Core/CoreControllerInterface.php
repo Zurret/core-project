@@ -22,6 +22,8 @@ interface CoreControllerInterface
 
     public function getConfig(string $var): mixed;
 
+    public function getContainer(string $contrainer): mixed;
+
     public function setNotification(mixed $notification): void;
 
     public function getNotification(): ?array;
