@@ -17,6 +17,8 @@ final class CoreController implements CoreControllerInterface
 
     private TemplateInterface $template;
 
+    private ?UserInterface $user = null;
+
     private array $notification = [];
 
     public function __construct(
@@ -53,22 +55,25 @@ final class CoreController implements CoreControllerInterface
 
     public function getUser(): ?UserInterface
     {
-        return Auth::getUser();
+        if ($this->user === null) {
+            $this->user = Auth::loadUser();
+        }
+        return $this->user;
     }
 
     public function onlyForPlayers(): void
     {
-        Auth::checkAccessLevel(1);
+        Auth::checkAccessLevel(1, $this->user);
     }
 
     public function onlyForNpc(): void
     {
-        Auth::checkAccessLevel(2);
+        Auth::checkAccessLevel(2, $this->user);
     }
     
     public function onlyForAdmin(): void
     {
-        Auth::checkAccessLevel(99);
+        Auth::checkAccessLevel(99, $this->user);
     }
 
     public function getCoreName(): string

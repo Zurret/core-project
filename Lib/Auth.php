@@ -32,13 +32,12 @@ class Auth
         return password_verify($password, $hash);
     }
 
-    public static function checkAccessLevel(int $level): void
+    public static function checkAccessLevel(int $level, ?UserInterface $user): bool
     {
-        if (!Auth::checkSession()) {
-            header('Location: /');
-        } elseif (Auth::getUser()->getAccessLevel() < $level) {
+        if ($user === null) {
             header('Location: /');
         }
+        return $user->getAccessLevel() >= $level;
     }
 
     private static function checkSession(): bool
@@ -56,11 +55,20 @@ class Auth
         header('Location: /');
     }
 
-    public static function getUser()
+    public static function loadUser(): ?UserInterface
     {
-        global $container;
-        $user = $container->get(UserRepositoryInterface::class);
 
-        return $user->getByIdAndSession(Session::getSession('ACCOUNT_ID') ?? 0, Session::getSession('ACCOUNT_SSTR') ?? '');
+        if (!Auth::checkSession()) {
+            return null;
+        }
+        global $container;
+        $userRepository = $container->get(UserRepositoryInterface::class);
+        $user = $userRepository->getByIdAndSession(Session::getSession('ACCOUNT_ID') ?? 0, Session::getSession('ACCOUNT_SSTR') ?? '');
+
+        if ($user === null) {
+            return null;
+        }
+
+        return $user;
     }
 }
