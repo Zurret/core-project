@@ -117,6 +117,7 @@ function setGeneratedPassword () {
 // Generate a popup window using an existing div
 function generatePopup (title, content) {
   const popup = document.getElementById('overDiv')
+  var isDown = false
   // Set popup title
   popup.innerHTML = '<div class="popup-title">' + title + ' <span class="popup-close">[<span class="popup-cross" onclick="closePopup();">X</span>]</span></div><div class="popup-content">' + content + '</div>'
   // Get popup window dimensions
