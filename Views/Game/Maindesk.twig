@@ -6,4 +6,10 @@ Content of the page...
 <div>{{ user.getId }}</div>
 {% endfor %}
 
+    das ist ein <span onclick="generatePopup('test', 'INHALT ODER SO');">Test</span> !!
+    <span onclick="generatePopup('test', 'Denke das geht so!');">Test</span>
+    
+    <span onclick="generatePopup('Test Titel', 'Denke das geht so!');">Test</span>
+    <span onclick="generatePopup('Test Titel', '/Test');">Test</span>
+
 {% endblock %}

@@ -26,7 +26,7 @@
                     <li><a href="/">Hauptseite</a></li>
                     {% if auth.isLoggedIn %}
                     <li><a href="/game/maindesk">Game</a></li>
-                    <li><a href="/logout/{{ core_token }}">Ausloggen</a></li>
+                    <li><a href="/logout/{{ core_token }}" onclick="return confirm('Willst du dich wirklich ausloggen?');">Ausloggen</a></li>
                     {% else %}
                     <li><a href="/register">Registrieren</a></li>
                     <li><a href="/login">Login</a></li>
