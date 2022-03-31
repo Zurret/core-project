@@ -68,10 +68,10 @@ final class Template implements TemplateInterface
     {
         if ($this->template === null) {
             if (!isset($this->template)) {
-                $loader = new FilesystemLoader($this->config->get('game.root').'/View/');
+                $loader = new FilesystemLoader($this->config->get('core.root').'/View/');
                 if (!$this->config->get('debug.enabled')) {
                     $this->template = new Environment($loader, [
-                        'cache' => $this->config->get('game.tmp_dir'),
+                        'cache' => $this->config->get('core.tmp_dir'),
                     ]);
                 } else {
                     $this->template = new Environment($loader);

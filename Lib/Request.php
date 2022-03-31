@@ -13,9 +13,19 @@ class Request
         return $_GET ?? null;
     }
 
+    public static function getQueryParam(string $key): ?string
+    {
+        return $_GET[$key] ?? null;
+    }
+
     public static function getPost(): ?array
     {
         return $_POST ?? null;
+    }
+
+    public static function getPostParam(string $key): ?string
+    {
+        return $_POST[$key] ?? null;
     }
 
     public static function setQuery(string $var, mixed $value): void

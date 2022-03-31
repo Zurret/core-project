@@ -9,11 +9,17 @@ use Core\Orm\Repository\UserRepositoryInterface;
 
 class Auth
 {
-    public static function genPassword(): string
+    public static function genRandomPassword(int $length = 8): string
     {
-        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*_';
+        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $count = mb_strlen($chars);
 
-        return substr(str_shuffle($chars), 0, 16);
+        for ($i = 0, $result = ''; $i < $length; $i++) {
+            $index = rand(0, $count - 1);
+            $result .= mb_substr($chars, $index, 1);
+        }
+
+        return $result;
     }
 
     public static function hashPassword(string $password): string
@@ -21,14 +27,16 @@ class Auth
         return password_hash($password, PASSWORD_DEFAULT);
     }
 
-    public static function checkPassword(string $input_pw, string $db_pw): bool
+    public static function checkPassword(string $password, string $hash): bool
     {
-        return password_verify($input_pw, $db_pw);
+        return password_verify($password, $hash);
     }
 
-    public static function checkAccess(): void
+    public static function checkAccessLevel(int $level): void
     {
-        if (!self::checkSession()) {
+        if (!Auth::checkSession()) {
+            header('Location: /');
+        } else if(Auth::getUser()->getAccessLevel() < $level) {
             header('Location: /');
         }
     }
@@ -44,9 +52,7 @@ class Auth
 
     public static function logout(): void
     {
-        Session::delSession('ACCOUNT_ID');
-        Session::delSession('ACCOUNT_SSTR');
-        Session::delSession('LOGIN');
+        Session::delAllSession();
         header('Location: /');
     }
 

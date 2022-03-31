@@ -20,7 +20,7 @@ interface CoreControllerInterface
 
     public function setTemplateFile(string $tpl): void;
 
-    public function setTemplateVar(string $key, $variable): void;
+    public function setTemplateVar(string $key, mixed $variable): void;
 
     public function setTemplateTitle(string $variable): void;
 

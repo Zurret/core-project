@@ -16,8 +16,9 @@ return [
         'logs_path' => __DIR__.'/../Logs',
         'loglevel'  => 7,
     ],
-    'game' => [
+    'core' => [
         'name'    => 'Core Test',
+        'version' => '1.0.0 dev',
         'root'    => __DIR__.'/../',
         'tmp_dir' => __DIR__.'/../Cache',
     ],

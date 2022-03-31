@@ -58,7 +58,7 @@ final class CoreController implements CoreControllerInterface
 
     public function getCoreName(): string
     {
-        return $this->getConfig('game.name');
+        return $this->getConfig('core.name');
     }
 
     public function getConfig(string $var): mixed
@@ -117,7 +117,7 @@ final class CoreController implements CoreControllerInterface
         $this->template->setTemplate($tpl);
     }
 
-    public function setTemplateVar(string $key, $variable): void
+    public function setTemplateVar(string $key, mixed $variable): void
     {
         $this->template->setVar($key, $variable);
     }
@@ -130,7 +130,7 @@ final class CoreController implements CoreControllerInterface
 
     private function getVersion(): string
     {
-        return '1.0.0 dev';
+        return $this->getConfig('core.version');
     }
 
     /**

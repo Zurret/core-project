@@ -18,7 +18,12 @@ class Session
 
     public static function delSession(string $key): void
     {
-        self::setSession($key, null);
+        unset($_SESSION[$key]);
+    }
+
+    public static function delAllSession(): void
+    {
+        session_destroy();
     }
 
     public static function checkSessionExist(string $key): bool

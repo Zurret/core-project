@@ -76,4 +76,9 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getAccessLevel(): int
+    {
+        return $this->access_level;
+    }
 }

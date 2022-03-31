@@ -18,7 +18,7 @@ class ShowMaindeskPage
         CoreControllerInterface $_core,
         UserRepositoryInterface $user
     ) {
-        Auth::checkAccess();
+        Auth::checkAccessLevel(1); // @todo das muss noch anders gelöst werden
         $this->_core = $_core;
         $this->user = $user;
     }

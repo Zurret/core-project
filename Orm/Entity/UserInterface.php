@@ -19,4 +19,6 @@ interface UserInterface
     public function getSession(): string;
 
     public function setSession(string $session): UserInterface;
+
+    public function getAccessLevel(): int;
 }
