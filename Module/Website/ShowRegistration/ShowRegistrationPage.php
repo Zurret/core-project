@@ -52,7 +52,11 @@ class ShowRegistrationPage
             $password_confirm = Request::postString('password_confirm');
 
             if ($this->createAccount($email, $password, $password_confirm)) {
-                $this->core->setNotification('Account wurde erstellt.');
+                $this->core->setNotification('Account erfolgreich erstellt.');
+                $this->core->redirect('/');
+            } else {
+                $this->core->setNotification('Account konnte nicht erstellt werden.');
+                $this->__invoke();
             }
         }
         $this->__invoke();
@@ -61,13 +65,13 @@ class ShowRegistrationPage
     private function createAccount(string $email, string $password, string $password_confirm): bool
     {
         if (!Helper::checkEmail($email)) {
-            $this->core->setNotification('Keine gültige E-Mail Adresse.');
+            $this->core->setNotification('Email ist ungültig.');
 
             return false;
         }
 
         if ($this->userRepository->getByEmail($email)) {
-            $this->core->setNotification('Diese E-Mail Adresse hat schon einen Account');
+            $this->core->setNotification('E-Mail Adresse bereits vergeben.');
 
             return false;
         }

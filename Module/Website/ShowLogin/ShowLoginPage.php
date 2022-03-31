@@ -84,18 +84,18 @@ class ShowLoginPage
     private function checkLogin(string $email, string $password): bool
     {
         if (!Helper::checkEmail($email)) {
-            $this->core->setNotification('Keine gültige E-Mail Adresse.');
+            $this->core->setNotification('Email ungültig');
 
             return false;
         }
         $result = $this->userRepository->getByEmail($email);
         if ($result === null) {
-            $this->core->setNotification('Es gibt keinen Account mit dieser E-Mail Adresse');
+            $this->core->setNotification('E-Mail Adresse nicht gefunden.');
 
             return false;
         }
         if (!$this->core->Auth()->checkPassword($password, $result->getPassword())) {
-            $this->core->setNotification('Das Passwort stimmt nicht.');
+            $this->core->setNotification('Passwort falsch.');
 
             return false;
         }

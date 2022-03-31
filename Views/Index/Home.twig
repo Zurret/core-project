@@ -1,9 +1,9 @@
 {% extends "Layout/web.twig" %}
 {% block content %}
-    Content of the page...
+Content of the page...
 
-    {% for player in players %}
-    <div>{{ player.getId }} - {{ player.getName }}</div>
-    {% endfor %}
+{% for player in players %}
+<div>{{ player.getId }} - {{ player.getName }}</div>
+{% endfor %}
 
 {% endblock %}
