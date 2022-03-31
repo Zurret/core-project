@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace Core\Lib;
 
-use Exception;
-
 class Request
 {
-
     public static function getQuery(string $key): ?string
     {
         return $_GET[$key] ?? null;
@@ -18,7 +15,7 @@ class Request
     {
         return $_POST[$key] ?? null;
     }
-    
+
     public static function getString(string $key): ?string
     {
         return self::getQuery($key) ?? null;
@@ -53,5 +50,4 @@ class Request
     {
         return (array) self::getQuery($key) ?? null;
     }
-
 }

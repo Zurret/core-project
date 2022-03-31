@@ -6,7 +6,6 @@ namespace Core\Lib;
 
 use Core\Orm\Entity\UserInterface;
 use Core\Orm\Repository\UserRepositoryInterface;
-use Core\Lib\Session;
 
 class Auth
 {
@@ -49,6 +48,7 @@ class Auth
             $this->session->set('LOGIN', true);
 
             $this->userRepository->save($this->getUser());
+
             return true;
         }
 
@@ -69,7 +69,7 @@ class Auth
     public function getUser(): ?UserInterface
     {
         if ($this->session->get('LOGIN') && $user = $this->userRepository->getByIdAndSession($this->session->get('ACCOUNT_ID') ?? 0, $this->session->get('ACCOUNT_SSTR') ?? '')) {
-                $this->setUser($user);
+            $this->setUser($user);
         }
 
         return $this->user;

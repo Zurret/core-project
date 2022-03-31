@@ -7,10 +7,9 @@
 
     $whoops = new Run();
     $errorPage = new PrettyPageHandler();
-     
+
         $errorPage->setPageTitle("It's broken!");
-        $errorPage->setEditor("vscode");
-        
+        $errorPage->setEditor('vscode');
+
         $whoops->pushHandler($errorPage);
         $whoops->register();
-        

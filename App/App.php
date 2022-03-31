@@ -13,7 +13,7 @@ class App
 {
     private Container $container; // DI Container
     private Ubench $benchmark; // Benchmark
-    
+
     public function run(): void
     {
         try {
