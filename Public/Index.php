@@ -1,7 +1,6 @@
 <?php
 
     $container = require_once __DIR__.'/../App/Bootstrap.php';
-    require_once __DIR__.'/../App/ErrorHandler.php';
     $dispatcher = require_once __DIR__.'/../App/Route.php';
 
     $httpMethod = $_SERVER['REQUEST_METHOD'];
