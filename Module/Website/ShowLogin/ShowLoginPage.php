@@ -63,7 +63,9 @@ class ShowLoginPage
         if ($this->core->checkToken()) {
             $email = Request::postString('email');
             $password = Request::postString('password');
-            if ($this->checkLogin($email, $password)) {
+            $save_login = Request::postBool('saveLogin');
+
+            if ($this->checkLogin($email, $password, $save_login)) {
                 $this->core->redirect('/game/maindesk');
             } else {
                 $this->core->redirect('/');
@@ -81,7 +83,7 @@ class ShowLoginPage
      *
      * @return bool
      */
-    private function checkLogin(string $email, string $password): bool
+    private function checkLogin(string $email, string $password, bool $save_login): bool
     {
         if (!Helper::checkEmail($email)) {
             $this->core->setNotification('Email ungültig');

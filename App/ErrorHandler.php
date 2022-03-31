@@ -1,15 +1,15 @@
 <?php
 
-    declare(strict_types=1);
+declare(strict_types=1);
 
-    use Whoops\Handler\PrettyPageHandler;
-    use Whoops\Run;
+use Whoops\Handler\PrettyPageHandler;
+use Whoops\Run;
 
-    $whoops = new Run();
-    $errorPage = new PrettyPageHandler();
+$whoops = new Run();
+$errorPage = new PrettyPageHandler();
 
-        $errorPage->setPageTitle("It's broken!");
-        $errorPage->setEditor('vscode');
+$errorPage->setPageTitle("It's broken!");
+$errorPage->setEditor('vscode');
 
-        $whoops->pushHandler($errorPage);
-        $whoops->register();
+$whoops->pushHandler($errorPage);
+$whoops->register();
