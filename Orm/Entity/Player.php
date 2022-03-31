@@ -23,7 +23,7 @@ class Player implements PlayerInterface
 
     /** @Column(type="string", length=255, options={"default" : "Kolonist"}) */
     private $name = 'Kolonist';
-    
+
     /** @Column(type="integer", options={"default" : 0}) */
     private $level = 0;
 
@@ -119,5 +119,4 @@ class Player implements PlayerInterface
 
         return $this;
     }
-    
 }

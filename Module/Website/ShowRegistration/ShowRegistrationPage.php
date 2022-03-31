@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Core\Module\Website\ShowRegistration;
 
-use Core\Lib\Auth;
 use Core\Lib\Helper;
 use Core\Lib\Request;
 use Core\Module\Core\CoreControllerInterface;

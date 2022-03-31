@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Core\Module\Core;
 
-use Core\Orm\Entity\UserInterface;
-
 use Core\Lib\Auth;
 use Core\Lib\Session;
 

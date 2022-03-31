@@ -94,7 +94,7 @@ final class CoreController implements CoreControllerInterface
 
     public function getContainer(string $contrainer): mixed
     {
-        return $this->app->getContainer()->get('container.' . $contrainer);
+        return $this->app->getContainer()->get('container.'.$contrainer);
     }
 
     public function setNotification(mixed $notification): void
@@ -129,6 +129,7 @@ final class CoreController implements CoreControllerInterface
     {
         if (Request::postString('TOKEN') === $this->session->get('TOKEN')) {
             $this->setToken();
+
             return true;
         }
 

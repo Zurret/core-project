@@ -22,9 +22,9 @@ class ShowLoginPage
         $this->userRepository = $userRepository;
         $this->core = $core;
     }
-    
+
     /**
-     * __invoke
+     * __invoke.
      *
      * @return void
      */
@@ -34,11 +34,12 @@ class ShowLoginPage
         $this->core->setTemplateFile('Index/Login.twig');
         $this->core->render();
     }
-    
+
     /**
-     * doLogout
+     * doLogout.
      *
-     * @param  mixed $token
+     * @param mixed $token
+     *
      * @return void
      */
     public function doLogout(string $token): void
@@ -51,9 +52,9 @@ class ShowLoginPage
             $this->__invoke();
         }
     }
-    
+
     /**
-     * doLogin
+     * doLogin.
      *
      * @return void
      */
@@ -71,12 +72,13 @@ class ShowLoginPage
         $this->core->setNotification('Token nicht gültig');
         $this->core->redirect('/');
     }
-    
+
     /**
-     * checkLogin
+     * checkLogin.
      *
-     * @param  mixed $email
-     * @param  mixed $password
+     * @param mixed $email
+     * @param mixed $password
+     *
      * @return bool
      */
     private function checkLogin(string $email, string $password): bool
@@ -97,12 +99,14 @@ class ShowLoginPage
 
             return false;
         }
-        
-        if($this->core->Auth()->login($email, $password)) {
+
+        if ($this->core->Auth()->login($email, $password)) {
             $this->core->setNotification('Login erfolgreich');
+
             return true;
         } else {
             $this->core->setNotification('Login fehlgeschlagen');
+
             return false;
         }
     }
