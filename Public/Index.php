@@ -1,6 +1,7 @@
 <?php
 
     $container = require_once __DIR__.'/../App/Bootstrap.php';
+    require_once __DIR__.'/../App/ErrorHandler.php';
     $dispatcher = require_once __DIR__.'/../App/Route.php';
 
     $httpMethod = $_SERVER['REQUEST_METHOD'];
@@ -26,6 +27,6 @@
         case FastRoute\Dispatcher::FOUND:
             $controller = $route[1];
             $parameters = $route[2];
-            $container->call($controller, $parameters);
+            $container->getContainer()->call($controller, $parameters);
             break;
     }

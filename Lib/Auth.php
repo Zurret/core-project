@@ -61,8 +61,8 @@ class Auth
         if (!Auth::checkSession()) {
             return null;
         }
-        global $container;
-        $userRepository = $container->get(UserRepositoryInterface::class);
+        global $app;
+        $userRepository = $app->getContainer()->get(UserRepositoryInterface::class);
         $user = $userRepository->getByIdAndSession(Session::getSession('ACCOUNT_ID') ?? 0, Session::getSession('ACCOUNT_SSTR') ?? '');
 
         if ($user === null) {

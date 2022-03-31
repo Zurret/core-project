@@ -159,13 +159,13 @@ final class CoreController implements CoreControllerInterface
      */
     private function getBenchmarkResult(): array
     {
-        global $bench;
-        $bench->end();
+        global $app;
+        $app->getBenchmark()->end();
 
         return [
-            'executionTime'   => $bench->getTime(),
-            'memoryUsage'     => $bench->getMemoryUsage(),
-            'memoryPeakUsage' => $bench->getMemoryPeak(),
+            'executionTime'   => $app->getBenchmark()->getTime(),
+            'memoryUsage'     => $app->getBenchmark()->getMemoryUsage(),
+            'memoryPeakUsage' => $app->getBenchmark()->getMemoryPeak(),
         ];
     }
 }
