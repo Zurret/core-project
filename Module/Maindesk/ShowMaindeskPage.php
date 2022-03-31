@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Core\Module\Maindesk;
 
-use Core\Lib\Auth;
 use Core\Module\Core\CoreControllerInterface;
 use Core\Orm\Repository\UserRepositoryInterface;
 
@@ -18,8 +17,8 @@ class ShowMaindeskPage
         CoreControllerInterface $_core,
         UserRepositoryInterface $user
     ) {
-        Auth::checkAccessLevel(1); // @todo das muss noch anders gelöst werden
         $this->_core = $_core;
+        $this->_core->onlyForPlayers();
         $this->user = $user;
     }
 

@@ -56,13 +56,6 @@ class Auth
         header('Location: /');
     }
 
-    public static function doLogin(UserInterface $user): void
-    {
-        Session::setSession('ACCOUNT_ID', $user->getId());
-        Session::setSession('ACCOUNT_SSTR', $user->getSession());
-        Session::setSession('LOGIN', true);
-    }
-
     public static function getUser()
     {
         global $container;

@@ -7,6 +7,7 @@ namespace Core\Module\Website\ShowLogin;
 use Core\Lib\Auth;
 use Core\Lib\Helper;
 use Core\Lib\Request;
+use Core\Lib\Session;
 use Core\Module\Core\CoreControllerInterface;
 use Core\Orm\Repository\UserRepositoryInterface;
 
@@ -75,8 +76,10 @@ class ShowLoginPage
         }
 
         $result->setSession(Auth::hashPassword(microtime().'-'.$result->getId()));
+        Session::setSession('ACCOUNT_ID', $result->getId());
+        Session::setSession('ACCOUNT_SSTR', $result->getSession());
+        Session::setSession('LOGIN', true);
         $this->userRepository->save($result);
-        Auth::doLogin($result);
 
         return true;
     }
