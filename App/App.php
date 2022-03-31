@@ -17,9 +17,9 @@ class App
     public function run(): void
     {
         try {
-        $this->init();
+            $this->init();
         } catch (Exception $e) {
-        exit($e->getMessage());
+            exit($e->getMessage());
         }
     }
 
