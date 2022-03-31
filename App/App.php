@@ -23,13 +23,13 @@ class App
         }
     }
 
-    public function init(): void
+    private function init(): void
     {
         $this->initBenchmark();
         $this->initContainer();
     }
 
-    public function initContainer(): void
+    private function initContainer(): void
     {
         $builder = new ContainerBuilder();
         $builder->addDefinitions(__DIR__.'/Container.php');
@@ -37,7 +37,7 @@ class App
         $this->container = $builder->build();
     }
 
-    public function initBenchmark(): void
+    private function initBenchmark(): void
     {
         $bench = new Ubench();
         $bench->start();
