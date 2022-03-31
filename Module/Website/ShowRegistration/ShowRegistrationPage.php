@@ -56,7 +56,6 @@ class ShowRegistrationPage
                 $this->core->redirect('/');
             } else {
                 $this->core->setNotification('Account konnte nicht erstellt werden.');
-                $this->__invoke();
             }
         }
         $this->__invoke();
