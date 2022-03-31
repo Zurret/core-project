@@ -20,6 +20,7 @@ return [
         'name'    => 'Core Test',
         'version' => '1.0.0 dev',
         'root'    => __DIR__.'/../',
-        'tmp_dir' => __DIR__.'/../Cache',
+        'cache' => __DIR__.'/../Cache',
+        'template' => __DIR__.'/../Views',
     ],
 ];

@@ -66,20 +66,20 @@ final class Template implements TemplateInterface
 
     private function getTemplate(): Environment
     {
-        if ($this->template === null) {
-            if (!isset($this->template)) {
-                $loader = new FilesystemLoader($this->config->get('core.root').'/View/');
-                if (!$this->config->get('debug.enabled')) {
-                    $this->template = new Environment($loader, [
-                        'cache' => $this->config->get('core.tmp_dir'),
-                    ]);
-                } else {
-                    $this->template = new Environment($loader);
-                }
-            }
+        if (isset($this->template)) {
+            return $this->template;
         }
+
+        $this->template = new Environment(
+            new FilesystemLoader($this->config->get('core.template')),
+            [
+                'cache' => $this->config->get('debug.enabled') ? false : $this->config->get('core.cache'),
+            ]
+        );
+
         $this->setFilter();
 
         return $this->template;
     }
+
 }

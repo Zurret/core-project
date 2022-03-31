@@ -59,6 +59,7 @@ final class CoreController implements CoreControllerInterface
         $this->setTemplateVar('core_name', $this->getCoreName());
         $this->setTemplateVar('core_version', $this->getVersion());
         $this->setTemplateVar('auth', $this->Auth());
+        $this->setTemplateVar('user', $this->getUser());
         $this->setTemplateVar('core_token', $this->getToken());
         $this->setTemplateVar('token_form', $this->getTokenInput());
         $this->setTemplateVar('benchmark', $this->getBenchmarkResult());
@@ -75,6 +76,11 @@ final class CoreController implements CoreControllerInterface
     public function Auth(): Auth
     {
         return $this->auth;
+    }
+
+    public function getUser(): ?UserInterface
+    {
+        return $this->Auth()->getUser();
     }
 
     public function Session(): Session
