@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Core\Module\Website\ShowRegistration;
 
 use Core\Lib\Auth;
-use Core\Lib\Request;
 use Core\Lib\Helper;
+use Core\Lib\Request;
 use Core\Module\Core\CoreControllerInterface;
-use Core\Orm\Repository\UserRepositoryInterface;
 use Core\Orm\Repository\PlayerRepositoryInterface;
+use Core\Orm\Repository\UserRepositoryInterface;
 use Exception;
 
 class ShowRegistrationPage
@@ -80,10 +80,10 @@ class ShowRegistrationPage
         }
 
         $account = $this->userRepository->prototype();
-        $player  = $this->playerRepository->prototype();
+        $player = $this->playerRepository->prototype();
         $account->setEmail($email);
         $account->setPassword(Auth::hashPassword($password));
-        $player->setName("Kolonist");
+        $player->setName('Kolonist');
         $this->playerRepository->save($player);
         $account->setPlayer($player);
         $this->userRepository->save($account);

@@ -36,7 +36,7 @@ class Auth
     {
         if (!Auth::checkSession()) {
             header('Location: /');
-        } else if(Auth::getUser()->getAccessLevel() < $level) {
+        } elseif (Auth::getUser()->getAccessLevel() < $level) {
             header('Location: /');
         }
     }

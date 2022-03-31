@@ -40,5 +40,4 @@ class Player implements PlayerInterface
 
         return $this;
     }
-
 }

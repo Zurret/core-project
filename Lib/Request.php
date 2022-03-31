@@ -8,7 +8,6 @@ use Exception;
 
 class Request
 {
-
     public static function getRequest(string $key): string
     {
         if (isset($_REQUEST[$key])) {
