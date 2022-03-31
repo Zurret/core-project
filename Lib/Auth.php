@@ -37,6 +37,7 @@ class Auth
         if ($user === null) {
             header('Location: /');
         }
+
         return $user->getAccessLevel() >= $level;
     }
 
@@ -57,7 +58,6 @@ class Auth
 
     public static function loadUser(): ?UserInterface
     {
-
         if (!Auth::checkSession()) {
             return null;
         }

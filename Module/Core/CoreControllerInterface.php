@@ -15,7 +15,7 @@ interface CoreControllerInterface
     public function onlyForPlayers(): void;
 
     public function onlyForNpc(): void;
-    
+
     public function onlyForAdmin(): void;
 
     public function getCoreName(): string;
