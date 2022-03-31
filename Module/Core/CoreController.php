@@ -63,17 +63,17 @@ final class CoreController implements CoreControllerInterface
 
     public function onlyForPlayers(): void
     {
-        Auth::checkAccessLevel(1, $this->user);
+        Auth::checkAccessLevel(1, $this->getUser());
     }
 
     public function onlyForNpc(): void
     {
-        Auth::checkAccessLevel(2, $this->user);
+        Auth::checkAccessLevel(2, $this->getUser());
     }
     
     public function onlyForAdmin(): void
     {
-        Auth::checkAccessLevel(99, $this->user);
+        Auth::checkAccessLevel(99, $this->getUser());
     }
 
     public function getCoreName(): string
