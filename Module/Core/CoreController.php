@@ -58,6 +58,7 @@ final class CoreController implements CoreControllerInterface
         if ($this->user === null) {
             $this->user = Auth::loadUser();
         }
+
         return $this->user;
     }
 
@@ -70,7 +71,7 @@ final class CoreController implements CoreControllerInterface
     {
         Auth::checkAccessLevel(2, $this->getUser());
     }
-    
+
     public function onlyForAdmin(): void
     {
         Auth::checkAccessLevel(99, $this->getUser());

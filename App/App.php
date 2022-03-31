@@ -2,16 +2,15 @@
 
     declare(strict_types=1);
 
-    namespace Core\App;
+namespace Core\App;
 
     use Core\Lib\Ubench;
-    use DI\ContainerBuilder;
     use DI\Container;
+    use DI\ContainerBuilder;
     use Exception;
 
     class App
     {
-
         private Container $container; // DI Container
         private Ubench $benchmark;
 
@@ -34,7 +33,7 @@
         {
             $builder = new ContainerBuilder();
             $builder->addDefinitions(__DIR__.'/Container.php');
-            
+
             $this->container = $builder->build();
         }
 
@@ -54,5 +53,4 @@
         {
             return $this->benchmark;
         }
-
     }
