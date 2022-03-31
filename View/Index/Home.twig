@@ -2,8 +2,8 @@
 {% block content %}
     Content of the page...
 
-    {% for user in users %}
-    <div>{{ user.getId }}</div>
+    {% for player in players %}
+    <div>{{ player.getId }} - {{ player.getName }}</div>
     {% endfor %}
 
 {% endblock %}

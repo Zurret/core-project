@@ -16,4 +16,6 @@ interface UserRepositoryInterface extends ObjectRepository
     public function delete(UserInterface $user): void;
 
     public function getByEmail(string $email): ?UserInterface;
+
+    public function getByIdAndSession(int $id, string $session): ?UserInterface;
 }

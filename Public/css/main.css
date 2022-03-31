@@ -459,3 +459,11 @@ div.moduleScreenGrid {
   visibility: hidden;
   z-index: 111111112;
 }
+
+.invalid {
+  border-color: #ca0000 !important;
+}
+
+.valid {
+  border-color: #00ca00 !important;
+}

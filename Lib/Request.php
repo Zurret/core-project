@@ -8,6 +8,16 @@ use Exception;
 
 class Request
 {
+
+    public static function getRequest(string $key): string
+    {
+        if (isset($_REQUEST[$key])) {
+            return $_REQUEST[$key];
+        }
+
+        throw new Exception('Request key not found');
+    }
+
     public static function getQuery(): ?array
     {
         return $_GET ?? null;
@@ -16,6 +26,11 @@ class Request
     public static function getQueryParam(string $key): ?string
     {
         return $_GET[$key] ?? null;
+    }
+
+    public static function setQuery(string $var, mixed $value): void
+    {
+        $_GET[$var] = $value;
     }
 
     public static function getPost(): ?array
@@ -28,29 +43,71 @@ class Request
         return $_POST[$key] ?? null;
     }
 
-    public static function setQuery(string $var, mixed $value): void
-    {
-        $_GET[$var] = $value;
-    }
-
     public static function setPost(string $var, mixed $value): void
     {
         $_POST[$var] = $value;
     }
 
+    public static function getFile(): ?array
+    {
+        return $_FILES ?? null;
+    }
+
+    public static function getFileParam(string $key): ?array
+    {
+        return $_FILES[$key] ?? null;
+    }
+
+    public static function setFile(string $var, mixed $value): void
+    {
+        $_FILES[$var] = $value;
+    }
+
+    public static function checkFileSize(string $key, int $size): bool
+    {
+        $file = self::getFileParam($key);
+
+        if ($file['size'] > $size) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static function checkFileType(string $key, string $type): bool
+    {
+        $file = self::getFileParam($key);
+
+        if ($file['type'] !== $type) {
+            return false;
+        }
+
+        return true;
+    }
+
     public static function isGet(): bool
     {
-        return $_SERVER['REQUEST_METHOD'] === 'GET';
+        return self::isRequest('GET');
     }
 
     public static function isPost(): bool
     {
-        return $_SERVER['REQUEST_METHOD'] === 'POST';
+        return self::isRequest('POST');
+    }
+
+    public static function isFile(): bool
+    {
+        return self::isRequest('FILE');
+    }
+
+    public static function isRequest(string $method): bool
+    {
+        return $_SERVER['REQUEST_METHOD'] === $method;
     }
 
     public static function has(string $key): bool
     {
-        return self::getQuery()[$key] ?? self::getPost()[$key] ?? false;
+        return self::getRequest($key) === null;
     }
 
     /**

@@ -5,20 +5,20 @@ declare(strict_types=1);
 namespace Core\Module\Website\ShowIndex;
 
 use Core\Module\Core\CoreControllerInterface;
-use Core\Orm\Repository\UserRepositoryInterface;
+use Core\Orm\Repository\PlayerRepositoryInterface;
 
 class ShowIndexPage
 {
     private CoreControllerInterface $_core;
 
-    private UserRepositoryInterface $user;
+    private PlayerRepositoryInterface $player;
 
     public function __construct(
         CoreControllerInterface $_core,
-        UserRepositoryInterface $user
+        PlayerRepositoryInterface $player
     ) {
         $this->_core = $_core;
-        $this->user = $user;
+        $this->player = $player;
     }
 
     /**
@@ -28,7 +28,7 @@ class ShowIndexPage
     {
         $this->_core->setTemplateTitle('Startseite');
 
-        $this->_core->setTemplateVar('users', $this->user->findAll());
+        $this->_core->setTemplateVar('players', $this->player->findAll());
         $this->_core->setTemplateFile('Index/Home.twig');
         $this->_core->render();
     }

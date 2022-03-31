@@ -7,6 +7,7 @@
 
         <link type="text/css" href="/css/normalize.css?v={{ core_version }}" />
         <link rel="stylesheet" type="text/css" href="/css/main.css?v={{ core_version }}" />
+        <script type="text/javascript" src="/js/main.js?v={{ core_version }}"></script>
     </head>
     <body>
         <div id="wrap">
@@ -60,7 +61,7 @@
                 {% if core_account %}
                     <div class="panel">
                         <h3>Eingeloggt</h3>  
-                            <p>Hallo {{ core_account.getEMail }}</p>
+                            <p>Hallo {{ core_account.player.getName }}</p>
                     </div>
                 {% endif %}
             </aside>

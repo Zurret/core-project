@@ -96,20 +96,19 @@ final class CoreController implements CoreControllerInterface
 
     public function checkToken(): bool
     {
-        $token = Session::getSession('TOKEN');
-        $this->setToken();
-        if ($token !== Request::postString('core_token')) {
-            $this->setNotification('Der Token ist nicht gültig.');
-
-            return false;
+        if (Request::getPostParam('TOKEN') === Session::getSession('TOKEN')) {
+            $this->setToken();
+            return true;
         }
 
-        return true;
+        $this->setToken();
+        $this->setNotification('Token invalide');
+        return false;
     }
 
     public function getTokenInput(): string
     {
-        return '<input type="hidden" name="core_token" value="'.$this->getToken().'" required>';
+        return '<input type="hidden" name="TOKEN" value="'.$this->getToken().'" required>';
     }
 
     public function setTemplateFile(string $tpl): void

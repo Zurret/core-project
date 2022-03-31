@@ -1,11 +1,11 @@
 {% extends "Layout/web.twig" %}
 {% block content %}
 
-    <form action="/login" method="post">
+    <form action="/login" method="post" autocomplete="off">
         {{ token_form|raw }}
-        <input type="email" name="email" value="" placeholder="E-Mail Adresse" required>
-        <input type="password" name="password" value="" placeholder="Passwort" required>
-        <button type="submit">Einloggen</button>
+        <input type="email" id="email" name="email" value="" placeholder="E-Mail Adresse" onchange="checkInputs();" required>
+        <input type="password" id="password" name="password" value="" placeholder="Passwort" onchange="checkInputs();" required>
+        <button type="submit" id="login-button" disabled="true">Einloggen</button>
     </form>
 
 {% endblock %}

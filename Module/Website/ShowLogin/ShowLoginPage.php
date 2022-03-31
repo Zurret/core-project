@@ -6,6 +6,7 @@ namespace Core\Module\Website\ShowLogin;
 
 use Core\Lib\Auth;
 use Core\Lib\Request;
+use Core\Lib\Helper;
 use Core\Module\Core\CoreControllerInterface;
 use Core\Orm\Repository\UserRepositoryInterface;
 
@@ -56,7 +57,7 @@ class ShowLoginPage
 
     private function checkLogin(string $email, string $password): bool
     {
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (!Helper::checkEmail($email)) {
             $this->_core->setNotification('Keine gültige E-Mail Adresse.');
 
             return false;

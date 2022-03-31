@@ -20,5 +20,9 @@ interface UserInterface
 
     public function setSession(string $session): UserInterface;
 
+    public function getPlayer(): PlayerInterface;
+
+    public function setPlayer(PlayerInterface $player): UserInterface;
+
     public function getAccessLevel(): int;
 }

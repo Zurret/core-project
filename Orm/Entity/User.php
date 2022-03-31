@@ -9,6 +9,7 @@ namespace Core\Orm\Entity;
  * @Table(
  *     name="core_user",
  *     indexes={
+ *         @Index(name="user_player_idx", columns={"player_id"})
  *     }
  * )
  **/
@@ -30,11 +31,17 @@ class User implements UserInterface
     /** @Column(type="string", length=255, nullable=true)) */
     private $session = '';
 
-    /** @Column(type="integer", nullable=true) */
-    private $player_id = '';
+    /** @Column(type="integer", nullable=false, options={"default" : 0}) */
+    private $player_id = 0;
 
     /** @Column(type="integer", options={"default" : 0}) */
     private $access_level = 0;
+
+    /**
+     * @ManyToOne(targetEntity="Player")
+     * @JoinColumn(name="player_id", referencedColumnName="id")
+     */
+    private $player;
 
     public function getId(): int
     {
@@ -77,8 +84,20 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getPlayer(): PlayerInterface
+    {
+        return $this->player;
+    }
+    
+    public function setPlayer(PlayerInterface $player): UserInterface
+    {
+        $this->player = $player;
+        return $this;
+    }
+
     public function getAccessLevel(): int
     {
         return $this->access_level;
     }
+
 }

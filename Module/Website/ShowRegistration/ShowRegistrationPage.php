@@ -6,8 +6,10 @@ namespace Core\Module\Website\ShowRegistration;
 
 use Core\Lib\Auth;
 use Core\Lib\Request;
+use Core\Lib\Helper;
 use Core\Module\Core\CoreControllerInterface;
 use Core\Orm\Repository\UserRepositoryInterface;
+use Core\Orm\Repository\PlayerRepositoryInterface;
 use Exception;
 
 class ShowRegistrationPage
@@ -16,12 +18,16 @@ class ShowRegistrationPage
 
     private UserRepositoryInterface $userRepository;
 
+    private PlayerRepositoryInterface $playerRepository;
+
     public function __construct(
+        CoreControllerInterface $_core,
         UserRepositoryInterface $userRepository,
-        CoreControllerInterface $_core
+        PlayerRepositoryInterface $playerRepository
     ) {
-        $this->userRepository = $userRepository;
         $this->_core = $_core;
+        $this->userRepository = $userRepository;
+        $this->playerRepository = $playerRepository;
     }
 
     /**
@@ -55,7 +61,7 @@ class ShowRegistrationPage
 
     private function createAccount(string $email, string $password, string $password_confirm): bool
     {
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (!Helper::checkEmail($email)) {
             $this->_core->setNotification('Keine gültige E-Mail Adresse.');
 
             return false;
@@ -74,8 +80,12 @@ class ShowRegistrationPage
         }
 
         $account = $this->userRepository->prototype();
+        $player  = $this->playerRepository->prototype();
         $account->setEmail($email);
         $account->setPassword(Auth::hashPassword($password));
+        $player->setName("Kolonist");
+        $this->playerRepository->save($player);
+        $account->setPlayer($player);
         $this->userRepository->save($account);
 
         return true;

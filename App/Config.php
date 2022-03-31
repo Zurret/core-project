@@ -74,4 +74,7 @@ return [
     \Core\Orm\Repository\UserRepositoryInterface::class => function (ContainerInterface $c): \Core\Orm\Repository\UserRepositoryInterface {
         return $c->get(EntityManagerInterface::class)->getRepository(\Core\Orm\Entity\User::class);
     },
+    \Core\Orm\Repository\PlayerRepositoryInterface::class => function (ContainerInterface $c): \Core\Orm\Repository\PlayerRepositoryInterface {
+        return $c->get(EntityManagerInterface::class)->getRepository(\Core\Orm\Entity\Player::class);
+    },
 ];
