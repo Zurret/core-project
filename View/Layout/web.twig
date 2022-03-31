@@ -22,7 +22,7 @@
                 <nav id="nav">
                     <ul>
                         <li><a href="/">Hauptseite</a></li>
-                        {% if core_account %}
+                        {% if auth.isLoggedIn %}
                             <li><a href="/game/maindesk">Game</a></li>
                             <li><a href="/logout/{{ core_token }}">Ausloggen</a></li> 
                         {% else %}
@@ -58,10 +58,10 @@
                             <span>Online</span>
                         </div>
                 </div>
-                {% if core_account %}
+                {% if auth.isLoggedIn %}
                     <div class="panel">
                         <h3>Eingeloggt</h3>  
-                            <p>Hallo {{ core_account.player.getName }}</p>
+                            <p>Hallo {{ auth.getUser.player.getName }}</p>
                     </div>
                 {% endif %}
             </aside>

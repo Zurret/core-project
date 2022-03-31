@@ -8,6 +8,7 @@ use Core\Lib\Auth;
 use Core\Lib\Request;
 use Core\Lib\Session;
 use Core\Orm\Entity\UserInterface;
+use Core\Orm\Repository\UserRepositoryInterface;
 use Exception;
 use Noodlehaus\ConfigInterface;
 
@@ -17,7 +18,13 @@ final class CoreController implements CoreControllerInterface
 
     private TemplateInterface $template;
 
+    private Auth $auth;
+
+    private Session $session;
+
     private ?UserInterface $user = null;
+
+    private ?UserRepositoryInterface $userRepository = null;
 
     private array $notification = [];
 
@@ -25,11 +32,17 @@ final class CoreController implements CoreControllerInterface
 
     public function __construct(
         ConfigInterface $config,
-        TemplateInterface $template
+        TemplateInterface $template,
+        Auth $auth,
+        Session $session,
+        ?UserRepositoryInterface $userRepository
     ) {
         $this->config = $config;
         $this->template = $template;
-        
+        $this->auth = $auth;
+        $this->session = $session;
+        $this->userRepository = $userRepository;
+
         global $app;
         $this->app = $app;
     }
@@ -39,12 +52,13 @@ final class CoreController implements CoreControllerInterface
      */
     public function render(): void
     {
+
         /**
          * Global variable.
          */
         $this->setTemplateVar('core_name', $this->getCoreName());
         $this->setTemplateVar('core_version', $this->getVersion());
-        $this->setTemplateVar('core_account', $this->getUser());
+        $this->setTemplateVar('auth', $this->Auth());
         $this->setTemplateVar('core_token', $this->getToken());
         $this->setTemplateVar('token_form', $this->getTokenInput());
         $this->setTemplateVar('benchmark', $this->getBenchmarkResult());
@@ -58,28 +72,14 @@ final class CoreController implements CoreControllerInterface
         ob_end_flush();
     }
 
-    public function getUser(): ?UserInterface
+    public function Auth(): Auth
     {
-        if ($this->user === null) {
-            $this->user = Auth::loadUser();
-        }
-
-        return $this->user;
+        return $this->auth;
     }
 
-    public function onlyForPlayers(): void
+    public function Session(): Session
     {
-        Auth::checkAccessLevel(1, $this->getUser());
-    }
-
-    public function onlyForNpc(): void
-    {
-        Auth::checkAccessLevel(2, $this->getUser());
-    }
-
-    public function onlyForAdmin(): void
-    {
-        Auth::checkAccessLevel(99, $this->getUser());
+        return $this->session;
     }
 
     public function getCoreName(): string
@@ -100,41 +100,39 @@ final class CoreController implements CoreControllerInterface
     public function setNotification(mixed $notification): void
     {
         $this->notification[] = $notification;
-        Session::setSession('INFOS', $this->notification);
+        $this->session->set('INFOS', $this->notification);
     }
 
     public function getNotification(): ?array
     {
-        $return = Session::getSession('INFOS');
-        Session::delSession('INFOS');
+        $return = $this->session->get('INFOS');
+        $this->session->delete('INFOS');
 
         return $return;
     }
 
     public function setToken(): void
     {
-        Session::setSession('TOKEN', sha1(rand(0, 100).microtime().rand(0, 100)));
+        $this->session->set('TOKEN', bin2hex(random_bytes(32)));
     }
 
-    public function getToken(): string
+    public function getToken(): ?string
     {
-        if (Session::checkSessionExist('TOKEN')) {
+        if ($this->session->get('TOKEN') === null) {
             $this->setToken();
         }
 
-        return Session::getSession('TOKEN');
+        return $this->session->get('TOKEN');
     }
 
     public function checkToken(): bool
     {
-        if (Request::getPostParam('TOKEN') === Session::getSession('TOKEN')) {
+        if (Request::postString('TOKEN') === $this->session->get('TOKEN')) {
             $this->setToken();
-
             return true;
         }
 
         $this->setToken();
-        $this->setNotification('Token invalide');
 
         return false;
     }
@@ -163,6 +161,12 @@ final class CoreController implements CoreControllerInterface
     private function getVersion(): string
     {
         return $this->getConfig('core.version');
+    }
+
+    public function redirect(string $url): void
+    {
+        header('Location: '.$url);
+        exit;
     }
 
     /**

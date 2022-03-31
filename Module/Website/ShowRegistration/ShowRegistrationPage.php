@@ -14,18 +14,18 @@ use Exception;
 
 class ShowRegistrationPage
 {
-    private CoreControllerInterface $_core;
+    private CoreControllerInterface $core;
 
     private UserRepositoryInterface $userRepository;
 
     private PlayerRepositoryInterface $playerRepository;
 
     public function __construct(
-        CoreControllerInterface $_core,
+        CoreControllerInterface $core,
         UserRepositoryInterface $userRepository,
         PlayerRepositoryInterface $playerRepository
     ) {
-        $this->_core = $_core;
+        $this->core = $core;
         $this->userRepository = $userRepository;
         $this->playerRepository = $playerRepository;
     }
@@ -35,9 +35,9 @@ class ShowRegistrationPage
      */
     public function __invoke(): void
     {
-        $this->_core->setTemplateTitle('Registration');
-        $this->_core->setTemplateFile('Index/Registration.twig');
-        $this->_core->render();
+        $this->core->setTemplateTitle('Registration');
+        $this->core->setTemplateFile('Index/Registration.twig');
+        $this->core->render();
     }
 
     /**
@@ -47,13 +47,13 @@ class ShowRegistrationPage
      */
     public function doRegistration(): void
     {
-        if ($this->_core->checkToken()) {
+        if ($this->core->checkToken()) {
             $email = Request::postString('email');
             $password = Request::postString('password');
             $password_confirm = Request::postString('password_confirm');
 
             if ($this->createAccount($email, $password, $password_confirm)) {
-                $this->_core->setNotification('Account wurde erstellt.');
+                $this->core->setNotification('Account wurde erstellt.');
             }
         }
         $this->__invoke();
@@ -62,19 +62,19 @@ class ShowRegistrationPage
     private function createAccount(string $email, string $password, string $password_confirm): bool
     {
         if (!Helper::checkEmail($email)) {
-            $this->_core->setNotification('Keine gültige E-Mail Adresse.');
+            $this->core->setNotification('Keine gültige E-Mail Adresse.');
 
             return false;
         }
 
         if ($this->userRepository->getByEmail($email)) {
-            $this->_core->setNotification('Diese E-Mail Adresse hat schon einen Account');
+            $this->core->setNotification('Diese E-Mail Adresse hat schon einen Account');
 
             return false;
         }
 
         if ($password !== $password_confirm) {
-            $this->_core->setNotification('Passwörter stimmen nicht überein.');
+            $this->core->setNotification('Passwörter stimmen nicht überein.');
 
             return false;
         }
@@ -82,7 +82,7 @@ class ShowRegistrationPage
         $account = $this->userRepository->prototype();
         $player = $this->playerRepository->prototype();
         $account->setEmail($email);
-        $account->setPassword(Auth::hashPassword($password));
+        $account->setPassword($this->core->Auth()->hashPassword($password));
         $player->setName('Kolonist');
         $this->playerRepository->save($player);
         $account->setPlayer($player);

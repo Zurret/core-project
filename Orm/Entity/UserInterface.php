@@ -25,4 +25,10 @@ interface UserInterface
     public function setPlayer(PlayerInterface $player): UserInterface;
 
     public function getAccessLevel(): int;
+    
+    public function setAccessLevel(int $access_level): UserInterface;
+
+    public function getLastLogin(): int;
+
+    public function setLastLogin(int $last_login): UserInterface;
 }

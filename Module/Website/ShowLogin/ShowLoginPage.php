@@ -4,83 +4,106 @@ declare(strict_types=1);
 
 namespace Core\Module\Website\ShowLogin;
 
-use Core\Lib\Auth;
 use Core\Lib\Helper;
 use Core\Lib\Request;
-use Core\Lib\Session;
 use Core\Module\Core\CoreControllerInterface;
 use Core\Orm\Repository\UserRepositoryInterface;
 
 class ShowLoginPage
 {
-    private CoreControllerInterface $_core;
+    private CoreControllerInterface $core;
 
     private UserRepositoryInterface $userRepository;
 
     public function __construct(
         UserRepositoryInterface $userRepository,
-        CoreControllerInterface $_core
+        CoreControllerInterface $core
     ) {
         $this->userRepository = $userRepository;
-        $this->_core = $_core;
+        $this->core = $core;
     }
-
+    
+    /**
+     * __invoke
+     *
+     * @return void
+     */
     public function __invoke(): void
     {
-        $this->_core->setTemplateTitle('Login');
-        $this->_core->setTemplateFile('Index/Login.twig');
-        $this->_core->render();
+        $this->core->setTemplateTitle('Login');
+        $this->core->setTemplateFile('Index/Login.twig');
+        $this->core->render();
     }
-
+    
+    /**
+     * doLogout
+     *
+     * @param  mixed $token
+     * @return void
+     */
     public function doLogout(string $token): void
     {
-        if ($this->_core->getToken() == $token) {
-            $this->_core->setNotification('Logout erfolgreich.');
-            Auth::logout();
+        if ($this->core->getToken() == $token) {
+            $this->core->setNotification('Logout erfolgreich.');
+            $this->core->Auth()->logout();
         } else {
-            $this->_core->setNotification('Logout fehlgeschlagen.');
+            $this->core->setNotification('Logout fehlgeschlagen.');
             $this->__invoke();
         }
     }
-
+    
+    /**
+     * doLogin
+     *
+     * @return void
+     */
     public function doLogin(): void
     {
-        if ($this->_core->checkToken()) {
+        if ($this->core->checkToken()) {
             $email = Request::postString('email');
             $password = Request::postString('password');
-
             if ($this->checkLogin($email, $password)) {
-                $this->_core->setNotification('Login erfolgreich');
+                $this->core->redirect('/game/maindesk');
+            } else {
+                $this->core->redirect('/');
             }
         }
-        header('Location: /');
+        $this->core->setNotification('Token nicht gültig');
+        $this->core->redirect('/');
     }
-
+    
+    /**
+     * checkLogin
+     *
+     * @param  mixed $email
+     * @param  mixed $password
+     * @return bool
+     */
     private function checkLogin(string $email, string $password): bool
     {
         if (!Helper::checkEmail($email)) {
-            $this->_core->setNotification('Keine gültige E-Mail Adresse.');
+            $this->core->setNotification('Keine gültige E-Mail Adresse.');
 
             return false;
         }
         $result = $this->userRepository->getByEmail($email);
         if ($result === null) {
-            $this->_core->setNotification('Es gibt keinen Account mit dieser E-Mail Adresse');
+            $this->core->setNotification('Es gibt keinen Account mit dieser E-Mail Adresse');
 
             return false;
         }
-        if (!Auth::checkPassword($password, $result->getPassword())) {
-            $this->_core->setNotification('Das Passwort stimmt nicht.');
+        if (!$this->core->Auth()->checkPassword($password, $result->getPassword())) {
+            $this->core->setNotification('Das Passwort stimmt nicht.');
 
             return false;
         }
-
-        $result->setSession(Auth::hashPassword(microtime().'-'.$result->getId()));
-        Session::setSession('ACCOUNT_ID', $result->getId());
-        Session::setSession('ACCOUNT_SSTR', $result->getSession());
-        Session::setSession('LOGIN', true);
-        $this->userRepository->save($result);
-
-        return true;
+        
+        if($this->core->Auth()->login($email, $password)) {
+            $this->core->setNotification('Login erfolgreich');
+            return true;
+        } else {
+            $this->core->setNotification('Login fehlgeschlagen');
+            return false;
+        }
     }
 }

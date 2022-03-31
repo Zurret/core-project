@@ -37,6 +37,9 @@ class User implements UserInterface
     /** @Column(type="integer", options={"default" : 0}) */
     private $access_level = 0;
 
+    /** @Column(type="integer", options={"default" : 0}) */
+    private $last_login = 0;
+
     /**
      * @ManyToOne(targetEntity="Player")
      * @JoinColumn(name="player_id", referencedColumnName="id")
@@ -99,5 +102,24 @@ class User implements UserInterface
     public function getAccessLevel(): int
     {
         return $this->access_level;
+    }
+
+    public function setAccessLevel(int $access_level): UserInterface
+    {
+        $this->access_level = $access_level;
+
+        return $this;
+    }
+
+    public function getLastLogin(): int
+    {
+        return $this->last_login;
+    }
+
+    public function setLastLogin(int $last_login): UserInterface
+    {
+        $this->last_login = $last_login;
+
+        return $this;
     }
 }

@@ -1,4 +1,5 @@
 composer.lock
 /_vendor
 /.idea
-Orm/Proxy
+/Orm/Proxy
+/Cache

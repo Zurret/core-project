@@ -6,69 +6,82 @@ namespace Core\Lib;
 
 use Core\Orm\Entity\UserInterface;
 use Core\Orm\Repository\UserRepositoryInterface;
+use Core\Lib\Session;
 
 class Auth
 {
-    public static function genRandomPassword(int $length = 8): string
-    {
-        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        $count = mb_strlen($chars);
+    private UserRepositoryInterface $userRepository;
 
-        for ($i = 0, $result = ''; $i < $length; $i++) {
-            $index = rand(0, $count - 1);
-            $result .= mb_substr($chars, $index, 1);
-        }
+    private Session $session;
 
-        return $result;
+    private ?UserInterface $user = null;
+
+    public function __construct(
+        UserRepositoryInterface $userRepository,
+        Session $session
+    ) {
+        $this->userRepository = $userRepository;
+        $this->session = $session;
     }
 
-    public static function hashPassword(string $password): string
+    public function hashPassword(string $password): string
     {
         return password_hash($password, PASSWORD_DEFAULT);
     }
 
-    public static function checkPassword(string $password, string $hash): bool
+    public function checkPassword(string $password, string $hash): bool
     {
         return password_verify($password, $hash);
     }
 
-    public static function checkAccessLevel(int $level, ?UserInterface $user): bool
+    public function login(string $email, string $password): bool
     {
-        if ($user === null) {
-            header('Location: /');
+        $user = $this->userRepository->getByEmail($email);
+
+        if ($user && $this->checkPassword($password, $user->getPassword())) {
+            $this->setUser($user);
+            $session = $this->hashPassword(microtime().'-'.$this->getUser()->getId());
+            $this->getUser()->setSession($session);
+            $this->getUser()->setLastLogin(time());
+
+            $this->session->set('ACCOUNT_ID', $this->getUser()->getId());
+            $this->session->set('ACCOUNT_SSTR', $session);
+            $this->session->set('LOGIN', true);
+
+            $this->userRepository->save($this->getUser());
+            return true;
         }
 
-        return $user->getAccessLevel() >= $level;
+        return false;
     }
 
-    private static function checkSession(): bool
+    public function logout(): void
     {
-        if (!Session::getSession('LOGIN') && Session::getSession('ACCOUNT_ID') === null && Session::getSession('ACCOUNT_SSTR') === null) {
-            return false;
-        }
-
-        return true;
-    }
-
-    public static function logout(): void
-    {
-        Session::delAllSession();
+        $this->session->deleteAll();
         header('Location: /');
     }
 
-    public static function loadUser(): ?UserInterface
+    public function setUser(UserInterface $user): void
     {
-        if (!Auth::checkSession()) {
-            return null;
-        }
-        global $app;
-        $userRepository = $app->getContainer()->get(UserRepositoryInterface::class);
-        $user = $userRepository->getByIdAndSession(Session::getSession('ACCOUNT_ID') ?? 0, Session::getSession('ACCOUNT_SSTR') ?? '');
+        $this->user = $user;
+    }
 
-        if ($user === null) {
-            return null;
+    public function getUser(): ?UserInterface
+    {
+        if ($this->session->get('LOGIN') && $user = $this->userRepository->getByIdAndSession($this->session->get('ACCOUNT_ID') ?? 0, $this->session->get('ACCOUNT_SSTR') ?? '')) {
+                $this->setUser($user);
         }
 
-        return $user;
+        return $this->user;
+    }
+
+    public function isLoggedIn(): bool
+    {
+        return $this->getUser() === null ? false : true;
+    }
+
+    public function checkAccessLevel(int $level): bool
+    {
+        return $this->getUser()->getAccessLevel() >= $level;
     }
 }

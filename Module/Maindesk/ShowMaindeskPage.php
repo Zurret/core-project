@@ -9,17 +9,19 @@ use Core\Orm\Repository\UserRepositoryInterface;
 
 class ShowMaindeskPage
 {
-    private CoreControllerInterface $_core;
+    private CoreControllerInterface $core;
 
     private UserRepositoryInterface $user;
 
     public function __construct(
-        CoreControllerInterface $_core,
+        CoreControllerInterface $core,
         UserRepositoryInterface $user
     ) {
-        $this->_core = $_core;
-        $this->_core->onlyForPlayers();
+        $this->core = $core;
         $this->user = $user;
+        if (!$this->core->Auth()->isLoggedIn()) {
+            $this->core->redirect('/login');
+        }
     }
 
     /**
@@ -27,10 +29,10 @@ class ShowMaindeskPage
      */
     public function __invoke(): void
     {
-        $this->_core->setTemplateTitle('Startseite');
+        $this->core->setTemplateTitle('Startseite');
 
-        $this->_core->setTemplateVar('users', $this->user->findAll());
-        $this->_core->setTemplateFile('Game/Maindesk.twig');
-        $this->_core->render();
+        $this->core->setTemplateVar('users', $this->user->findAll());
+        $this->core->setTemplateFile('Game/Maindesk.twig');
+        $this->core->render();
     }
 }

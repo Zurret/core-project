@@ -6,17 +6,16 @@ namespace Core\Module\Core;
 
 use Core\Orm\Entity\UserInterface;
 
+use Core\Lib\Auth;
+use Core\Lib\Session;
+
 interface CoreControllerInterface
 {
     public function render(): void;
 
-    public function getUser(): ?UserInterface;
+    public function Auth(): Auth;
 
-    public function onlyForPlayers(): void;
-
-    public function onlyForNpc(): void;
-
-    public function onlyForAdmin(): void;
+    public function Session(): Session;
 
     public function getCoreName(): string;
 
@@ -30,7 +29,7 @@ interface CoreControllerInterface
 
     public function setToken(): void;
 
-    public function getToken(): string;
+    public function getToken(): ?string;
 
     public function checkToken(): bool;
 
@@ -41,4 +40,6 @@ interface CoreControllerInterface
     public function setTemplateVar(string $key, mixed $variable): void;
 
     public function setTemplateTitle(string $variable): void;
+
+    public function redirect(string $url): void;
 }

@@ -9,15 +9,15 @@ use Core\Orm\Repository\PlayerRepositoryInterface;
 
 class ShowIndexPage
 {
-    private CoreControllerInterface $_core;
+    private CoreControllerInterface $core;
 
     private PlayerRepositoryInterface $player;
 
     public function __construct(
-        CoreControllerInterface $_core,
+        CoreControllerInterface $core,
         PlayerRepositoryInterface $player
     ) {
-        $this->_core = $_core;
+        $this->core = $core;
         $this->player = $player;
     }
 
@@ -26,10 +26,10 @@ class ShowIndexPage
      */
     public function __invoke(): void
     {
-        $this->_core->setTemplateTitle('Startseite');
+        $this->core->setTemplateTitle('Startseite');
 
-        $this->_core->setTemplateVar('players', $this->player->findAll());
-        $this->_core->setTemplateFile('Index/Home.twig');
-        $this->_core->render();
+        $this->core->setTemplateVar('players', $this->player->findAll());
+        $this->core->setTemplateFile('Index/Home.twig');
+        $this->core->render();
     }
 }

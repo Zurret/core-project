@@ -6,48 +6,28 @@ namespace Core\Lib;
 
 class Session
 {
-    public static function setSession(string $key, mixed $value): void
+    public function set(string $key, mixed $value): void
     {
         $_SESSION[$key] = $value;
     }
 
-    public static function getSession(string $key): mixed
+    public function get(string $key): mixed
     {
         return $_SESSION[$key] ?? null;
     }
 
-    public static function delSession(string $key): void
+    public function delete(string $key): void
     {
         unset($_SESSION[$key]);
     }
 
-    public static function delAllSession(): void
+    public function deleteAll(): void
     {
         session_destroy();
     }
 
-    public static function checkSessionExist(string $key): bool
+    public function checkSessionExist(string $key): bool
     {
-        return self::getSession($key) === null;
-    }
-
-    public static function setCookie(string $key, string $value, int $lifetime = 3600): void
-    {
-        setcookie($key, $value, time() + $lifetime);
-    }
-
-    public static function getCookie(string $key): mixed
-    {
-        return $_COOKIE[$key] ?? null;
-    }
-
-    public static function checkCookieExist(string $key): bool
-    {
-        return self::getCookie($key) === null;
-    }
-
-    public static function delCookie(string $key): void
-    {
-        self::setCookie($key, '', -3600);
+        return self::get($key) === null;
     }
 }
