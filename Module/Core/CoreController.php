@@ -98,11 +98,13 @@ final class CoreController implements CoreControllerInterface
     {
         if (Request::getPostParam('TOKEN') === Session::getSession('TOKEN')) {
             $this->setToken();
+
             return true;
         }
 
         $this->setToken();
         $this->setNotification('Token invalide');
+
         return false;
     }
 

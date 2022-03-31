@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Core\Module\Website\ShowLogin;
 
 use Core\Lib\Auth;
-use Core\Lib\Request;
 use Core\Lib\Helper;
+use Core\Lib\Request;
 use Core\Module\Core\CoreControllerInterface;
 use Core\Orm\Repository\UserRepositoryInterface;
 

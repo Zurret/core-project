@@ -88,10 +88,11 @@ class User implements UserInterface
     {
         return $this->player;
     }
-    
+
     public function setPlayer(PlayerInterface $player): UserInterface
     {
         $this->player = $player;
+
         return $this;
     }
 
@@ -99,5 +100,4 @@ class User implements UserInterface
     {
         return $this->access_level;
     }
-
 }
