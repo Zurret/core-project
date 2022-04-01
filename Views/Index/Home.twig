@@ -2,8 +2,16 @@
 {% block content %}
 Content of the page...
 
-{% for player in players %}
-<div>{{ player.getId }} - {{ player.getName }}</div>
+{% for news in news_list %}
+<div class="news">
+    <div class="title">{{ news.getTitle }}{% if news.getAuthor %}<span class="author"> von {{ news.getAuthor.getName }} ({{ news.getAuthor.getId }})</span>{% endif %}</div>
+    <div class="text">{{ news.getShortText }}</div>
+    {% if news.getText|length > 200 %}
+    <div class="readmore">
+        <a href="#{{ news.getId }}">Mehr lesen</a>
+    </div>
+    {% endif %}
+</div>
 {% endfor %}
 
 {% endblock %}

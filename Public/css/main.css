@@ -523,3 +523,37 @@ input[type="text"],input[type="password"],input[type="number"],input[type="email
   color: #D99D1C;
   cursor: pointer;
 }
+
+.news {
+  margin: .6em .1em;
+  text-decoration: none;
+  color: #888798;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.8);
+}
+
+.news .title {
+  color: #D99D1C;
+  font-weight: bold;
+  background-color: #1d1d1d;
+}
+
+.news .author {
+  color: #555555;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.news .text {
+  color: #888798;
+  padding-left: 15px;
+}
+
+.news .readmore {
+  padding-left: 25px;
+  padding-top: 15px;
+}
+
+.news .readmore a {
+  color: #D99D1C;
+  text-decoration: none;
+}

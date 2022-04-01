@@ -1,24 +1,24 @@
 
 // Add Class to Element
-function addElementClass (id, className) {
+function addElementClass(id, className) {
   const element = document.getElementById(id)
   element.className += ' ' + className
 }
 
 // Remove Class from Element
-function removeElementClass (id, className) {
+function removeElementClass(id, className) {
   const element = document.getElementById(id)
   element.className = element.className.replace(className, '')
 }
 
 // E-Mail Validation
-function validateEmail (email) {
+function validateEmail(email) {
   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   return re.test(email)
 }
 
 // Generate Random Password
-function generatePassword () {
+function generatePassword() {
   const length = 12
   const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-#@$!%*?&'
   let retVal = ''
@@ -29,7 +29,7 @@ function generatePassword () {
 }
 
 // Check E-Mail and Password Length
-function checkLoginInputs () {
+function checkLoginInputs() {
   const email = document.getElementById('email')
   const password = document.getElementById('password')
   let emailValid = false
@@ -56,7 +56,7 @@ function checkLoginInputs () {
 }
 
 // Check E-Mail, Password and Password Confirmation Length
-function checkRegisterInputs () {
+function checkRegisterInputs() {
   const email = document.getElementById('email')
   const password = document.getElementById('password')
   const passwordConfirmation = document.getElementById('password_confirm')
@@ -91,7 +91,7 @@ function checkRegisterInputs () {
 }
 
 // Password Visibility
-function togglePasswordVisibility () {
+function togglePasswordVisibility() {
   const password = document.getElementById('password')
   const passwordVisibility = document.getElementById('password-visibility')
   if (password.type == 'password') {
@@ -104,7 +104,7 @@ function togglePasswordVisibility () {
 }
 
 // Set generated password
-function setGeneratedPassword () {
+function setGeneratedPassword() {
   const password = document.getElementById('password')
   const passwordVisibility = document.getElementById('password-visibility')
   password.value = generatePassword()

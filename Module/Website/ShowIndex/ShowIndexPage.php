@@ -5,20 +5,20 @@ declare(strict_types=1);
 namespace Core\Module\Website\ShowIndex;
 
 use Core\Module\Core\CoreControllerInterface;
-use Core\Orm\Repository\PlayerRepositoryInterface;
+use Core\Orm\Repository\NewsRepositoryInterface;
 
 class ShowIndexPage
 {
     private CoreControllerInterface $core;
 
-    private PlayerRepositoryInterface $player;
+    private NewsRepositoryInterface $news;
 
     public function __construct(
         CoreControllerInterface $core,
-        PlayerRepositoryInterface $player
+        NewsRepositoryInterface $news
     ) {
         $this->core = $core;
-        $this->player = $player;
+        $this->news = $news;
     }
 
     /**
@@ -27,8 +27,7 @@ class ShowIndexPage
     public function __invoke(): void
     {
         $this->core->setTemplateTitle('Startseite');
-
-        $this->core->setTemplateVar('players', $this->player->findAll());
+        $this->core->setTemplateVar('news_list', $this->news->getRecent());
         $this->core->setTemplateFile('Index/Home.twig');
         $this->core->render();
     }
