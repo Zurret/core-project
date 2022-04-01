@@ -1,17 +1,17 @@
 // Add Class to Element
-function addElementClass(id, className) {
+function addElementClass (id, className) {
   const element = document.getElementById(id)
   element.className += ' ' + className
 }
 
 // Remove Class from Element
-function removeElementClass(id, className) {
+function removeElementClass (id, className) {
   const element = document.getElementById(id)
   element.className = element.className.replace(className, '')
 }
 
 // Generate a popup window using an existing div
-function generatePopup(title, content) {
+function generatePopup (title, content) {
   const titleHtml = title.replace(/<iframe.*?<\/iframe>/g, '').replace(/<script.*?<\/script>/g, '')
   const contentHtml = content.replace(/<iframe.*?<\/iframe>/g, '').replace(/<script.*?<\/script>/g, '')
 
@@ -30,6 +30,8 @@ function generatePopup(title, content) {
   const popup = document.createElement('div')
   // Set Div id
   popup.id = popupIdName
+  popup.style.position = 'absolute'
+  popup.style.zIndex = '111111112'
   document.body.appendChild(popup)
   // remove iframe and script html elements from title and content
   // set popup title and content
@@ -38,92 +40,95 @@ function generatePopup(title, content) {
   const popupTitle = document.getElementById('popup-title')
   const popupContent = document.getElementById('popup-content')
   // innerHTML for title and content
-  popupTitle.innerHTML = titleHtml + ' <span class="popup-close">[<span class="popup-cross">X</span>]</span>'
+  popupTitle.innerHTML = titleHtml + ' <span class="popup-close">X</span>'
   popupContent.innerHTML = contentHtml
+  const popupClose = document.getElementsByClassName('popup-close')[0]
   // Set Popup Width and Height
   const popupWidth = popupContent.offsetWidth + 20
   const popupHeight = popupContent.offsetHeight + 20
-  // Position the popup window over mouse cursor
+  // Set Style for Popup Elements
+  // popup
+  popup.style.backgroundColor = '#000000'
+  popup.style.border = '1px solid #333333'
+  popup.style.boxShadow = '0px 0px 1px #000000'
   popup.style.top = (window.event.y) - (popupHeight / 2) + 'px'
   popup.style.left = (window.event.x) - (popupWidth / 2) + 'px'
-  // Show the popup window
-  popup.style.display = 'block'
-  popup.style.visibility = 'visible'
-  // Show the popup window on top of other elements
-  popup.style.zIndex = '111111112'
-  // Close the popup window
-  const popupClose = document.getElementsByClassName('popup-close')[0]
-  popupClose.onclick = function () {
-    popup.style.display = 'none'
-    popup.style.visibility = 'hidden'
+  popup.style.minWidth = popupWidth + 'px'
+  popup.style.minHeight = popupHeight + 'px'
+  // popupTitle
+  popupTitle.style.backgroundColor = '#212121'
+  popupTitle.style.borderBottom = '1px solid #333333'
+  popupTitle.style.color = '#D99D1C'
+  popupTitle.style.padding = '5px'
+  popupTitle.style.fontSize = '14px'
+  popupTitle.style.fontWeight = 'bold'
+  popupTitle.style.userSelect = 'none'
+  popupTitle.style.display = 'block'
+  popupTitle.style.lineHeight = '1.2'
+  popupTitle.style.verticalAlign = 'middle'
+  // popupContent
+  popupContent.style.backgroundColor = '#000000'
+  popupContent.style.color = '#ffffff'
+  popupContent.style.padding = '5px'
+  popupContent.style.fontSize = '12px'
+  popupContent.style.display = 'block'
+  // popupClose
+  popupClose.style.cursor = 'pointer'
+  popupClose.style.float = 'right'
+  popupClose.style.backgroundColor = '#73241f'
+  popupClose.style.border = '1px solid #8f2821'
+  popupClose.style.color = '#a88d8d'
+  popupClose.style.fontWeight = 'bold'
+  popupClose.style.padding = '3px 5px'
+  popupClose.style.marginTop = '-4px'
+  popupClose.style.marginRight = '-4px'
+  // Set Event Listeners
+  popupClose.onmouseover = function () {
+    popupClose.style.backgroundColor = '#8f2d27'
+    popupClose.style.border = '1px solid #962018'
+    popupClose.style.color = '#fafafa'
   }
-  // Move the popup window with click
+  popupClose.onmouseout = function () {
+    popupClose.style.backgroundColor = '#73241f'
+    popupClose.style.border = '1px solid #8f2821'
+    popupClose.style.color = '#a88d8d'
+  }
+  popupClose.onclick = function () {
+    document.getElementById(popupIdName).remove()
+  }
   popupTitle.onmousedown = function () {
     popup.style.cursor = 'move'
     isDown = true
-    // Dont Move outside the popupTitle element while dragging
-    if (window.event.x < popupTitle.offsetLeft) {
-      window.event.x = popupTitle.offsetLeft
-    }
-    if (window.event.x > popupTitle.offsetLeft + popupTitle.offsetWidth) {
-      window.event.x = popupTitle.offsetLeft + popupTitle.offsetWidth
-    }
-    if (window.event.y < popupTitle.offsetTop) {
-      window.event.y = popupTitle.offsetTop
-    }
-    if (window.event.y > popupTitle.offsetTop + popupTitle.offsetHeight) {
-      window.event.y = popupTitle.offsetTop + popupTitle.offsetHeight
-    }
-    // Set all no selectable elements to unselectable
     document.body.style.UserSelect = 'none'
   }
   popupTitle.onmouseup = function () {
     popup.style.cursor = 'default'
     isDown = false
-    // Set all no selectable elements to unselectable
     document.body.style.UserSelect = 'text'
   }
-  popup.onmousemove = function () {
-    // Fix if popup is not moved with mouse cursor and mouse button is down (drag)
+  document.onmousemove = function () {
     if (isDown) {
-      // Fix mouse cursor position
-      const popupX = window.event.x - (popupWidth / 2)
-      const popupY = window.event.y - (popupTitle.offsetHeight / 2)
-      // Set popup position
-      popup.style.top = popupY + 'px'
-      popup.style.left = popupX + 'px'
-      // Fix popup position if it is out of the screen
-      if (popupX < 0) {
-        popup.style.left = '0px'
+      popup.style.top = (window.event.y) - (popupTitle.offsetHeight / 2) + 'px'
+      popup.style.left = (window.event.x) - (popupTitle.offsetWidth / 2) + 'px'
+      // Fix popup position if it goes out of the screen
+      if (popup.offsetTop < 0) {
+        popup.style.top = 0
       }
-      if (popupY < 0) {
-        popup.style.top = '0px'
+      if (popup.offsetLeft < 0) {
+        popup.style.left = 0
       }
-      if (popupX + popupWidth > window.innerWidth) {
-        popup.style.left = window.innerWidth - popupWidth + 'px'
+      if (popup.offsetTop + popup.offsetHeight > window.innerHeight) {
+        popup.style.top = window.innerHeight - popup.offsetHeight
       }
-      if (popupY + popupHeight > window.innerHeight) {
-        popup.style.top = window.innerHeight - popupHeight + 'px'
-      }
-      // Don't move the popup window out of the screen
-      if (window.event.x < 0) {
-        popup.style.left = '0px'
-      }
-      if (window.event.y < 0) {
-        popup.style.top = '0px'
-      }
-      if (window.event.x > window.innerWidth) {
-        popup.style.left = window.innerWidth - popupWidth + 'px'
-      }
-      if (window.event.y > window.innerHeight) {
-        popup.style.top = window.innerHeight - popupHeight + 'px'
+      if (popup.offsetLeft + popup.offsetWidth > window.innerWidth) {
+        popup.style.left = window.innerWidth - popup.offsetWidth
       }
     }
   }
 }
 
 // Generate Popup Window for the given url
-function generatePopupWindow(url) {
+function generatePopupWindow (url) {
   if (url.indexOf(window.location.host) !== -1 || url.substring(0, 1) === '/') {
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
