@@ -16,6 +16,11 @@ class Request
         return $_POST[$key] ?? null;
     }
 
+    public static function getFile(string $key): array
+    {
+        return $_FILES[$key] ?? null;
+    }
+    
     public static function getString(string $key): ?string
     {
         return self::getQuery($key) ?? null;
@@ -50,4 +55,36 @@ class Request
     {
         return (array) self::getQuery($key) ?? null;
     }
+
+    public static function postArray(string $key): array
+    {
+        return (array) self::getPost($key) ?? null;
+    }
+
+    public static function getJson(string $key): array
+    {
+        return json_decode(self::getQuery($key) ?? '[]', true) ?? [];
+    }
+
+    public static function postJson(string $key): array
+    {
+        return json_decode(self::getPost($key) ?? '[]', true) ?? [];
+    }
+
+    public static function getFileName(string $key): string
+    {
+        return self::getFile($key)['name'] ?? null;
+    }
+
+    public static function getFileType(string $key): string
+    {
+        return self::getFile($key)['type'] ?? null;
+    }
+
+    public static function getFileSize(string $key): int
+    {
+        return self::getFile($key)['size'] ?? null;
+    }
+
+
 }

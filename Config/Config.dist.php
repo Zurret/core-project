@@ -19,6 +19,7 @@ return [
     'core' => [
         'name'     => 'Core Test',
         'version'  => '1.0.0 dev',
+        'secret'   => 'd4d89w48494g894ht9r&4f89e',
         'root'     => __DIR__.'/../',
         'cache'    => __DIR__.'/../Cache',
         'template' => __DIR__.'/../Views',

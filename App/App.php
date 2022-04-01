@@ -8,6 +8,7 @@ use Core\Lib\Ubench;
 use DI\Container;
 use DI\ContainerBuilder;
 use Exception;
+use Noodlehaus\ConfigInterface;
 
 class App
 {
@@ -47,6 +48,11 @@ class App
     public function getContainer(): Container
     {
         return $this->container;
+    }
+
+    public function getConfig(string $key): mixed
+    {
+        return $this->getContainer()->get(ConfigInterface::class)->get($key);
     }
 
     public function getBenchmark(): Ubench

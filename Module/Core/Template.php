@@ -10,6 +10,7 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
+use Core\Lib\Helper;
 
 final class Template implements TemplateInterface
 {
@@ -52,16 +53,55 @@ final class Template implements TemplateInterface
         return $this->isTemplateSet->render($this->variables);
     }
 
-    private function setFilter(): void
+    private function setFilterAndFunction(): void
     {
-        /**
-         * $this->template->addFilter(new \Twig\TwigFilter(
-         *     'clmodeDescription',
-         *     function ($src): string {
-         *         return TemplateHelper::getContactListModeDescription((int) $src);
-         *     }
-         * ));.
-         */
+        $this->template->addFunction(new \Twig\TwigFunction(
+            'encrypt',
+            function ($src, $key = null): string {
+                if (is_null($key)) {
+                    $key = $this->config->get('app.key');
+                }
+                return Helper::encrypt((string) $src, (string) $key);
+            }
+        ));
+
+        $this->template->addFunction(new \Twig\TwigFunction(
+            'decrypt',
+            function ($src, $key = null): string {
+                if (is_null($key)) {
+                    $key = $this->config->get('app.key');
+                }
+                return Helper::decrypt((string) $src, (string) $key);
+            }
+        ));
+
+        $this->template->addFunction(new \Twig\TwigFunction(
+            'url',
+            function ($src): string {
+                return (string) $src;
+            }
+        ));
+
+        $this->template->addFunction(new \Twig\TwigFunction(
+            'removeHTML',
+            function ($src): string {
+                return Helper::removeHTML((string) $src);
+            }
+        ));
+
+        $this->template->addFunction(new \Twig\TwigFunction(
+            'isPositivInteger',
+            function ($src): bool {
+                return Helper::isPositivInteger((int) $src);
+            }
+        ));
+
+        $this->template->addFunction(new \Twig\TwigFunction(
+            'isNegativeInteger',
+            function ($src): bool {
+                return Helper::isNegativeInteger((int) $src);
+            }
+        ));
     }
 
     private function getTemplate(): Environment
@@ -77,7 +117,7 @@ final class Template implements TemplateInterface
             ]
         );
 
-        $this->setFilter();
+        $this->setFilterAndFunction();
 
         return $this->template;
     }

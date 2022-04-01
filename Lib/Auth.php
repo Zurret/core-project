@@ -84,4 +84,11 @@ class Auth
     {
         return $this->getUser()->getAccessLevel() >= $level;
     }
+
+    public function checkAccessLevelOrDie(int $level): void
+    {
+        if (!$this->checkAccessLevel($level)) {
+            die('Access denied');
+        }
+    }
 }
