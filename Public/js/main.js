@@ -213,14 +213,13 @@ function generatePopup (title, content) {
 
 // Generate Popup Window for the given url
 function generatePopupWindow (url) {
-  // Only if url start with / then it's a url
   if (url.indexOf(window.location.host) !== -1 || url.substring(0, 1) === '/') {
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.onload = function () {
       if (this.status == 200) {
-        // remove iframe and script html elements from title and content
         const title = this.responseText.match(/<title>(.*?)<\/title>/)[1]
+        // remove iframe and script html elements from content
         const content = this.responseText.replace(/<iframe.*?<\/iframe>/g, '').replace(/<script.*?<\/script>/g, '')
         generatePopup(title, content)
       } else {
