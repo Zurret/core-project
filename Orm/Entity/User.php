@@ -75,12 +75,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getSession(): string
+    public function getSessionString(): string
     {
         return $this->session;
     }
 
-    public function setSession(string $session): UserInterface
+    public function setSessionString(string $session): UserInterface
     {
         $this->session = $session;
 

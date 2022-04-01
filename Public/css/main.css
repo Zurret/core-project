@@ -533,11 +533,8 @@ input[type="text"],input[type="password"],input[type="number"],input[type="email
   -moz-user-select: none;
   -webkit-user-select: none;
   user-select: none;
-  min-width: 300px;
-  min-height: 100px;
   position: absolute;
   visibility: hidden;
-  z-index: 111111112;
 }
 
 #overDiv #popup-title {

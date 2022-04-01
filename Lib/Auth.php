@@ -40,7 +40,7 @@ class Auth
         if ($user && $this->checkPassword($password, $user->getPassword())) {
             $this->setUser($user);
             $session = $this->hashPassword(microtime().'-'.$this->getUser()->getId());
-            $this->getUser()->setSession($session);
+            $this->getUser()->setSessionString($session);
             $this->getUser()->setLastLogin(time());
 
             $this->session->set('ACCOUNT_ID', $this->getUser()->getId());
