@@ -27,6 +27,7 @@
 // Generate a popup window using an existing div
 function generatePopup(title, content, x = null, y = null) {
   var titleHtml = 'Popup';
+  // remove iframe and script html elements from title and content
   if (title !== undefined) {
     titleHtml = title.replace(/<iframe.*?<\/iframe>/g, '').replace(/<script.*?<\/script>/g, '')
   }
@@ -51,12 +52,10 @@ function generatePopup(title, content, x = null, y = null) {
   }
   // Create Popup
   const popup = document.createElement('div')
-  // Set Div id
   popup.id = popupIdName
   popup.style.position = 'absolute'
   popup.style.zIndex = '111111112'
   document.body.appendChild(popup)
-  // remove iframe and script html elements from title and content
   // set popup title and content
   popup.innerHTML = '<div id="popup-title"></div><div id="popup-content"></div>'
   // set popup title and content html elements
