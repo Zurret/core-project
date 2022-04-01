@@ -116,10 +116,30 @@ function setGeneratedPassword () {
 
 // Generate a popup window using an existing div
 function generatePopup (title, content) {
-  const popup = document.getElementById('overDiv')
-  var isDown = false
-  // Set popup title
-  popup.innerHTML = '<div class="popup-title">' + title + ' <span class="popup-close">[<span class="popup-cross" onclick="closePopup();">X</span>]</span></div><div class="popup-content">' + content + '</div>'
+  const titleHtml = title.replace(/<iframe.*?<\/iframe>/g, '').replace(/<script.*?<\/script>/g, '')
+  const contentHtml = content.replace(/<iframe.*?<\/iframe>/g, '').replace(/<script.*?<\/script>/g, '')
+  const popupIdName = 'overDiv'
+  // If Title OR Content is empty, return
+  if (titleHtml == '' || contentHtml == '') {
+    return
+  }
+  // If popupIdName div already exists, remove it
+  if (document.getElementById(popupIdName)) {
+    document.getElementById(popupIdName).remove()
+  }
+  // Create Popup
+  const popup = document.createElement('div')
+  // Set Div id
+  popup.id = popupIdName
+  document.body.appendChild(popup)
+  // remove iframe and script html elements from title and content
+  // set popup title and content
+  popup.innerHTML = '<div id="popup-title"></div><div id="popup-content"></div>'
+  let isDown = false
+  const popupTitle = document.getElementById('popup-title')
+  const popupContent = document.getElementById('popup-content')
+  popupTitle.innerHTML = titleHtml + ' <span class="popup-close">[<span class="popup-cross">X</span>]</span>'
+  popupContent.innerHTML = contentHtml
   // Get popup window dimensions
   const popupHeight = popup.offsetHeight
   const popupWidth = popup.offsetWidth
@@ -130,7 +150,7 @@ function generatePopup (title, content) {
   popup.style.display = 'block'
   popup.style.visibility = 'visible'
   // Move the popup window with click
-  popup.addEventListener('mousedown', function (e) {
+  popupTitle.addEventListener('mousedown', function (e) {
     popup.style.cursor = 'move'
     isDown = true
     offset = [
@@ -138,7 +158,7 @@ function generatePopup (title, content) {
       popup.offsetTop - e.clientY
     ]
   }, true)
-  popup.addEventListener('mouseup', function () {
+  popupTitle.addEventListener('mouseup', function () {
     popup.style.cursor = 'default'
     isDown = false
   }, true)
@@ -149,7 +169,19 @@ function generatePopup (title, content) {
         x: event.clientX,
         y: event.clientY
       }
-      // Lock Mouse Cursor to Popup Window while moving
+      // Fix mouse position if it goes out of the window
+      if (mousePosition.x < 0) {
+        mousePosition.x = 0
+      }
+      if (mousePosition.y < 0) {
+        mousePosition.y = 0
+      }
+      if (mousePosition.x > window.innerWidth) {
+        mousePosition.x = window.innerWidth
+      }
+      if (mousePosition.y > window.innerHeight) {
+        mousePosition.y = window.innerHeight
+      }
       // Move the popup window
       popup.style.left = (mousePosition.x + offset[0]) + 'px'
       popup.style.top = (mousePosition.y + offset[1]) + 'px'
@@ -168,11 +200,11 @@ function generatePopup (title, content) {
       }
     }
   }, true)
-}
-
-// Close the popup window
-function closePopup () {
-  const popup = document.getElementById('overDiv')
-  popup.style.display = 'none'
-  popup.style.visibility = 'hidden'
+  // Close Popup Window if clicked on the cross
+  popup.addEventListener('click', function (e) {
+    if (e.target.className === 'popup-cross') {
+      popup.style.display = 'none'
+      popup.style.visibility = 'hidden'
+    }
+  }, true)
 }
