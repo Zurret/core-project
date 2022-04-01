@@ -118,11 +118,14 @@ function setGeneratedPassword () {
 function generatePopup (title, content) {
   const titleHtml = title.replace(/<iframe.*?<\/iframe>/g, '').replace(/<script.*?<\/script>/g, '')
   const contentHtml = content.replace(/<iframe.*?<\/iframe>/g, '').replace(/<script.*?<\/script>/g, '')
-  const popupIdName = 'overDiv'
+
   // If Title OR Content is empty, return
   if (titleHtml == '' || contentHtml == '') {
     return
   }
+
+  const popupIdName = 'overDiv'
+  let isDown = false
   // If popupIdName div already exists, remove it
   if (document.getElementById(popupIdName)) {
     document.getElementById(popupIdName).remove()
@@ -135,7 +138,6 @@ function generatePopup (title, content) {
   // remove iframe and script html elements from title and content
   // set popup title and content
   popup.innerHTML = '<div id="popup-title"></div><div id="popup-content"></div>'
-  let isDown = false
   const popupTitle = document.getElementById('popup-title')
   const popupContent = document.getElementById('popup-content')
   popupTitle.innerHTML = titleHtml + ' <span class="popup-close">[<span class="popup-cross">X</span>]</span>'
@@ -207,4 +209,24 @@ function generatePopup (title, content) {
       popup.style.visibility = 'hidden'
     }
   }, true)
+}
+
+// Generate Popup Window for the given url
+function generatePopupWindow (url) {
+  // Only if url start with / then it's a url
+  if (url.indexOf(window.location.host) !== -1 || url.substring(0, 1) === '/') {
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', url, true)
+    xhr.onload = function () {
+      if (this.status == 200) {
+        // remove iframe and script html elements from title and content
+        const title = this.responseText.match(/<title>(.*?)<\/title>/)[1]
+        const content = this.responseText.replace(/<iframe.*?<\/iframe>/g, '').replace(/<script.*?<\/script>/g, '')
+        generatePopup(title, content)
+      } else {
+        alert('Error: ' + this.status)
+      }
+    }
+    xhr.send()
+  }
 }
