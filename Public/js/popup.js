@@ -1,15 +1,3 @@
-// Add Class to Element
-function addElementClass (id, className) {
-  const element = document.getElementById(id)
-  element.className += ' ' + className
-}
-
-// Remove Class from Element
-function removeElementClass (id, className) {
-  const element = document.getElementById(id)
-  element.className = element.className.replace(className, '')
-}
-
 // Generate a popup window using an existing div
 function generatePopup (title, content) {
   const titleHtml = title.replace(/<iframe.*?<\/iframe>/g, '').replace(/<script.*?<\/script>/g, '')
