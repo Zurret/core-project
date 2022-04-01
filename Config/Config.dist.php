@@ -17,10 +17,10 @@ return [
         'loglevel'  => 7,
     ],
     'core' => [
-        'name'    => 'Core Test',
-        'version' => '1.0.0 dev',
-        'root'    => __DIR__.'/../',
-        'cache' => __DIR__.'/../Cache',
+        'name'     => 'Core Test',
+        'version'  => '1.0.0 dev',
+        'root'     => __DIR__.'/../',
+        'cache'    => __DIR__.'/../Cache',
         'template' => __DIR__.'/../Views',
     ],
 ];
