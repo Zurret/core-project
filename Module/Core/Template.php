@@ -81,5 +81,4 @@ final class Template implements TemplateInterface
 
         return $this->template;
     }
-
 }
