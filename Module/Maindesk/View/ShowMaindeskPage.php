@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Core\Module\Maindesk;
+namespace Core\Module\Maindesk\View;
 
 use Core\Module\Core\CoreControllerInterface;
 use Core\Orm\Repository\UserRepositoryInterface;

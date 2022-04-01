@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Core\Module\Website\ShowLogin;
+namespace Core\Module\Website\Action;
 
 use Core\Lib\Helper;
 use Core\Lib\Request;
 use Core\Module\Core\CoreControllerInterface;
 use Core\Orm\Repository\UserRepositoryInterface;
 
-class ShowLoginPage
+class Login
 {
     private CoreControllerInterface $core;
 
@@ -21,36 +21,6 @@ class ShowLoginPage
     ) {
         $this->userRepository = $userRepository;
         $this->core = $core;
-    }
-
-    /**
-     * __invoke.
-     *
-     * @return void
-     */
-    public function __invoke(): void
-    {
-        $this->core->setTemplateTitle('Login');
-        $this->core->setTemplateFile('Index/Login.twig');
-        $this->core->render();
-    }
-
-    /**
-     * doLogout.
-     *
-     * @param mixed $token
-     *
-     * @return void
-     */
-    public function doLogout(string $token): void
-    {
-        if ($this->core->getToken() == $token) {
-            $this->core->setNotification('Logout erfolgreich.');
-            $this->core->Auth()->logout();
-        } else {
-            $this->core->setNotification('Logout fehlgeschlagen.');
-            $this->__invoke();
-        }
     }
 
     /**

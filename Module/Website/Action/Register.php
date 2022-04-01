@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Core\Module\Website\ShowRegistration;
+namespace Core\Module\Website\Action;
 
 use Core\Lib\Helper;
 use Core\Lib\Request;
@@ -11,7 +11,7 @@ use Core\Orm\Repository\PlayerRepositoryInterface;
 use Core\Orm\Repository\UserRepositoryInterface;
 use Exception;
 
-class ShowRegistrationPage
+class Register
 {
     private CoreControllerInterface $core;
 
@@ -30,16 +30,6 @@ class ShowRegistrationPage
     }
 
     /**
-     * @route GET /register
-     */
-    public function __invoke(): void
-    {
-        $this->core->setTemplateTitle('Registration');
-        $this->core->setTemplateFile('Index/Registration.twig');
-        $this->core->render();
-    }
-
-    /**
      * @route POST /register
      *
      * @throws Exception
@@ -53,12 +43,12 @@ class ShowRegistrationPage
 
             if ($this->createAccount($email, $password, $password_confirm)) {
                 $this->core->setNotification('Account erfolgreich erstellt.');
-                $this->core->redirect('/');
+                $this->core->redirect('/login');
             } else {
                 $this->core->setNotification('Account konnte nicht erstellt werden.');
+                $this->core->redirect('/register');
             }
         }
-        $this->__invoke();
     }
 
     private function createAccount(string $email, string $password, string $password_confirm): bool

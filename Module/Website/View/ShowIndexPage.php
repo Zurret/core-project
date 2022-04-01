@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Core\Module\Website\ShowIndex;
+namespace Core\Module\Website\View;
 
 use Core\Module\Core\CoreControllerInterface;
 use Core\Orm\Repository\NewsRepositoryInterface;
