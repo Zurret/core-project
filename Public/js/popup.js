@@ -25,13 +25,22 @@
  */
 
 // Generate a popup window using an existing div
-function generatePopup(title, content) {
-  const titleHtml = title.replace(/<iframe.*?<\/iframe>/g, '').replace(/<script.*?<\/script>/g, '')
+function generatePopup(title, content, x = null, y = null) {
+  var titleHtml = 'Popup';
+  if (title !== undefined) {
+    titleHtml = title.replace(/<iframe.*?<\/iframe>/g, '').replace(/<script.*?<\/script>/g, '')
+  }
   const contentHtml = content.replace(/<iframe.*?<\/iframe>/g, '').replace(/<script.*?<\/script>/g, '')
 
   // If Title OR Content is empty, return
   if (titleHtml == '' || contentHtml == '') {
     return
+  }
+
+  if (x !== null && y !== null) {
+    // Set Windows.event.x and .y to the x and y values
+    window.event.x = x
+    window.event.y = y
   }
 
   const popupIdName = 'overDiv'
@@ -82,7 +91,7 @@ function generatePopup(title, content) {
   popupTitle.style.verticalAlign = 'middle'
   // popupContent
   popupContent.style.backgroundColor = '#000000'
-  popupContent.style.color = '#ffffff'
+  popupContent.style.color = '#a1a1a1'
   popupContent.style.padding = '5px'
   popupContent.style.fontSize = '12px'
   popupContent.style.display = 'block'
@@ -93,7 +102,7 @@ function generatePopup(title, content) {
   popupClose.style.border = '1px solid #8f2821'
   popupClose.style.color = '#a88d8d'
   popupClose.style.fontWeight = 'bold'
-  popupClose.style.padding = '3px 5px'
+  popupClose.style.padding = '3px 6px'
   popupClose.style.marginTop = '-4px'
   popupClose.style.marginRight = '-4px'
   // Set Event Listeners
@@ -143,6 +152,8 @@ function generatePopup(title, content) {
 
 // Generate Popup Window for the given url
 function generatePopupWindow(url) {
+  const x = window.event.x
+  const y = window.event.y
   if (url.indexOf(window.location.host) !== -1 || url.substring(0, 1) === '/') {
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
@@ -151,7 +162,8 @@ function generatePopupWindow(url) {
         const title = this.responseText.match(/<title>(.*?)<\/title>/)[1]
         // remove iframe and script html elements from content
         const content = this.responseText.replace(/<iframe.*?<\/iframe>/g, '').replace(/<script.*?<\/script>/g, '')
-        generatePopup(title, content)
+        // generate popup with title and content and windows.event.x and windows.event.y
+        generatePopup(title, content, x, y)
       } else {
         alert('Error: ' + this.status)
       }

@@ -17,6 +17,9 @@ $dispatcher = FastRoute\simpleDispatcher(static function (RouteCollector $r): vo
     $r->addGroup('/game', function (RouteCollector $r) {
         $r->addRoute('GET', '/maindesk', 'Core\Module\Maindesk\ShowMaindeskPage');
     });
+    $r->addGroup('/api', function (RouteCollector $r) {
+        $r->addRoute('GET', '/popuptest', 'Core\Module\Api\ShowPopupTest');
+    });
 });
 
 return $dispatcher;

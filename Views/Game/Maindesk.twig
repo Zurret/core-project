@@ -1,16 +1,11 @@
 {% extends "Layout/game.twig" %}
 {% block content %}
-Content of the page...
 
-{% for user in users %}
-<div>{{ user.getId }}</div>
-{% endfor %}
+    <br />
 
-    das ist ein <span onclick="generatePopup('tesd sadas das dasdast', 'INHALT dsadas dsa dsad asdasd asdsadasd asdasdasODER SO');">Test</span> !!
-    <span onclick="generatePopup('te das dasdas sd asst', 'Denke das d sad asds asds dasd asdgeht so!');">Test</span>
-    
-    <span onclick="generatePopup('Test Titel', 'Denke das geht so!');">Test</span>
-    <span onclick="generatePopupWindow('/game/maindesk');">Test</span>
-    <span onclick="generatePopupWindow('http://localhost/game/maindesk');">Test</span>
+    <a href="#" onclick="generatePopup('Test Titel', 'Denke das geht so!');">Popup Test</a>
+
+    <br />
+    <a href="#" onclick="generatePopupWindow('/api/popuptest');">Popup Test with URL</a>
 
 {% endblock %}
