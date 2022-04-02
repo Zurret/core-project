@@ -59,7 +59,7 @@ final class Template implements TemplateInterface
             'encrypt',
             function ($src, $key = null): string {
                 if (is_null($key)) {
-                    $key = $this->config->get('app.key');
+                    $key = $this->config->get('core.secret');
                 }
                 return Helper::encrypt((string) $src, (string) $key);
             }
@@ -69,7 +69,7 @@ final class Template implements TemplateInterface
             'decrypt',
             function ($src, $key = null): string {
                 if (is_null($key)) {
-                    $key = $this->config->get('app.key');
+                    $key = $this->config->get('core.secret');
                 }
                 return Helper::decrypt((string) $src, (string) $key);
             }
@@ -78,7 +78,11 @@ final class Template implements TemplateInterface
         $this->template->addFunction(new \Twig\TwigFunction(
             'url',
             function ($src): string {
-                return (string) $src;
+                if ($this->config->get('core.encrypt_url')) {
+                    return (string) $this->config->get('core.base_url') . Helper::encrypt($src, $this->config->get('core.secret'));
+                } else {
+                    return (string) $src;
+                }
             }
         ));
 

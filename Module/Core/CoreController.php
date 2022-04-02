@@ -7,6 +7,7 @@ namespace Core\Module\Core;
 use Core\Lib\Auth;
 use Core\Lib\Request;
 use Core\Lib\Session;
+use Core\Lib\Helper;
 use Core\Orm\Entity\UserInterface;
 use Core\Orm\Repository\UserRepositoryInterface;
 use Exception;
@@ -98,11 +99,6 @@ final class CoreController implements CoreControllerInterface
         return $this->config->get($var) ?? null;
     }
 
-    public function getContainer(string $contrainer): mixed
-    {
-        return $this->app->getContainer()->get('container.'.$contrainer);
-    }
-
     public function setNotification(mixed $notification): void
     {
         $this->notification[] = $notification;
@@ -146,7 +142,7 @@ final class CoreController implements CoreControllerInterface
 
     public function getTokenInput(): string
     {
-        return '<input type="hidden" name="TOKEN" value="'.$this->getToken().'" required>';
+        return '<input type="hidden" name="TOKEN" value="' . $this->getToken() . '" required>';
     }
 
     public function setTemplateFile(string $tpl): void
@@ -161,7 +157,7 @@ final class CoreController implements CoreControllerInterface
 
     public function setTemplateTitle(string $variable): void
     {
-        $this->setTemplateVar('page_title', $variable.' - '.$this->getCoreName());
+        $this->setTemplateVar('page_title', $variable . ' - ' . $this->getCoreName());
         $this->setTemplateVar('site_title', $variable);
     }
 
@@ -172,8 +168,19 @@ final class CoreController implements CoreControllerInterface
 
     public function redirect(string $url): void
     {
-        header('Location: '.$url);
+        if ($this->getConfig('core.encrypt_url')) {
+            $url = $this->getConfig('core.base_url') . Helper::encrypt($url, $this->getConfig('core.secret'));
+        }
+        header('Location: ' . $url);
         exit;
+    }
+
+    public function url(string $url): string
+    {
+        if ($this->getConfig('core.encrypt_url')) {
+            $url = $this->getConfig('core.base_url') . Helper::encrypt($url, $this->getConfig('core.secret'));
+        }
+        return $url;
     }
 
     /**
