@@ -19,12 +19,16 @@ class ShowTutorialPage
         }
     }
 
-    public function __invoke(?int $tutorialId = null, ?int $stepId = null): void
+    public function __invoke(int $tutorialId = 1, int $stepId = 1): void
     {
-        $this->core->setTemplateTitle('Startseite');
+        $tutorialId = max(1, $tutorialId);
+        $stepId = max(1, $stepId);
+
+        $this->core->setTemplateTitle('Tutorial');
         $this->core->setTemplateFile('Tutorial/showTutorialPage.twig');
         $this->core->setTemplateVar('tutorialId', $tutorialId);
         $this->core->setTemplateVar('stepId', $stepId);
         $this->core->render();
     }
+    
 }
