@@ -15,7 +15,7 @@ class ShowMaindeskPage
     ) {
         $this->core = $core;
         if (!$this->core->Auth()->isLoggedIn()) {
-            $this->core->redirect('/login');
+            $this->core->redirect('/auth/login');
         }
     }
 
@@ -25,6 +25,6 @@ class ShowMaindeskPage
     public function __invoke(): void
     {
         $this->core->setTemplateTitle('Startseite');
-        $this->core->render('Maindesk/showMaindeskPage.twig');
+        $this->core->render('Maindesk/showMaindeskPage');
     }
 }

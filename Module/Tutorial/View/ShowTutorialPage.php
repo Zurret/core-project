@@ -15,7 +15,7 @@ class ShowTutorialPage
     ) {
         $this->core = $core;
         if (!$this->core->Auth()->isLoggedIn()) {
-            $this->core->redirect('/login');
+            $this->core->redirect('/auth/login');
         }
     }
 
@@ -27,6 +27,6 @@ class ShowTutorialPage
         $this->core->setTemplateTitle('Tutorial');
         $this->core->setTemplateVar('tutorialId', $tutorialId);
         $this->core->setTemplateVar('stepId', $stepId);
-        $this->core->render('Tutorial/showTutorialPage.twig');
+        $this->core->render('Tutorial/showTutorialPage');
     }
 }

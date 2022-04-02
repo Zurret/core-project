@@ -23,6 +23,6 @@ class ShowPrivacyPage
     {
         $this->core->setTemplateTitle('Datenschutzerklärung');
         $this->core->setTemplateVar('abbreviation', $this->core->getConfig('core.name_short'));
-        $this->core->render('Index/showPrivacyPage.twig');
+        $this->core->render('Index/showPrivacyPage');
     }
 }

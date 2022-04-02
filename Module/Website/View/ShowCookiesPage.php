@@ -22,6 +22,6 @@ class ShowCookiesPage
     public function __invoke(): void
     {
         $this->core->setTemplateTitle('Cookies');
-        $this->core->render('Index/showCookiesPage.twig');
+        $this->core->render('Index/showCookiesPage');
     }
 }

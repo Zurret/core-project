@@ -30,7 +30,7 @@ class Register
     }
 
     /**
-     * @route POST /register
+     * @route POST /auth/register
      *
      * @throws Exception
      */
@@ -43,10 +43,10 @@ class Register
 
             if ($this->createAccount($email, $password, $password_confirm)) {
                 $this->core->setNotification('Account erfolgreich erstellt.');
-                $this->core->redirect('/login');
+                $this->core->redirect('/auth/login');
             } else {
                 $this->core->setNotification('Account konnte nicht erstellt werden.');
-                $this->core->redirect('/register');
+                $this->core->redirect('/auth/register');
             }
         }
     }

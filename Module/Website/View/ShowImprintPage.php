@@ -29,7 +29,7 @@ class ShowImprintPage
         $this->core->setTemplateVar('IMPRINT_CITY', $this->core->getConfig('imprint.city'));
         $this->core->setTemplateVar('IMPRINT_COUNTRY', $this->core->getConfig('imprint.country'));
         $this->core->setTemplateVar('IMPRINT_EMAIL', $this->encode_email($this->core->getConfig('imprint.email')));
-        $this->core->render('Index/showImprintPage.twig');
+        $this->core->render('Index/showImprintPage');
     }
 
     private function encode_email(string $email): string

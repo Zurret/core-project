@@ -15,7 +15,7 @@ class ShowPopupTest
     ) {
         $this->core = $core;
         if (!$this->core->Auth()->isLoggedIn()) {
-            $this->core->redirect('/login');
+            $this->core->redirect('/auth/login');
         }
     }
 

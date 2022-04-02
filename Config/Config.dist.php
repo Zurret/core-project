@@ -4,12 +4,19 @@ declare(strict_types=1);
 
 return [
     'db' => [
+        'driver'          => 'pdo_mysql',
         'host'            => 'localhost',
         'port'            => 3306,
         'user'            => 'core',
         'pass'            => 'core',
         'name'            => 'core',
-        'proxy_namespace' => 'Core\\Orm\\Proxy',
+        'charset'         => 'utf8',
+    ],
+    'orm' => [
+        'proxy_path'            => __DIR__.'/../Orm/Proxy/',
+        'proxy_namespace'       => 'Core\\Orm\\Proxy',
+        'entity_path'           => __DIR__.'/../Orm/Entity/',
+        'auto_generate_proxies' => true,
     ],
     'debug' => [
         'enabled'   => true,
@@ -26,6 +33,7 @@ return [
         'root'          => __DIR__.'/../',
         'cache'         => __DIR__.'/../Cache',
         'template'      => __DIR__.'/../Views',
+        'template_ext'  => '.twig',
     ],
     'imprint' => [
         'name'        => 'Max Mustermann',
@@ -33,6 +41,6 @@ return [
         'zip'         => '12345',
         'city'        => 'Testcity',
         'country'     => 'Testcountry',
-        'email'       => 'test@local.host'
+        'email'       => 'test@local.host',
     ],
 ];

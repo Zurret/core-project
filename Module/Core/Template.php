@@ -41,7 +41,7 @@ final class Template implements TemplateInterface
      */
     public function setTemplate(string $file): void
     {
-        $this->isTemplateSet = $this->getTemplate()->load($file);
+        $this->isTemplateSet = $this->getTemplate()->load($file . $this->config->get('core.template_ext'));
     }
 
     public function isTemplateSet(): bool

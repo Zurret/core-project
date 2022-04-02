@@ -17,11 +17,11 @@ class ShowRegistrationPage
     }
 
     /**
-     * @route GET /register
+     * @route GET /auth/register
      */
     public function __invoke(): void
     {
         $this->core->setTemplateTitle('Registration');
-        $this->core->render('Index/showRegistrationPage.twig');
+        $this->core->render('Index/showRegistrationPage');
     }
 }

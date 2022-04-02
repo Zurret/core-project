@@ -27,10 +27,10 @@
                     <li><a href="{{ url('/') }}">Hauptseite</a></li>
                     {% if auth.isLoggedIn %}
                     <li><a href="{{ url('/game/maindesk') }}">Game</a></li>
-                    <li><a href="{{ url('/logout/' ~ core_token) }}" onclick="return confirm('Willst du dich wirklich ausloggen?');">Ausloggen</a></li>
+                    <li><a href="{{ url('/auth/logout/' ~ core_token) }}" onclick="return confirm('Willst du dich wirklich ausloggen?');">Ausloggen</a></li>
                     {% else %}
-                    <li><a href="{{ url('/register') }}">Registrieren</a></li>
-                    <li><a href="{{ url('/login') }}">Login</a></li>
+                    <li><a href="{{ url('/auth/register') }}">Registrieren</a></li>
+                    <li><a href="{{ url('/auth/login') }}">Login</a></li>
                     {% endif %}
                 </ul>
                 <div class="clear"></div>

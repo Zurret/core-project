@@ -48,22 +48,21 @@ return [
         $cacheDriver = $c->get(CacheItemPoolInterface::class);
 
         $emConfig = new Configuration();
-        $emConfig->setAutoGenerateProxyClasses((bool) $config->get('debug.enabled'));
+        $emConfig->setAutoGenerateProxyClasses($config->get('orm.auto_generate_proxies'));
         $emConfig->setMetadataCache($cacheDriver);
         $emConfig->setQueryCache($cacheDriver);
-        $driverImpl = $emConfig->newDefaultAnnotationDriver(__DIR__.'/../Orm/Entity/');
-        $emConfig->setMetadataDriverImpl($driverImpl);
-        $emConfig->setProxyDir(__DIR__.'/../Orm/Proxy/');
-        $emConfig->setProxyNamespace($config->get('db.proxy_namespace'));
+        $emConfig->setMetadataDriverImpl($emConfig->newDefaultAnnotationDriver($config->get('orm.entity_path')));
+        $emConfig->setProxyDir($config->get('orm.proxy_path'));
+        $emConfig->setProxyNamespace($config->get('orm.proxy_namespace'));
 
         $manager = EntityManager::create(
             [
-                'driver'   => 'pdo_mysql',
+                'driver'   => $config->get('db.driver'),
                 'user'     => $config->get('db.user'),
                 'password' => $config->get('db.pass'),
                 'dbname'   => $config->get('db.name'),
                 'host'     => $config->get('db.host'),
-                'charset'  => 'utf8',
+                'charset'  => $config->get('db.charset'),
             ],
             $emConfig
         );
@@ -79,8 +78,7 @@ return [
     CoreControllerInterface::class => autowire(CoreController::class),
     TemplateInterface::class       => autowire(Template::class),
     /**
-     * Doctrine ORM.
-     *
+     * Repositories (Entity)
      * @url https://www.doctrine-project.org/
      */
     UserRepositoryInterface::class => function (ContainerInterface $c): UserRepositoryInterface {
