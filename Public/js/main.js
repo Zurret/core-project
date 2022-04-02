@@ -48,11 +48,7 @@ function checkLoginInputs() {
     addElementClass('password', 'invalid')
   }
 
-  if (emailValid && passwordValid) {
-    document.getElementById('login-button').disabled = false
-  } else {
-    document.getElementById('login-button').disabled = true
-  }
+  document.getElementById('login-button').disabled = !(emailValid && passwordValid);
 }
 
 // Check E-Mail, Password and Password Confirmation Length
@@ -76,25 +72,21 @@ function checkRegisterInputs() {
   } else {
     addElementClass('password', 'invalid')
   }
-  if (passwordConfirmation.value.length > 0 && passwordConfirmation.value == password.value) {
+  if (passwordConfirmation.value.length > 0 && passwordConfirmation.value === password.value) {
     removeElementClass('password_confirm', 'invalid')
     passwordConfirmationValid = true
   } else {
     addElementClass('password_confirm', 'invalid')
   }
 
-  if (emailValid && passwordValid && passwordConfirmationValid) {
-    document.getElementById('register-button').disabled = false
-  } else {
-    document.getElementById('register-button').disabled = true
-  }
+  document.getElementById('register-button').disabled = !(emailValid && passwordValid && passwordConfirmationValid);
 }
 
 // Password Visibility
 function togglePasswordVisibility() {
   const password = document.getElementById('password')
   const passwordVisibility = document.getElementById('password-visibility')
-  if (password.type == 'password') {
+  if (password.type === 'password') {
     password.type = 'text'
     passwordVisibility.innerHTML = 'Hide'
   } else {
@@ -108,7 +100,7 @@ function setGeneratedPassword() {
   const password = document.getElementById('password')
   const passwordVisibility = document.getElementById('password-visibility')
   password.value = generatePassword()
-  if (password.type == 'password') {
+  if (password.type === 'password') {
     password.type = 'text'
     passwordVisibility.innerHTML = 'Hide'
   }

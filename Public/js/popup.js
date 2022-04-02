@@ -1,3 +1,5 @@
+// noinspection JSDeprecatedSymbols
+
 /**
  * 
  * MIT License
@@ -26,7 +28,7 @@
 
 // Generate a popup window using an existing div
 function generatePopup(title, content, x = null, y = null) {
-  var titleHtml = 'Popup';
+  let titleHtml = 'Popup';
   // remove iframe and script html elements from title and content
   if (title !== undefined) {
     titleHtml = title.replace(/<iframe.*?<\/iframe>/g, '').replace(/<script.*?<\/script>/g, '')
@@ -34,7 +36,7 @@ function generatePopup(title, content, x = null, y = null) {
   const contentHtml = content.replace(/<iframe.*?<\/iframe>/g, '').replace(/<script.*?<\/script>/g, '')
 
   // If Title OR Content is empty, return
-  if (titleHtml == '' || contentHtml == '') {
+  if (titleHtml === '' || contentHtml === '') {
     return
   }
 
@@ -135,16 +137,16 @@ function generatePopup(title, content, x = null, y = null) {
       popup.style.left = (window.event.x) - (popupTitle.offsetWidth / 2) + 'px'
       // Fix popup position if it goes out of the screen
       if (popup.offsetTop < 0) {
-        popup.style.top = 0
+        popup.style.top = '0px'
       }
       if (popup.offsetLeft < 0) {
-        popup.style.left = 0
+        popup.style.left = '0px'
       }
       if (popup.offsetTop + popup.offsetHeight > window.innerHeight) {
-        popup.style.top = window.innerHeight - popup.offsetHeight
+        popup.style.top = window.innerHeight - popup.offsetHeight + 'px'
       }
       if (popup.offsetLeft + popup.offsetWidth > window.innerWidth) {
-        popup.style.left = window.innerWidth - popup.offsetWidth
+        popup.style.left = window.innerWidth - popup.offsetWidth + 'px'
       }
     }
   }
@@ -158,7 +160,7 @@ function generatePopupWindow(url) {
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.onload = function () {
-      if (this.status == 200) {
+      if (this.status === 200) {
         const title = this.responseText.match(/<title>(.*?)<\/title>/)[1]
         // remove iframe and script html elements from content
         const content = this.responseText.replace(/<iframe.*?<\/iframe>/g, '').replace(/<script.*?<\/script>/g, '')
