@@ -60,7 +60,7 @@ class Helper
         try {
             $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
             $encrypted = openssl_encrypt($string, 'aes-256-cbc', $key, 0, $iv);
-            return rtrim(strtr(base64_encode($encrypted . '::' . $iv), '+/', '-_'), '=');;
+            return rtrim(strtr(base64_encode($encrypted . '::' . $iv), '+/', '-_'), '=');
         } catch (\Exception $e) {
             return false;
         }
