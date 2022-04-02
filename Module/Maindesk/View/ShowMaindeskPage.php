@@ -31,9 +31,9 @@ class ShowMaindeskPage
     {
         $this->core->setTemplateTitle('Startseite');
 
-        $scan_range = 2;
-        $x = 10;
-        $y = 43;
+        $scan_range = 3;
+        $x = rand(0, 100);
+        $y = rand(0, 100);
 
         $this->core->setTemplateVar('map', $this->map->findByScanRange($x, $y, $scan_range));
         $this->core->setTemplateVar('scan_range', $scan_range);
