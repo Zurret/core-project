@@ -57,14 +57,23 @@ class Helper
 
     public static function encrypt(string $string, string $key): string|bool
     {
-        $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
-        $encrypted = openssl_encrypt($string, 'aes-256-cbc', $key, 0, $iv);
-        return base64_encode($encrypted . '::' . $iv);
+        try {
+            $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
+            $encrypted = openssl_encrypt($string, 'aes-256-cbc', $key, 0, $iv);
+            return base64_encode($encrypted . '::' . $iv);
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
     public static function decrypt(string $string, string $key): string|bool
     {
-        list($encrypted_data, $iv) = explode('::', base64_decode($string), 2);
-        return openssl_decrypt($encrypted_data, 'aes-256-cbc', $key, 0, $iv);
+        try {
+            $decoded = base64_decode($string);
+            $string = explode('::', $decoded);
+            return openssl_decrypt($string[0], 'aes-256-cbc', $key, 0, $string[1]);
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 }
