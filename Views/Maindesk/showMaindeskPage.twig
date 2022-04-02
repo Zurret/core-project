@@ -1,14 +1,17 @@
 {% extends "Layout/gameLayout.twig" %}
 {% block content %}
 
-    {% if user.player.isNewbie %}
-        <div style="display: block;padding: 5px 15px;background-color:#333;border:1px solid #222;margin: 15px 20px;">
-            Willkommen neuer Siedler!<br>
-            Wir empfehlen dir das Tutorial zu besuchen, um die Spielmechaniken zu erfahren.<br />
-            Solltest du das Tutorial nicht mehr sehen, kannst du es <a href="{{ url('/game/tutorial') }}" style="text-decoration: underline;">hier</a> wieder aufrufen.
-        </div>
-    {% endif %}
+{% if user.player.isNewbie %}
+<div style="display: block;padding: 5px 15px;background-color:#333;border:1px solid #222;margin: 15px 20px;">
+    Willkommen neuer Siedler!<br>
+    Wir empfehlen dir das Tutorial zu besuchen, um die Spielmechaniken zu erfahren.<br />
+    Solltest du das Tutorial nicht mehr sehen, kannst du es <a href="{{ url('/game/tutorial') }}"
+        style="text-decoration: underline;">hier</a> wieder aufrufen.
+</div>
+{% endif %}
 
-    Der Popup Test: <a href="javascript:void(0);" onclick="generatePopup('test', 'Das ist einfach nur ein Test für das Popup zeug')">Popup</a>
+Der Popup Test: <a href="javascript:void(0);"
+    onclick="generatePopup('test', 'Das ist einfach nur ein Test für das Popup zeug')">Popup</a> and
+<a href="javascript:void(0);" onclick="generatePopupWindow('{{ url('/api/popuptest') }}')">Popup</a>
 
 {% endblock %}

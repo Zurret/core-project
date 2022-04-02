@@ -31,6 +31,8 @@ return [
         'base_url'      => 'http://localhost/',
         'encrypt_url'   => false,
         'root'          => __DIR__.'/../',
+        'assets'        => '/assets',
+        'static'        => '/static',
         'cache'         => __DIR__.'/../Cache',
         'template'      => __DIR__.'/../Views',
         'template_ext'  => '.twig',

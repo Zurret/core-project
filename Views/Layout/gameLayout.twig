@@ -6,8 +6,8 @@
 
     <title>{{ page_title }}</title>
 
-    <link type="text/css" href="/css/normalize.css?v={{ core_version }}" />
-    <link rel="stylesheet" type="text/css" href="/css/main.css?v={{ core_version }}" />
+    <link type="text/css" href="{{ staticPath('css/normalize.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ staticPath('css/main.css') }}" />
 
     <script type="text/javascript">
         const core_version = '{{ core_version }}';
@@ -16,8 +16,8 @@
         const player_name = '{{ user.player.getName }}';
         const account_sstr = '{{ user.getSessionString }}';
     </script>
-    <script type="text/javascript" src="/js/main.js?v={{ core_version }}"></script>
-    <script type="text/javascript" src="/js/popup.js?v={{ core_version }}"></script>
+    <script type="text/javascript" src="{{ staticPath('js/main.js') }}"></script>
+    <script type="text/javascript" src="{{ staticPath('js/popup.js') }}"></script>
 </head>
 
 <body>

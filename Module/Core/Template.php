@@ -23,6 +23,8 @@ final class Template implements TemplateInterface
 
     private $isTemplateSet;
 
+    private string $version;
+
     public function __construct(
         ConfigInterface $config
     ) {
@@ -54,8 +56,30 @@ final class Template implements TemplateInterface
         return $this->isTemplateSet->render($this->variables);
     }
 
+    private function getV(): string
+    {
+        if(!isset($this->version)) {
+            $this->version = substr(md5($this->config->get('core.version')), 0, 12);
+        }
+        return $this->version;
+    }
+
     private function setFilterAndFunction(): void
     {
+        $this->template->addFunction(new TwigFunction(
+            'assetsPath',
+            function ($src): string {
+                return $this->config->get('core.assets') . '/' . $src .'?v=' . $this->getV();
+            }
+        ));
+
+        $this->template->addFunction(new TwigFunction(
+            'staticPath',
+            function ($src): string {
+                return $this->config->get('core.static') . '/' . $src .'?v=' . $this->getV();
+            }
+        ));
+
         $this->template->addFunction(new TwigFunction(
             'encrypt',
             function ($src, $key = null): string {
