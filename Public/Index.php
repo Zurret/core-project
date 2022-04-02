@@ -34,7 +34,7 @@ switch ($route[0]) {
         break;
 
     case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
-        echo '405 Method Not Allowed';
+        exit('405 Method Not Allowed');
         break;
 
     case FastRoute\Dispatcher::FOUND:
