@@ -328,31 +328,6 @@ label {
   color: #912020;
 }
 
-table {
-  border-collapse: separate;
-  border-spacing: 1px;
-}
-
-td {
-  background-color: rgba(30, 30, 30, 0.5);
-  color: #ddd;
-  padding: 3px;
-}
-
-tr:hover>td {
-  background-color: rgba(60, 60, 60, 0.3) !important;
-}
-
-table tr:nth-child(odd) td {
-  background-color: rgba(40, 40, 40, 0.5);
-}
-
-th {
-  background-color: #1a1a1a;
-  color: #D99D1C;
-  padding: 5px 3px;
-}
-
 div.planetSurfaceTiles {
   display: grid;
   grid-template-columns: 43px 43px 43px 43px 43px 43px 43px 43px 43px 43px;

@@ -31,9 +31,9 @@ class ShowMaindeskPage
     {
         $this->core->setTemplateTitle('Startseite');
 
-        $scan_range = 3;
-        $x = rand(0, 100);
-        $y = rand(0, 100);
+        $scan_range = 5;
+        $x = 50;
+        $y = 40;
 
         $this->core->setTemplateVar('map', $this->map->findByScanRange($x, $y, $scan_range));
         $this->core->setTemplateVar('scan_range', $scan_range);
@@ -42,4 +42,5 @@ class ShowMaindeskPage
         $this->core->setTemplateFile('Game/Maindesk.twig');
         $this->core->render();
     }
+
 }
