@@ -1,11 +1,40 @@
 {% extends "Layout/game.twig" %}
 {% block content %}
 
-    {% set fields = 0 %}
-    {% for map_field in map %}
-        <img src="/assets/map/{{ map_field.getMapField.getId }}.png" alt="{{ map_field.getMapField.getName }}" onclick="generatePopup('{{ map_field.getMapField.getName }}', '{{ map_field.getCx }}|{{ map_field.getCy }}')">
-        {% set fields = fields + 1 %}
-        {% if fields == (scan_range * 2) + 1 %}<br />  {% set fields = 0 %} {% endif %}
-    {% endfor %}
+<style>
+    .field {
+        display: inline-block;
+        border: 1px solid #333;
+        width: 32px;
+        height: 32px;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 32px;
+        margin: 0px 1px 1px 0px !important;
+    }
 
+    .field.middle {
+        border-color: #666 !important;
+    }
+
+    .field:hover {
+        border-color: #444 !important;
+    }
+</style>
+{% set fields = 0 %}
+<div id="map">
+    {% for map_field in map %}
+    {% if map_field.getCy == cy and map_field.getCx == cx %}
+    <div class="field middle" style="background-image: url('/assets/map/{{ map_field.getMapField.getId }}.png')"
+        onclick="generatePopup('{{ map_field.getMapField.getName }}', '{{ map_field.getCx }}|{{ map_field.getCy }}')">1
+    </div>
+    {% else %}
+    <div class="field" style="background-image: url('/assets/map/{{ map_field.getMapField.getId }}.png')"
+        onclick="generatePopup('{{ map_field.getMapField.getName }}', '{{ map_field.getCx }}|{{ map_field.getCy }}')">
+    </div>
+    {% endif %}
+    {% set fields = fields + 1 %}
+    {% if fields == (scan_range * 2) + 1 %}<br />{% set fields = 0 %}{% endif %}
+    {% endfor %}
+</div>
 {% endblock %}
