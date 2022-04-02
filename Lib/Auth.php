@@ -39,18 +39,10 @@ class Auth
 
         if ($user && $this->checkPassword($password, $user->getPassword())) {
             $this->setUser($user);
-            $session = sha1(random_bytes(32) . $user->getId());
-            $this->getUser()->setSessionString($session);
-            $this->getUser()->setLastLogin(time());
-
-            $this->session->setSession('ACCOUNT_ID', $this->getUser()->getId());
-            $this->session->setSession('ACCOUNT_SSTR', $session);
-            $this->session->setSession('LOGIN', true);
+            $this->setSession();
 
             if ($remember) {
-                $cookie = sha1(random_bytes(32) . $user->getId());
-                $this->getUser()->setCookieString($cookie);
-                $this->setRememberMe($cookie);
+                $this->setCookies();
             }
 
             $this->userRepository->save($this->getUser());
@@ -93,16 +85,7 @@ class Auth
         if (!$this->getUser()) {
             if ($this->session->getCookie('LOGIN') !== null && $user = $this->userRepository->getByIdandCookie((int) $this->session->getCookie('ACCOUNT_ID') ?? 0, (string) $this->session->getCookie('ACCOUNT_CSTR') ?? '')) {
                 $this->setUser($user);
-                // Set new Session
-                $session = sha1(random_bytes(32) . $user->getId());
-                $this->getUser()->setSessionString($session);
-                $this->getUser()->setLastLogin(time());
-    
-                $this->session->setSession('ACCOUNT_ID', $this->getUser()->getId());
-                $this->session->setSession('ACCOUNT_SSTR', $session);
-                $this->session->setSession('LOGIN', true);
-                
-                $this->userRepository->save($this->getUser());
+                $this->setSession();
             }
         }
         return !($this->getUser() === null);
@@ -137,5 +120,27 @@ class Auth
         $this->session->deleteCookie('LOGIN');
         $this->session->deleteCookie('ACCOUNT_ID');
         $this->session->deleteCookie('ACCOUNT_CSTR');
+    }
+
+    private function setSession(): void
+    {
+        $session = sha1(random_bytes(32) . $this->getUser()->getId());
+        $this->getUser()->setSessionString($session);
+        $this->getUser()->setLastLogin(time());
+
+        $this->session->setSession('ACCOUNT_ID', $this->getUser()->getId());
+        $this->session->setSession('ACCOUNT_SSTR', $session);
+        $this->session->setSession('LOGIN', true);
+        
+        $this->userRepository->save($this->getUser());
+    }
+
+    private function setCookies(): void
+    {
+        $cookie = sha1(random_bytes(32) . $this->getUser()->getId());
+        $this->getUser()->setCookieString($cookie);
+        $this->setRememberMe($cookie);
+        
+        $this->userRepository->save($this->getUser());
     }
 }
