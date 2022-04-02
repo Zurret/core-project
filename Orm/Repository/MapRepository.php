@@ -6,9 +6,13 @@ namespace Core\Orm\Repository;
 
 use Core\Orm\Entity\MapInterface;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 
 final class MapRepository extends EntityRepository implements MapRepositoryInterface
 {
+    /**
+     * @throws NonUniqueResultException
+     */
     public function findByCoordinates(int $cx, int $cy): ?MapInterface
     {
         $qb = $this->createQueryBuilder('m');

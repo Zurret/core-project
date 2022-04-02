@@ -1,11 +1,14 @@
 <?php
 
+use Core\Lib\Helper;
+use Core\Module\Core\CoreControllerInterface;
+
 $app = require_once __DIR__.'/../App/Bootstrap.php';
 $dispatcher = require_once __DIR__.'/../App/Route.php';
 
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
-$core = $app->getContainer()->get(\Core\Module\Core\CoreControllerInterface::class);
+$core = $app->getContainer()->get(CoreControllerInterface::class);
 
 // Strip query string (?foo=bar) and decode URI
 if (false !== $pos = strpos($uri, '?')) {
@@ -15,13 +18,13 @@ $uri = rawurldecode($uri);
 
 if ($app->getConfig('core.encrypt_url')) {
     if ($uri === '/') {
-        $uri = \Core\Lib\Helper::encrypt('/', $app->getConfig('core.secret'));
+        $uri = Helper::encrypt('/', $app->getConfig('core.secret'));
     }
-    if (strpos($uri, '/') === 0) {
+    if (str_starts_with($uri, '/')) {
         $uri = substr($uri, 1);
     }
 
-    $uri = \Core\Lib\Helper::decrypt($uri, $app->getConfig('core.secret'));
+    $uri = Helper::decrypt($uri, $app->getConfig('core.secret'));
 }
 
 $route = $dispatcher->dispatch($httpMethod, $uri);
@@ -33,7 +36,7 @@ switch ($route[0]) {
         break;
 
     case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
-        exit('405 Method Not Allowed');
+        echo '405 Method Not Allowed';
         break;
 
     case FastRoute\Dispatcher::FOUND:

@@ -20,31 +20,31 @@ class User implements UserInterface
      * @Column(type="integer")
      * @GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private int $id;
 
     /** @Column(type="string", length=255) */
-    private $email = '';
+    private string $email = '';
 
     /** @Column(type="string", length=255) */
-    private $password = '';
+    private string $password = '';
 
     /** @Column(type="string", length=255, nullable=true)) */
-    private $session = '';
+    private ?string $session = '';
 
     /** @Column(type="integer", nullable=false, options={"default" : 0}) */
-    private $player_id = 0;
+    private int $player_id = 0;
 
     /** @Column(type="integer", options={"default" : 0}) */
-    private $access_level = 0;
+    private int $access_level = 0;
 
     /** @Column(type="integer", options={"default" : 0}) */
-    private $last_login = 0;
+    private int $last_login = 0;
 
     /**
      * @ManyToOne(targetEntity="Player")
      * @JoinColumn(name="player_id", referencedColumnName="id")
      */
-    private $player;
+    private PlayerInterface $player;
 
     public function getId(): int
     {

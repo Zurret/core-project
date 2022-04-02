@@ -20,25 +20,25 @@ class StarSystem implements StarSystemInterface
      * @Column(type="integer")
      * @GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private int $id;
 
     /** @Column(type="smallint") * */
-    private $cx = 0;
+    private int $cx = 0;
 
     /** @Column(type="smallint") * */
-    private $cy = 0;
+    private int $cy = 0;
 
     /** @Column(type="integer") * */
-    private $type = 0;
+    private int $type = 0;
 
     /** @Column(type="string") */
-    private $name = '';
+    private string $name = '';
 
     /** @Column(type="smallint") * */
-    private $max_x = 0;
+    private int $max_x = 0;
 
     /** @Column(type="smallint") * */
-    private $max_y = 0;
+    private int $max_y = 0;
 
     public function getId(): int
     {

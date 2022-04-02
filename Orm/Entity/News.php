@@ -19,28 +19,28 @@ class News implements NewsInterface
      * @Column(type="integer")
      * @GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private int $id;
 
     /** @Column(type="string", length=255) */
-    private $title = '';
+    private string $title = '';
 
     /** @Column(type="text") */
-    private $text = '';
+    private string $text = '';
 
     /** @Column(type="integer", nullable=true, options={"default" : null}) */
-    private $author_id = 0;
+    private ?int $author_id = 0;
 
     /** @Column(type="integer", nullable=false, options={"default" : 0}) */
-    private $created_at = 0;
+    private int $created_at = 0;
 
     /** @Column(type="integer", nullable=false, options={"default" : 0}) */
-    private $updated_at = 0;
+    private int $updated_at = 0;
 
     /**
      * @ManyToOne(targetEntity="Player")
      * @JoinColumn(name="author_id", referencedColumnName="id")
      */
-    private $author;
+    private ?PlayerInterface $author;
 
     public function getId(): int
     {

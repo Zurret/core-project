@@ -22,31 +22,31 @@ class Map implements MapInterface
      * @Column(type="integer")
      * @GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private int $id;
 
     /** @Column(type="integer") * */
-    private $cx = 0;
+    private int $cx = 0;
 
     /** @Column(type="integer") * */
-    private $cy = 0;
+    private int $cy = 0;
 
     /** @Column(type="integer") * */
-    private $field_id = 0;
+    private int $field_id = 0;
 
     /** @Column(type="integer", nullable=true) * */
-    private $systems_id = 0;
+    private ?int $systems_id = 0;
 
     /**
      * @ManyToOne(targetEntity="StarSystem")
      * @JoinColumn(name="systems_id", referencedColumnName="id")
      */
-    private $starSystem;
+    private ?StarSystem $starSystem;
 
     /**
      * @ManyToOne(targetEntity="MapField")
      * @JoinColumn(name="field_id", referencedColumnName="id")
      */
-    private $mapField;
+    private ?MapField $mapField;
 
     public function getId(): int
     {

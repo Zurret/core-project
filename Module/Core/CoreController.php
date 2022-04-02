@@ -9,7 +9,6 @@ use Core\Lib\Helper;
 use Core\Lib\Request;
 use Core\Lib\Session;
 use Core\Orm\Entity\UserInterface;
-use Core\Orm\Repository\UserRepositoryInterface;
 use Exception;
 use Noodlehaus\ConfigInterface;
 
@@ -25,24 +24,20 @@ final class CoreController implements CoreControllerInterface
 
     private ?UserInterface $user = null;
 
-    private ?UserRepositoryInterface $userRepository = null;
-
     private array $notification = [];
 
-    private $app;
+    private mixed $app;
 
     public function __construct(
         ConfigInterface $config,
         TemplateInterface $template,
         Auth $auth,
-        Session $session,
-        ?UserRepositoryInterface $userRepository
+        Session $session
     ) {
         $this->config = $config;
         $this->template = $template;
         $this->auth = $auth;
         $this->session = $session;
-        $this->userRepository = $userRepository;
 
         global $app;
         $this->app = $app;
@@ -115,11 +110,17 @@ final class CoreController implements CoreControllerInterface
         return $return;
     }
 
+    /**
+     * @throws Exception
+     */
     public function setToken(): void
     {
         $this->session->setSession('TOKEN', bin2hex(random_bytes(32)));
     }
 
+    /**
+     * @throws Exception
+     */
     public function getToken(): ?string
     {
         if ($this->session->getSession('TOKEN') === null) {
@@ -129,6 +130,9 @@ final class CoreController implements CoreControllerInterface
         return $this->session->getSession('TOKEN');
     }
 
+    /**
+     * @throws Exception
+     */
     public function checkToken(): bool
     {
         if (Request::postString('TOKEN') === $this->session->getSession('TOKEN')) {
@@ -142,6 +146,9 @@ final class CoreController implements CoreControllerInterface
         return false;
     }
 
+    /**
+     * @throws Exception
+     */
     public function getTokenInput(): string
     {
         return '<input type="hidden" name="TOKEN" value="'.$this->getToken().'" required>';

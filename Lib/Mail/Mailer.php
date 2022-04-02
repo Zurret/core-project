@@ -76,8 +76,8 @@ class Mailer
     /**
      * TextFile.txt < Hello, {name}!
      * Example: $this->setMessage('TextFile', ['name' => 'John']);
-     * @param string $message
-     * @param array $data
+     * @param string $templateName
+     * @param array $variables
      */
     public function setMessage(string $templateName, array $variables): void
     {

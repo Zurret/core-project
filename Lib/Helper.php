@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Core\Lib;
 
+use Exception;
+
 class Helper
 {
     public static function removeHTML(string $string): string
     {
-        return (string) strip_tags($string);
+        return strip_tags($string);
     }
 
     public static function isPositivInteger(int $int): bool
@@ -62,7 +64,7 @@ class Helper
             $encrypted = openssl_encrypt($string, 'aes-256-cbc', $key, 0, $iv);
 
             return rtrim(strtr(base64_encode($encrypted.'::'.$iv), '+/', '-_'), '=');
-        } catch (\Exception $e) {
+        } catch (Exception) {
             return false;
         }
     }
@@ -74,7 +76,7 @@ class Helper
             $string = explode('::', $decoded);
 
             return openssl_decrypt($string[0], 'aes-256-cbc', $key, 0, $string[1]);
-        } catch (\Exception $e) {
+        } catch (Exception) {
             return false;
         }
     }

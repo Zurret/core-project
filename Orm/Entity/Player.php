@@ -19,22 +19,22 @@ class Player implements PlayerInterface
      * @Column(type="integer")
      * @GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private int $id;
 
     /** @Column(type="string", length=255, options={"default" : "Kolonist"}) */
-    private $name = 'Kolonist';
+    private string $name = 'Kolonist';
 
     /** @Column(type="integer", options={"default" : 0}) */
-    private $level = 0;
+    private int $level = 0;
 
     /** @Column(type="integer", options={"default" : 100}) */
-    private $external_reputation = 100;
+    private int $external_reputation = 100;
 
     /** @Column(type="integer", options={"default" : 0}) */
-    private $internal_reputation = 0;
+    private int $internal_reputation = 0;
 
     /** @Column(type="boolean", options={"default" : false}) */
-    private $npc = false;
+    private bool $npc = false;
 
     public function getId(): int
     {

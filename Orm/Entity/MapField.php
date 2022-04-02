@@ -20,37 +20,37 @@ class MapField implements MapFieldInterface
      * @Column(type="integer")
      * @GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private int $id;
 
     /** @Column(type="integer") * */
-    private $type = 0;
+    private int $type = 0;
 
     /** @Column(type="boolean") * */
-    private $is_system = false;
+    private bool $is_system = false;
 
     /** @Column(type="smallint") * */
-    private $ecost = 0;
+    private int $ecost = 0;
 
     /** @Column(type="string") */
-    private $name = '';
+    private string $name = '';
 
     /** @Column(type="integer", nullable=true) * */
-    private $colonies_classes_id = 0;
+    private ?int $colonies_classes_id = 0;
 
     /** @Column(type="smallint") * */
-    private $damage = 0;
+    private int $damage = 0;
 
     /** @Column(type="smallint") * */
-    private $x_damage = 0;
+    private int $x_damage = 0;
 
     /** @Column(type="smallint") * */
-    private $x_damage_system = 0;
+    private int $x_damage_system = 0;
 
     /** @Column(type="boolean") * */
-    private $view = false;
+    private bool $view = false;
 
     /** @Column(type="boolean") * */
-    private $passable = false;
+    private bool $passable = false;
 
     public function getId(): int
     {

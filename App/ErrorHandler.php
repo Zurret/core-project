@@ -41,24 +41,23 @@ if ($config->get('debug.enabled')) {
         ]);
     }
 
-    $whoops->prependHandler($handler);
 } else {
     error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
     if (Whoops\Util\Misc::isCommandLine()) {
         $handler = new PlainTextHandler();
     } else {
-        $handler = function (Throwable $e, $inspector, $run) {
+        $handler = function (Throwable $e) {
             // Create a Error HTML page
-            echo '<html><head><title>Error</title></head><body>';
+            echo '<html lang="en"><head><title>Error</title></head><body>';
             echo '<p>'.error_hash($e->getMessage()).' - '.$e->getMessage().'</p>';
             echo '</body></html>';
         };
     }
-    $whoops->prependHandler($handler);
 }
+$whoops->prependHandler($handler);
 
-$whoops->prependHandler(function (Throwable $e, $inspector, $run) use ($logger) {
+$whoops->prependHandler(function (Throwable $e) use ($logger) {
     $logger->error(
         error_hash($e->getMessage()).' - '.$e->getMessage(),
         [

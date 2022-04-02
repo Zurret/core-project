@@ -2,8 +2,11 @@
 
 declare(strict_types=1);
 
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\Console\ConsoleRunner;
+
 require_once __DIR__.'/App/Bootstrap.php';
 
-return \Doctrine\ORM\Tools\Console\ConsoleRunner::createHelperSet(
-    $app->getContainer()->get(\Doctrine\ORM\EntityManagerInterface::class)
+return ConsoleRunner::createHelperSet(
+    $app->getContainer()->get(EntityManagerInterface::class)
 );

@@ -7,6 +7,8 @@ namespace Core\App;
 use Core\Lib\Ubench;
 use DI\Container;
 use DI\ContainerBuilder;
+use DI\DependencyException;
+use DI\NotFoundException;
 use Exception;
 use Noodlehaus\ConfigInterface;
 
@@ -24,12 +26,18 @@ class App
         }
     }
 
+    /**
+     * @throws Exception
+     */
     private function init(): void
     {
         $this->initBenchmark();
         $this->initContainer();
     }
 
+    /**
+     * @throws Exception
+     */
     private function initContainer(): void
     {
         $builder = new ContainerBuilder();
@@ -50,6 +58,10 @@ class App
         return $this->container;
     }
 
+    /**
+     * @throws DependencyException
+     * @throws NotFoundException
+     */
     public function getConfig(string $key): mixed
     {
         return $this->getContainer()->get(ConfigInterface::class)->get($key);

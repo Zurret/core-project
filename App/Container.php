@@ -7,6 +7,18 @@ use Core\Module\Core\CoreController;
 use Core\Module\Core\CoreControllerInterface;
 use Core\Module\Core\Template;
 use Core\Module\Core\TemplateInterface;
+use Core\Orm\Entity\Map;
+use Core\Orm\Entity\MapField;
+use Core\Orm\Entity\News;
+use Core\Orm\Entity\Player;
+use Core\Orm\Entity\StarSystem;
+use Core\Orm\Entity\User;
+use Core\Orm\Repository\MapFieldRepositoryInterface;
+use Core\Orm\Repository\MapRepositoryInterface;
+use Core\Orm\Repository\NewsRepositoryInterface;
+use Core\Orm\Repository\PlayerRepositoryInterface;
+use Core\Orm\Repository\StarSystemRepositoryInterface;
+use Core\Orm\Repository\UserRepositoryInterface;
 use function DI\autowire;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\Configuration;
@@ -71,22 +83,22 @@ return [
      *
      * @url https://www.doctrine-project.org/
      */
-    \Core\Orm\Repository\UserRepositoryInterface::class => function (ContainerInterface $c): \Core\Orm\Repository\UserRepositoryInterface {
-        return $c->get(EntityManagerInterface::class)->getRepository(\Core\Orm\Entity\User::class);
+    UserRepositoryInterface::class => function (ContainerInterface $c): UserRepositoryInterface {
+        return $c->get(EntityManagerInterface::class)->getRepository(User::class);
     },
-    \Core\Orm\Repository\PlayerRepositoryInterface::class => function (ContainerInterface $c): \Core\Orm\Repository\PlayerRepositoryInterface {
-        return $c->get(EntityManagerInterface::class)->getRepository(\Core\Orm\Entity\Player::class);
+    PlayerRepositoryInterface::class => function (ContainerInterface $c): PlayerRepositoryInterface {
+        return $c->get(EntityManagerInterface::class)->getRepository(Player::class);
     },
-    \Core\Orm\Repository\NewsRepositoryInterface::class => function (ContainerInterface $c): \Core\Orm\Repository\NewsRepositoryInterface {
-        return $c->get(EntityManagerInterface::class)->getRepository(\Core\Orm\Entity\News::class);
+    NewsRepositoryInterface::class => function (ContainerInterface $c): NewsRepositoryInterface {
+        return $c->get(EntityManagerInterface::class)->getRepository(News::class);
     },
-    \Core\Orm\Repository\MapRepositoryInterface::class => function (ContainerInterface $c): \Core\Orm\Repository\MapRepositoryInterface {
-        return $c->get(EntityManagerInterface::class)->getRepository(\Core\Orm\Entity\Map::class);
+    MapRepositoryInterface::class => function (ContainerInterface $c): MapRepositoryInterface {
+        return $c->get(EntityManagerInterface::class)->getRepository(Map::class);
     },
-    \Core\Orm\Repository\MapFieldRepositoryInterface::class => function (ContainerInterface $c): \Core\Orm\Repository\MapFieldRepositoryInterface {
-        return $c->get(EntityManagerInterface::class)->getRepository(\Core\Orm\Entity\MapField::class);
+    MapFieldRepositoryInterface::class => function (ContainerInterface $c): MapFieldRepositoryInterface {
+        return $c->get(EntityManagerInterface::class)->getRepository(MapField::class);
     },
-    \Core\Orm\Repository\StarSystemRepositoryInterface::class => function (ContainerInterface $c): \Core\Orm\Repository\StarSystemRepositoryInterface {
-        return $c->get(EntityManagerInterface::class)->getRepository(\Core\Orm\Entity\StarSystem::class);
+    StarSystemRepositoryInterface::class => function (ContainerInterface $c): StarSystemRepositoryInterface {
+        return $c->get(EntityManagerInterface::class)->getRepository(StarSystem::class);
     },
 ];

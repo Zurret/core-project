@@ -82,7 +82,7 @@ class Auth
     public function isLoggedIn(): bool
     {
         // TODO: Implement Cookie check
-        return $this->getUser() === null ? false : true;
+        return !($this->getUser() === null);
     }
 
     public function checkAccessLevel(int $level): bool

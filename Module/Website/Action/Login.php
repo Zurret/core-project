@@ -50,7 +50,7 @@ class Login
      *
      * @param mixed $email
      * @param mixed $password
-     *
+     * @param bool $save_login
      * @return bool
      */
     private function checkLogin(string $email, string $password, bool $save_login): bool
