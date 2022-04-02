@@ -25,9 +25,8 @@ class ShowTutorialPage
         $stepId = max(1, $stepId);
 
         $this->core->setTemplateTitle('Tutorial');
-        $this->core->setTemplateFile('Tutorial/showTutorialPage.twig');
         $this->core->setTemplateVar('tutorialId', $tutorialId);
         $this->core->setTemplateVar('stepId', $stepId);
-        $this->core->render();
+        $this->core->render('Tutorial/showTutorialPage.twig');
     }
 }

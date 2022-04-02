@@ -24,7 +24,6 @@ class ShowLoginPage
     public function __invoke(): void
     {
         $this->core->setTemplateTitle('Login');
-        $this->core->setTemplateFile('Index/showLoginPage.twig');
-        $this->core->render();
+        $this->core->render('Index/showLoginPage.twig');
     }
 }

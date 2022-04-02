@@ -28,7 +28,6 @@ class ShowIndexPage
     {
         $this->core->setTemplateTitle('Startseite');
         $this->core->setTemplateVar('news_list', $this->news->getRecent());
-        $this->core->setTemplateFile('Index/showHomePage.twig');
-        $this->core->render();
+        $this->core->render('Index/showHomePage.twig');
     }
 }

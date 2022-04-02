@@ -51,7 +51,7 @@ final class CoreController implements CoreControllerInterface
     /**
      * @throws Exception
      */
-    public function render(): void
+    public function render(string $template): void
     {
 
         /**
@@ -66,9 +66,11 @@ final class CoreController implements CoreControllerInterface
         $this->setTemplateVar('benchmark', $this->getBenchmarkResult());
         $this->setTemplateVar('infos', $this->getNotification());
 
+        
         /**
          * Render page.
          */
+        $this->template->setTemplate($template);
         ob_start();
         echo $this->template->parse();
         ob_end_flush();
@@ -143,11 +145,6 @@ final class CoreController implements CoreControllerInterface
     public function getTokenInput(): string
     {
         return '<input type="hidden" name="TOKEN" value="'.$this->getToken().'" required>';
-    }
-
-    public function setTemplateFile(string $tpl): void
-    {
-        $this->template->setTemplate($tpl);
     }
 
     public function setTemplateVar(string $key, mixed $variable): void

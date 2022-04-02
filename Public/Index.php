@@ -29,8 +29,7 @@ $route = $dispatcher->dispatch($httpMethod, $uri);
 switch ($route[0]) {
     case FastRoute\Dispatcher::NOT_FOUND:
         $core->setTemplateTitle('404 - Page not found');
-        $core->setTemplateFile('Index/show404Page.twig');
-        $core->render();
+        $core->render('Index/show404Page.twig');
         break;
 
     case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:

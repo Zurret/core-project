@@ -25,7 +25,6 @@ class ShowMaindeskPage
     public function __invoke(): void
     {
         $this->core->setTemplateTitle('Startseite');
-        $this->core->setTemplateFile('Maindesk/showMaindeskPage.twig');
-        $this->core->render();
+        $this->core->render('Maindesk/showMaindeskPage.twig');
     }
 }

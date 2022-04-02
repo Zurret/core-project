@@ -8,7 +8,14 @@ use FastRoute\RouteCollector;
  * @readme https://github.com/nikic/FastRoute/blob/master/README.md
  */
 $dispatcher = FastRoute\simpleDispatcher(static function (RouteCollector $r): void {
+    /* Website */
     $r->addRoute('GET', '/', 'Core\Module\Website\View\ShowIndexPage');
+    $r->addRoute('GET', '/cookies', 'Core\Module\Website\View\ShowCookiesPage');
+    $r->addRoute('GET', '/privacy', 'Core\Module\Website\View\ShowPrivacyPage');
+    $r->addRoute('GET', '/imprint', 'Core\Module\Website\View\ShowImprintPage');
+    /* @ToDo */
+    //$r->addRoute('GET', '/page/{pageId:\d+}', 'Core\Module\Website\View\ShowLoadPage');
+    /* Authentication */
     $r->addRoute('GET', '/register', 'Core\Module\Website\View\ShowRegistrationPage');
     $r->addRoute('POST', '/register', ['Core\Module\Website\Action\Register', 'doRegistration']);
     $r->addRoute('GET', '/login', 'Core\Module\Website\View\ShowLoginPage');

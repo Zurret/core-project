@@ -6,22 +6,22 @@ namespace Core\Module\Website\View;
 
 use Core\Module\Core\CoreControllerInterface;
 
-class ShowRegistrationPage
+class ShowCookiesPage
 {
     private CoreControllerInterface $core;
 
     public function __construct(
-        CoreControllerInterface $core,
+        CoreControllerInterface $core
     ) {
         $this->core = $core;
     }
 
     /**
-     * @route GET /register
+     * @route GET /
      */
     public function __invoke(): void
     {
-        $this->core->setTemplateTitle('Registration');
-        $this->core->render('Index/showRegistrationPage.twig');
+        $this->core->setTemplateTitle('Cookies');
+        $this->core->render('Index/showCookiesPage.twig');
     }
 }

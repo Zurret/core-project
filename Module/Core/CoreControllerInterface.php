@@ -9,7 +9,7 @@ use Core\Lib\Session;
 
 interface CoreControllerInterface
 {
-    public function render(): void;
+    public function render(string $template): void;
 
     public function Auth(): Auth;
 
@@ -30,8 +30,6 @@ interface CoreControllerInterface
     public function checkToken(): bool;
 
     public function getTokenInput(): string;
-
-    public function setTemplateFile(string $tpl): void;
 
     public function setTemplateVar(string $key, mixed $variable): void;
 
