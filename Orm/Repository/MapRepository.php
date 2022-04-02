@@ -30,7 +30,8 @@ final class MapRepository extends EntityRepository implements MapRepositoryInter
             ->setParameter('cxMin', $cx - $range)
             ->setParameter('cxMax', $cx + $range)
             ->setParameter('cyMin', $cy - $range)
-            ->setParameter('cyMax', $cy + $range);
+            ->setParameter('cyMax', $cy + $range)
+            ->orderBy('m.id', 'ASC');
 
         return $qb->getQuery()->getResult();
     }
