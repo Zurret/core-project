@@ -104,6 +104,7 @@ function generatePopup(title, content, x = null, y = null) {
   popupClose.style.padding = '3px 6px'
   popupClose.style.marginTop = '-4px'
   popupClose.style.marginRight = '-4px'
+  popupClose.style.marginLeft = '10px'
   // Set Event Listeners
   popupClose.onmouseover = function () {
     popupClose.style.backgroundColor = '#8f2d27'
