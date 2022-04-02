@@ -31,6 +31,9 @@ class User implements UserInterface
     /** @Column(type="string", length=255, nullable=true)) */
     private ?string $session = '';
 
+    /** @Column(type="string", length=255, nullable=true)) */
+    private ?string $cookie = '';
+
     /** @Column(type="integer", nullable=false, options={"default" : 0}) */
     private int $player_id = 0;
 
@@ -75,14 +78,26 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getSessionString(): string
+    public function getSessionString(): ?string
     {
         return $this->session;
     }
 
-    public function setSessionString(string $session): UserInterface
+    public function setSessionString(?string $session): UserInterface
     {
         $this->session = $session;
+
+        return $this;
+    }
+
+    public function getCookieString(): ?string
+    {
+        return $this->cookie;
+    }
+
+    public function setCookieString(?string $cookie): UserInterface
+    {
+        $this->cookie = $cookie;
 
         return $this;
     }

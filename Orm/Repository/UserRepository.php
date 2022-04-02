@@ -45,4 +45,12 @@ final class UserRepository extends EntityRepository implements UserRepositoryInt
             'session' => $session,
         ]);
     }
+
+    public function getByIdAndCookie(int $id, string $cookie): ?UserInterface
+    {
+        return $this->findOneBy([
+            'id'      => $id,
+            'cookie'  => $cookie,
+        ]);
+    }
 }

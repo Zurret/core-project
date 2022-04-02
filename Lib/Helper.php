@@ -63,7 +63,7 @@ class Helper
             $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
             $encrypted = openssl_encrypt($string, 'aes-256-cbc', $key, 0, $iv);
 
-            return rtrim(strtr(base64_encode($encrypted.'::'.$iv), '+/', '-_'), '=');
+            return rtrim(strtr(base64_encode($encrypted . '::' . $iv), '+/', '-_'), '=');
         } catch (Exception) {
             return false;
         }
@@ -79,5 +79,10 @@ class Helper
         } catch (Exception) {
             return false;
         }
+    }
+
+    public static function clearEmojis(string $string): string
+    {
+        return preg_replace('/[\x{1F600}-\x{1F64F}]/u', '', $string);
     }
 }

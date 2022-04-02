@@ -16,9 +16,13 @@ interface UserInterface
 
     public function setPassword(string $password): UserInterface;
 
-    public function getSessionString(): string;
+    public function getSessionString(): ?string;
 
-    public function setSessionString(string $session): UserInterface;
+    public function setSessionString(?string $session): UserInterface;
+
+    public function getCookieString(): ?string;
+
+    public function setCookieString(?string $cookie): UserInterface;
 
     public function getPlayer(): PlayerInterface;
 

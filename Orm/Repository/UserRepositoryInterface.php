@@ -18,4 +18,6 @@ interface UserRepositoryInterface extends ObjectRepository
     public function getByEmail(string $email): ?UserInterface;
 
     public function getByIdAndSession(int $id, string $session): ?UserInterface;
+
+    public function getByIdAndCookie(int $id, string $cookie): ?UserInterface;
 }
