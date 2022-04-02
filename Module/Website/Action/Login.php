@@ -73,6 +73,9 @@ class Login
         }
 
         if ($this->core->Auth()->login($email, $password)) {
+            if($save_login) {
+                $this->core->Auth()->setRememberMe();
+            }
             $this->core->setNotification('Login erfolgreich');
 
             return true;

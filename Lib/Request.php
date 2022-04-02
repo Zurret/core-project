@@ -20,7 +20,7 @@ class Request
     {
         return $_FILES[$key] ?? null;
     }
-    
+
     public static function getString(string $key): ?string
     {
         return self::getQuery($key) ?? null;
@@ -85,6 +85,4 @@ class Request
     {
         return self::getFile($key)['size'] ?? null;
     }
-
-
 }

@@ -39,13 +39,13 @@ class Auth
 
         if ($user && $this->checkPassword($password, $user->getPassword())) {
             $this->setUser($user);
-            $session = $this->hashPassword(microtime().'-'.$this->getUser()->getId());
+            $session = $this->hashPassword(microtime() . '-' . $this->getUser()->getId());
             $this->getUser()->setSessionString($session);
             $this->getUser()->setLastLogin(time());
 
-            $this->session->set('ACCOUNT_ID', $this->getUser()->getId());
-            $this->session->set('ACCOUNT_SSTR', $session);
-            $this->session->set('LOGIN', true);
+            $this->session->setSession('ACCOUNT_ID', $this->getUser()->getId());
+            $this->session->setSession('ACCOUNT_SSTR', $session);
+            $this->session->setSession('LOGIN', true);
 
             $this->userRepository->save($this->getUser());
 
@@ -57,7 +57,11 @@ class Auth
 
     public function logout(): void
     {
-        $this->session->deleteAll();
+        $this->session->deleteAllSessions();
+        $this->session->deleteCookie('USERID');
+        $this->session->deleteCookie('SSTR');
+        $this->session->deleteCookie('LOGIN');
+        $this->user = null;
         header('Location: /');
     }
 
@@ -68,7 +72,7 @@ class Auth
 
     public function getUser(): ?UserInterface
     {
-        if ($this->session->get('LOGIN') && $user = $this->userRepository->getByIdAndSession($this->session->get('ACCOUNT_ID') ?? 0, $this->session->get('ACCOUNT_SSTR') ?? '')) {
+        if ($this->session->getSession('LOGIN') && $user = $this->userRepository->getByIdAndSession($this->session->getSession('ACCOUNT_ID') ?? 0, $this->session->getSession('ACCOUNT_SSTR') ?? '')) {
             $this->setUser($user);
         }
 
@@ -77,6 +81,7 @@ class Auth
 
     public function isLoggedIn(): bool
     {
+        // TODO: Implement Cookie check
         return $this->getUser() === null ? false : true;
     }
 
@@ -90,5 +95,12 @@ class Auth
         if (!$this->checkAccessLevel($level)) {
             die('Access denied');
         }
+    }
+
+    public function setRememberMe(): void
+    {
+        $this->session->setCookie('LOGIN', true, time() + 60 * 60 * 24 * 7);
+        $this->session->setCookie('USERID', $this->getUser()->getId(), time() + 60 * 60 * 24 * 7);
+        $this->session->setCookie('SSTR', $this->getUser()->getSessionString(), time() + 60 * 60 * 24 * 7);
     }
 }

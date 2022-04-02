@@ -106,12 +106,12 @@ final class CoreController implements CoreControllerInterface
     public function setNotification(mixed $notification): void
     {
         $this->notification[] = $notification;
-        $this->session->set('INFOS', $this->notification);
+        $this->session->setSession('INFOS', $this->notification);
     }
 
     public function getNotification(): ?array
     {
-        $return = $this->session->get('INFOS');
+        $return = $this->session->getSession('INFOS');
         $this->session->delete('INFOS');
 
         return $return;
@@ -119,21 +119,21 @@ final class CoreController implements CoreControllerInterface
 
     public function setToken(): void
     {
-        $this->session->set('TOKEN', bin2hex(random_bytes(32)));
+        $this->session->setSession('TOKEN', bin2hex(random_bytes(32)));
     }
 
     public function getToken(): ?string
     {
-        if ($this->session->get('TOKEN') === null) {
+        if ($this->session->getSession('TOKEN') === null) {
             $this->setToken();
         }
 
-        return $this->session->get('TOKEN');
+        return $this->session->getSession('TOKEN');
     }
 
     public function checkToken(): bool
     {
-        if (Request::postString('TOKEN') === $this->session->get('TOKEN')) {
+        if (Request::postString('TOKEN') === $this->session->getSession('TOKEN')) {
             $this->setToken();
 
             return true;

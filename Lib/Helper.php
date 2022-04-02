@@ -67,5 +67,4 @@ class Helper
         list($encrypted_data, $iv) = explode('::', base64_decode($string), 2);
         return openssl_decrypt($encrypted_data, 'aes-256-cbc', $key, 0, $iv);
     }
-    
 }
