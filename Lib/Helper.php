@@ -60,7 +60,7 @@ class Helper
         try {
             $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
             $encrypted = openssl_encrypt($string, 'aes-256-cbc', $key, 0, $iv);
-            return base64_encode($encrypted . '::' . $iv);
+            return rtrim(strtr(base64_encode($encrypted . '::' . $iv), '+/', '-_'), '=');;
         } catch (\Exception $e) {
             return false;
         }
@@ -69,7 +69,7 @@ class Helper
     public static function decrypt(string $string, string $key): string|bool
     {
         try {
-            $decoded = base64_decode($string);
+            $decoded = base64_decode(str_pad(strtr($string, '-_', '+/'), strlen($string) % 4, '=', STR_PAD_RIGHT));
             $string = explode('::', $decoded);
             return openssl_decrypt($string[0], 'aes-256-cbc', $key, 0, $string[1]);
         } catch (\Exception $e) {
