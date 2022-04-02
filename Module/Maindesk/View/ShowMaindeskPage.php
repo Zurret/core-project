@@ -5,23 +5,23 @@ declare(strict_types=1);
 namespace Core\Module\Maindesk\View;
 
 use Core\Module\Core\CoreControllerInterface;
-use Core\Orm\Repository\UserRepositoryInterface;
+use Core\Orm\Repository\MapRepositoryInterface;
 
 class ShowMaindeskPage
 {
     private CoreControllerInterface $core;
 
-    private UserRepositoryInterface $user;
+    private MapRepositoryInterface $map;
 
     public function __construct(
         CoreControllerInterface $core,
-        UserRepositoryInterface $user
+        MapRepositoryInterface $map
     ) {
         $this->core = $core;
-        $this->user = $user;
         if (!$this->core->Auth()->isLoggedIn()) {
             $this->core->redirect('/login');
         }
+        $this->map = $map;
     }
 
     /**
@@ -31,7 +31,10 @@ class ShowMaindeskPage
     {
         $this->core->setTemplateTitle('Startseite');
 
-        $this->core->setTemplateVar('users', $this->user->findAll());
+        $scan_range = 2;
+
+        $this->core->setTemplateVar('map', $this->map->findByScanRange(10, 52, $scan_range));
+        $this->core->setTemplateVar('scan_range', $scan_range);
         $this->core->setTemplateFile('Game/Maindesk.twig');
         $this->core->render();
     }

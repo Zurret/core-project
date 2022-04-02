@@ -80,4 +80,13 @@ return [
     \Core\Orm\Repository\NewsRepositoryInterface::class => function (ContainerInterface $c): \Core\Orm\Repository\NewsRepositoryInterface {
         return $c->get(EntityManagerInterface::class)->getRepository(\Core\Orm\Entity\News::class);
     },
+    \Core\Orm\Repository\MapRepositoryInterface::class => function (ContainerInterface $c): \Core\Orm\Repository\MapRepositoryInterface {
+        return $c->get(EntityManagerInterface::class)->getRepository(\Core\Orm\Entity\Map::class);
+    },
+    \Core\Orm\Repository\MapFieldRepositoryInterface::class => function (ContainerInterface $c): \Core\Orm\Repository\MapFieldRepositoryInterface {
+        return $c->get(EntityManagerInterface::class)->getRepository(\Core\Orm\Entity\MapField::class);
+    },
+    \Core\Orm\Repository\StarSystemRepositoryInterface::class => function (ContainerInterface $c): \Core\Orm\Repository\StarSystemRepositoryInterface {
+        return $c->get(EntityManagerInterface::class)->getRepository(\Core\Orm\Entity\StarSystem::class);
+    },
 ];

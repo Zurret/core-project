@@ -1,11 +1,11 @@
 {% extends "Layout/game.twig" %}
 {% block content %}
 
-    <br />
-
-    <a href="#" onclick="generatePopup('Test Titel', 'Denke das geht so!');">Popup Test</a>
-
-    <br />
-    <a href="#" onclick="generatePopupWindow('/api/popuptest');">Popup Test with URL</a>
+    {% set fields = 0 %}
+    {% for map_field in map %}
+        <img src="/assets/map/{{ map_field.getMapField.getId }}.png" alt="{{ map_field.getMapField.getName }}" onclick="generatePopup('{{ map_field.getMapField.getName }}', '{{ map_field.getCx }}|{{ map_field.getCy }}')">
+        {% set fields = fields + 1 %}
+        {% if fields == (scan_range * 2) + 1 %}<br />  {% set fields = 0 %} {% endif %}
+    {% endfor %}
 
 {% endblock %}
