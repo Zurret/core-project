@@ -24,7 +24,8 @@ class ShowPopupTest
      */
     public function __invoke(): void
     {
-        exit('<title>Popup Test</title><h1>Popup Test</h1>');
+        $this->core->setTemplateTitle('Startseite');
+        $this->core->render('Api/showPopupTest');
     }
 
 }
