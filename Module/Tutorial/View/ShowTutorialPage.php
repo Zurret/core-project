@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Core\Module\Maindesk\View;
+namespace Core\Module\Tutorial\View;
 
 use Core\Module\Core\CoreControllerInterface;
 
-class ShowMaindeskPage
+class ShowTutorialPage
 {
     private CoreControllerInterface $core;
 
@@ -19,14 +19,12 @@ class ShowMaindeskPage
         }
     }
 
-    /**
-     * @route GET /
-     */
-    public function __invoke(): void
+    public function __invoke(?int $tutorialId = null, ?int $stepId = null): void
     {
         $this->core->setTemplateTitle('Startseite');
-        $this->core->setTemplateFile('Maindesk/showMaindeskPage.twig');
+        $this->core->setTemplateFile('Tutorial/showTutorialPage.twig');
+        $this->core->setTemplateVar('tutorialId', $tutorialId);
+        $this->core->setTemplateVar('stepId', $stepId);
         $this->core->render();
     }
-
 }

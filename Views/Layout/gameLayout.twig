@@ -25,12 +25,12 @@
         <header id="header">
             <nav id="nav">
                 <ul>
-                    <li><a href="/game/maindesk">Hauptbildschirm</a></li>
-                    <li><a href="/game/colonies">Kolonien</a></li>
-                    <li><a href="/game/ships">Schiffe</a></li>
-                    <li><a href="/game/stations">Stationen</a></li>
-                    <li><a href="/game/research">Forschung</a></li>
-                    <li><a href="/logout/{{ core_token }}" onclick="return confirm('Willst du dich wirklich ausloggen?');">Ausloggen</a></li>
+                    <li><a href="{{ url('/game/maindesk') }}">Hauptbildschirm</a></li>
+                    <li><a href="{{ url('/game/colonies') }}">Kolonien</a></li>
+                    <li><a href="{{ url('/game/ships') }}">Schiffe</a></li>
+                    <li><a href="{{ url('/game/stations') }}">Stationen</a></li>
+                    <li><a href="{{ url('/game/research') }}">Forschung</a></li>
+                    <li><a href="{{ url('/logout/' ~ core_token) }}" onclick="return confirm('Willst du dich wirklich ausloggen?');">Ausloggen</a></li>
                 </ul>
                 <div class="clear"></div>
             </nav>

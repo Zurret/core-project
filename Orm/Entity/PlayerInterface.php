@@ -33,4 +33,6 @@ interface PlayerInterface
     public function isNpc(): bool;
 
     public function setNpc(bool $npc): PlayerInterface;
+
+    public function isNewbie(): bool;
 }

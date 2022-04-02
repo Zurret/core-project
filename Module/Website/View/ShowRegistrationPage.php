@@ -22,7 +22,7 @@ class ShowRegistrationPage
     public function __invoke(): void
     {
         $this->core->setTemplateTitle('Registration');
-        $this->core->setTemplateFile('Index/Registration.twig');
+        $this->core->setTemplateFile('Index/showRegistrationPage.twig');
         $this->core->render();
     }
 

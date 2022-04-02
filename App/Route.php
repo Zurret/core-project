@@ -16,6 +16,10 @@ $dispatcher = FastRoute\simpleDispatcher(static function (RouteCollector $r): vo
     $r->addRoute('GET', '/logout/{token}', ['Core\Module\Website\Action\Logout', 'doLogout']);
     $r->addGroup('/game', function (RouteCollector $r) {
         $r->addRoute('GET', '/maindesk', 'Core\Module\Maindesk\View\ShowMaindeskPage');
+        /* Tutorial */
+        $r->addGroup('/tutorial', function (RouteCollector $r) {
+            $r->addRoute('GET', '[/{tutorialId:\d+}[/{stepId:\d+}]]', 'Core\Module\Tutorial\View\ShowTutorialPage');
+        });
     });
     $r->addGroup('/api', function (RouteCollector $r) {
         $r->addRoute('GET', '/popuptest', 'Core\Module\Api\ShowPopupTest');

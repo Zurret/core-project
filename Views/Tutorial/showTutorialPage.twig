@@ -1,0 +1,14 @@
+{% extends "Layout/gameLayout.twig" %}
+{% block content %}
+
+<p>
+    Mensch da muss ich mir dann noch was ausdenken!
+    {% if tutorialId %}
+    <br /><br /><strong>tutorialId:</strong> {{ tutorialId }}
+    {% endif %}
+    {% if stepId %}
+    <br /><strong>stepId:</strong> {{ stepId }}
+    {% endif %}
+</p>
+
+{% endblock %}

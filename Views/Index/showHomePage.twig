@@ -1,4 +1,4 @@
-{% extends "Layout/web.twig" %}
+{% extends "Layout/webLayout.twig" %}
 {% block content %}
 Content of the page...
 
@@ -8,7 +8,7 @@ Content of the page...
     <div class="text">{{ news.getShortText }}</div>
     {% if news.getText|length > 200 %}
     <div class="readmore">
-        <a href="#{{ news.getId }}">Mehr lesen</a>
+        <a href="{{ url('#{{ news.getId }}') }}">Mehr lesen</a>
     </div>
     {% endif %}
 </div>

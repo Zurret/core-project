@@ -119,4 +119,9 @@ class Player implements PlayerInterface
 
         return $this;
     }
+
+    public function isNewbie(): bool
+    {
+        return (bool) $this->level < 1;
+    }
 }

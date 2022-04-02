@@ -1,3 +1,17 @@
+<!-- 
+$scan_range = 5;
+$x = 50;
+$y = 40;
+
+$this->core->setTemplateVar('map', $this->map->findByScanRange($x, $y, $scan_range));
+$this->core->setTemplateVar('scan_range', $scan_range);
+$this->core->setTemplateVar('cx', $x);
+$this->core->setTemplateVar('cy', $y);
+
+{%include 'Game/_Include/_map.twig'%}
+
+-->
+
 <style>
     table {
         border-collapse: separate;
