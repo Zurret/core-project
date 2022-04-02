@@ -33,7 +33,7 @@ class App
     private function initContainer(): void
     {
         $builder = new ContainerBuilder();
-        $builder->addDefinitions(__DIR__ . '/Container.php');
+        $builder->addDefinitions(__DIR__.'/Container.php');
 
         $this->container = $builder->build();
     }

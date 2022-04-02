@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Core\Orm\Entity;
 
-use Core\Orm\Repository\MapRepositoryInterface;
-use Core\Orm\Repository\StarSystemMapRepositoryInterface;
-
 /**
  * @Entity(repositoryClass="Core\Orm\Repository\StarSystemRepository")
  * @Table(
@@ -18,7 +15,6 @@ use Core\Orm\Repository\StarSystemMapRepositoryInterface;
  **/
 class StarSystem implements StarSystemInterface
 {
-    
     /**
      * @Id
      * @Column(type="integer")

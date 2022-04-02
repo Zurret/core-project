@@ -30,5 +30,4 @@ class ShowTutorialPage
         $this->core->setTemplateVar('stepId', $stepId);
         $this->core->render();
     }
-    
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Core\Orm\Repository;
 
-use Doctrine\Persistence\ObjectRepository;
 use Core\Orm\Entity\MapInterface;
+use Doctrine\Persistence\ObjectRepository;
 
 interface MapRepositoryInterface extends ObjectRepository
 {

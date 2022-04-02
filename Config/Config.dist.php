@@ -13,7 +13,7 @@ return [
     ],
     'debug' => [
         'enabled'   => true,
-        'logs_path' => __DIR__ . '/../Logs',
+        'logs_path' => __DIR__.'/../Logs',
         'loglevel'  => 7,
     ],
     'core' => [
@@ -22,8 +22,8 @@ return [
         'secret'        => 'd4d89w48494g894ht9r&4f89e',
         'base_url'      => 'http://localhost/',
         'encrypt_url'   => false,
-        'root'          => __DIR__ . '/../',
-        'cache'         => __DIR__ . '/../Cache',
-        'template'      => __DIR__ . '/../Views',
+        'root'          => __DIR__.'/../',
+        'cache'         => __DIR__.'/../Cache',
+        'template'      => __DIR__.'/../Views',
     ],
 ];

@@ -19,7 +19,7 @@ final class MapRepository extends EntityRepository implements MapRepositoryInter
 
         return $qb->getQuery()->getOneOrNullResult();
     }
-    
+
     public function findByScanRange(int $cx, int $cy, int $range): array
     {
         $qb = $this->createQueryBuilder('m');
