@@ -5,7 +5,7 @@ $dispatcher = require_once __DIR__ . '/../App/Route.php';
 
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
-
+$core = $app->getContainer()->get(\Core\Module\Core\CoreControllerInterface::class);
 
 // Strip query string (?foo=bar) and decode URI
 if (false !== $pos = strpos($uri, '?')) {
@@ -28,7 +28,9 @@ $route = $dispatcher->dispatch($httpMethod, $uri);
 
 switch ($route[0]) {
     case FastRoute\Dispatcher::NOT_FOUND:
-        echo '404 Not Found';
+        $core->setTemplateTitle('404 - Page not found');
+        $core->setTemplateFile('Index/show404Page.twig');
+        $core->render();
         break;
 
     case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
