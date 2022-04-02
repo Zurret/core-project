@@ -12,13 +12,13 @@ $whoops = new Run();
 
 $logger = new Monolog\Logger('core');
 $logger->pushHandler(
-    new Monolog\Handler\StreamHandler($config->get('debug.logs_path') . '/' . date('d.m.Y') . '.log')
+    new Monolog\Handler\StreamHandler($config->get('debug.logs_path').'/'.date('d.m.Y').'.log')
 );
 
 // Function to create a hash of the error message
 function error_hash(string $message): string
 {
-    return '[' . substr(hash('sha256', $message), 0, 12) . ']';
+    return '['.substr(hash('sha256', $message), 0, 12).']';
 }
 
 if ($config->get('debug.enabled')) {
@@ -29,7 +29,7 @@ if ($config->get('debug.enabled')) {
     } else {
         $handler = new PrettyPageHandler();
         $handler->setEditor('vscode');
-        $handler->setPageTitle('Error - ' . $config->get('core.name'));
+        $handler->setPageTitle('Error - '.$config->get('core.name'));
         $handler->addDataTable('Core', [
             'Core Version'  => $config->get('core.version'),
             'Core Name'     => $config->get('core.name'),
@@ -51,7 +51,7 @@ if ($config->get('debug.enabled')) {
         $handler = function (Throwable $e, $inspector, $run) {
             // Create a Error HTML page
             echo '<html><head><title>Error</title></head><body>';
-            echo '<p>' . error_hash($e->getMessage()) . ' - ' . $e->getMessage() . '</p>';
+            echo '<p>'.error_hash($e->getMessage()).' - '.$e->getMessage().'</p>';
             echo '</body></html>';
         };
     }
@@ -60,16 +60,15 @@ if ($config->get('debug.enabled')) {
 
 $whoops->prependHandler(function (Throwable $e, $inspector, $run) use ($logger) {
     $logger->error(
-        error_hash($e->getMessage()) . ' - ' . $e->getMessage(),
+        error_hash($e->getMessage()).' - '.$e->getMessage(),
         [
-            'file' => $e->getFile(),
-            'line' => $e->getLine(),
-            'trace' => $e->getTrace()
+            'file'  => $e->getFile(),
+            'line'  => $e->getLine(),
+            'trace' => $e->getTrace(),
         ]
     );
 });
 $whoops->register();
-
 
 // Test the error handler
 // throw new Exception("Something broke!");

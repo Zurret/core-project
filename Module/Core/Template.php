@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Core\Module\Core;
 
+use Core\Lib\Helper;
 use Noodlehaus\ConfigInterface;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
-use Core\Lib\Helper;
 
 final class Template implements TemplateInterface
 {
@@ -61,6 +61,7 @@ final class Template implements TemplateInterface
                 if (is_null($key)) {
                     $key = $this->config->get('core.secret');
                 }
+
                 return Helper::encrypt((string) $src, (string) $key);
             }
         ));
@@ -71,6 +72,7 @@ final class Template implements TemplateInterface
                 if (is_null($key)) {
                     $key = $this->config->get('core.secret');
                 }
+
                 return Helper::decrypt((string) $src, (string) $key);
             }
         ));
@@ -79,7 +81,7 @@ final class Template implements TemplateInterface
             'url',
             function ($src): string {
                 if ($this->config->get('core.encrypt_url')) {
-                    return (string) $this->config->get('core.base_url') . Helper::encrypt($src, $this->config->get('core.secret'));
+                    return (string) $this->config->get('core.base_url').Helper::encrypt($src, $this->config->get('core.secret'));
                 } else {
                     return (string) $src;
                 }

@@ -19,7 +19,7 @@ use Psr\Container\ContainerInterface;
 
 return [
     ConfigInterface::class => static function (): ConfigInterface {
-        $path = __DIR__ . '/../Config/';
+        $path = __DIR__.'/../Config/';
 
         return new Config(
             [
@@ -39,9 +39,9 @@ return [
         $emConfig->setAutoGenerateProxyClasses((bool) $config->get('debug.enabled'));
         $emConfig->setMetadataCache($cacheDriver);
         $emConfig->setQueryCache($cacheDriver);
-        $driverImpl = $emConfig->newDefaultAnnotationDriver(__DIR__ . '/../Orm/Entity/');
+        $driverImpl = $emConfig->newDefaultAnnotationDriver(__DIR__.'/../Orm/Entity/');
         $emConfig->setMetadataDriverImpl($driverImpl);
-        $emConfig->setProxyDir(__DIR__ . '/../Orm/Proxy/');
+        $emConfig->setProxyDir(__DIR__.'/../Orm/Proxy/');
         $emConfig->setProxyNamespace($config->get('db.proxy_namespace'));
 
         $manager = EntityManager::create(

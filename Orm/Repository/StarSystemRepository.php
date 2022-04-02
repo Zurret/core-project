@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Core\Orm\Repository;
 
-use Core\Orm\Entity\StarSystem;
 use Core\Orm\Entity\StarSystemInterface;
 use Doctrine\ORM\EntityRepository;
 

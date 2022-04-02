@@ -25,5 +25,4 @@ class ShowRegistrationPage
         $this->core->setTemplateFile('Index/showRegistrationPage.twig');
         $this->core->render();
     }
-
 }

@@ -23,10 +23,10 @@ class News implements NewsInterface
 
     /** @Column(type="string", length=255) */
     private $title = '';
-    
+
     /** @Column(type="text") */
     private $text = '';
-    
+
     /** @Column(type="integer", nullable=true, options={"default" : null}) */
     private $author_id = 0;
 
@@ -55,12 +55,13 @@ class News implements NewsInterface
     public function setTitle(string $title): NewsInterface
     {
         $this->title = $title;
+
         return $this;
     }
 
     public function getShortText(int $length = 200): string
     {
-        return (strlen($this->text) > $length) ? substr($this->text, 0, $length) . '...' : $this->text;
+        return (strlen($this->text) > $length) ? substr($this->text, 0, $length).'...' : $this->text;
     }
 
     public function getText(): string
@@ -71,6 +72,7 @@ class News implements NewsInterface
     public function setText(string $text): NewsInterface
     {
         $this->text = $text;
+
         return $this;
     }
 
@@ -82,6 +84,7 @@ class News implements NewsInterface
     public function setCreatedAt(int $created_at): NewsInterface
     {
         $this->created_at = $created_at;
+
         return $this;
     }
 
@@ -93,6 +96,7 @@ class News implements NewsInterface
     public function setUpdatedAt(int $updated_at): NewsInterface
     {
         $this->updated_at = $updated_at;
+
         return $this;
     }
 
@@ -104,7 +108,7 @@ class News implements NewsInterface
     public function setAuthor(PlayerInterface $author): NewsInterface
     {
         $this->author = $author;
+
         return $this;
     }
-    
 }

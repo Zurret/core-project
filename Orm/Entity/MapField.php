@@ -157,4 +157,3 @@ class MapField implements MapFieldInterface
         $this->passable = $passable;
     }
 }
-

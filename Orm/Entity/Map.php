@@ -15,7 +15,6 @@ namespace Core\Orm\Entity;
  *     }
  * )
  **/
-
 class Map implements MapInterface
 {
     /**
@@ -36,7 +35,7 @@ class Map implements MapInterface
 
     /** @Column(type="integer", nullable=true) * */
     private $systems_id = 0;
-    
+
     /**
      * @ManyToOne(targetEntity="StarSystem")
      * @JoinColumn(name="systems_id", referencedColumnName="id")
@@ -74,7 +73,6 @@ class Map implements MapInterface
         $this->cy = $cy;
     }
 
-
     public function getStarSystem(): ?StarSystem
     {
         return $this->starSystem;
@@ -94,5 +92,4 @@ class Map implements MapInterface
     {
         $this->mapField = $mapField;
     }
-
 }

@@ -28,5 +28,4 @@ class ShowMaindeskPage
         $this->core->setTemplateFile('Maindesk/showMaindeskPage.twig');
         $this->core->render();
     }
-
 }

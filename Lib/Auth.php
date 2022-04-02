@@ -39,7 +39,7 @@ class Auth
 
         if ($user && $this->checkPassword($password, $user->getPassword())) {
             $this->setUser($user);
-            $session = $this->hashPassword(microtime() . '-' . $this->getUser()->getId());
+            $session = $this->hashPassword(microtime().'-'.$this->getUser()->getId());
             $this->getUser()->setSessionString($session);
             $this->getUser()->setLastLogin(time());
 
@@ -93,7 +93,7 @@ class Auth
     public function checkAccessLevelOrDie(int $level): void
     {
         if (!$this->checkAccessLevel($level)) {
-            die('Access denied');
+            exit('Access denied');
         }
     }
 

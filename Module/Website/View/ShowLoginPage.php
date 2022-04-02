@@ -27,5 +27,4 @@ class ShowLoginPage
         $this->core->setTemplateFile('Index/showLoginPage.twig');
         $this->core->render();
     }
-
 }
