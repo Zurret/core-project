@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Core\Module\Api;
+namespace Core\Module\Website\Popup;
 
 use Core\Module\Core\CoreControllerInterface;
 
-class ShowPopupTest
+class ShowRulesPopup
 {
     private CoreControllerInterface $core;
 
@@ -14,9 +14,6 @@ class ShowPopupTest
         CoreControllerInterface $core
     ) {
         $this->core = $core;
-        if (!$this->core->Auth()->isLoggedIn()) {
-            $this->core->redirect('/auth/login');
-        }
     }
 
     /**
@@ -24,8 +21,8 @@ class ShowPopupTest
      */
     public function __invoke(): void
     {
-        $this->core->setTemplateTitle('Startseite');
-        $this->core->render('Api/showPopupTest');
+        $this->core->setTemplateTitle('Regeln');
+        $this->core->render('_Popup/showRulesPopup');
     }
 
 }

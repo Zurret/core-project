@@ -31,9 +31,9 @@ $dispatcher = FastRoute\simpleDispatcher(static function (RouteCollector $r): vo
             $r->addRoute('GET', '[/{tutorialId:\d+}[/{stepId:\d+}]]', 'Core\Module\Tutorial\View\ShowTutorialPage');
         });
     });
-    /* API */
-    $r->addGroup('/api', function (RouteCollector $r) {
-        $r->addRoute('GET', '/popuptest', 'Core\Module\Api\ShowPopupTest');
+    /* Popup */
+    $r->addGroup('/popup', function (RouteCollector $r) {
+        $r->addRoute('GET', '/rules', 'Core\Module\Website\Popup\ShowRulesPopup');
     });
 });
 
