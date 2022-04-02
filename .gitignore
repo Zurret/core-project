@@ -6,3 +6,4 @@ composer.lock
 /Logs
 *.log
 *.logs
+Config/Config.php
