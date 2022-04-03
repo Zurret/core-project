@@ -61,7 +61,6 @@ final class CoreController implements CoreControllerInterface
         $this->setTemplateVar('benchmark', $this->getBenchmarkResult());
         $this->setTemplateVar('infos', $this->getNotification());
 
-        
         /**
          * Render page.
          */
@@ -151,7 +150,7 @@ final class CoreController implements CoreControllerInterface
      */
     public function getTokenInput(): string
     {
-        return '<input type="hidden" name="TOKEN" value="'.$this->getToken().'" required>';
+        return '<input type="hidden" name="TOKEN" value="' . $this->getToken() . '" required>';
     }
 
     public function setTemplateVar(string $key, mixed $variable): void
@@ -161,7 +160,7 @@ final class CoreController implements CoreControllerInterface
 
     public function setTemplateTitle(string $variable): void
     {
-        $this->setTemplateVar('page_title', $variable.' - '.$this->getCoreName());
+        $this->setTemplateVar('page_title', $variable . ' - ' . $this->getCoreName());
         $this->setTemplateVar('site_title', $variable);
     }
 
@@ -172,20 +171,13 @@ final class CoreController implements CoreControllerInterface
 
     public function redirect(string $url): void
     {
-        if ($this->getConfig('core.encrypt_url')) {
-            $url = $this->getConfig('core.base_url').Helper::encrypt($url, $this->getConfig('core.secret'));
-        }
-        header('Location: '.$url);
+        header('Location: ' . $this->template->generateUrl($url));
         exit;
     }
 
-    public function url(string $url): string
+    public function internUrl(string $url): string
     {
-        if ($this->getConfig('core.encrypt_url')) {
-            $url = $this->getConfig('core.base_url').Helper::encrypt($url, $this->getConfig('core.secret'));
-        }
-
-        return $url;
+        return $this->template->generateUrl($url);
     }
 
     /**

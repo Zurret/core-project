@@ -58,10 +58,20 @@ final class Template implements TemplateInterface
 
     private function getV(): string
     {
-        if(!isset($this->version)) {
+        if (!isset($this->version)) {
             $this->version = substr(md5($this->config->get('core.version')), 0, 12);
         }
         return $this->version;
+    }
+
+    public function generateUrl(string $url): string
+    {
+        if ($this->config->get('core.encrypt_url')) {
+            $url = $this->config->get('core.base_url') . Helper::encrypt($url, $this->config->get('core.secret'));
+        } else {
+            $url = $this->config->get('core.base_url') . $url;
+        }
+        return $url;
     }
 
     private function setFilterAndFunction(): void
@@ -69,14 +79,14 @@ final class Template implements TemplateInterface
         $this->template->addFunction(new TwigFunction(
             'assetsPath',
             function ($src): string {
-                return $this->config->get('core.assets') . '/' . $src .'?v=' . $this->getV();
+                return $this->config->get('core.assets') . '/' . $src . '?v=' . $this->getV();
             }
         ));
 
         $this->template->addFunction(new TwigFunction(
             'staticPath',
             function ($src): string {
-                return $this->config->get('core.static') . '/' . $src .'?v=' . $this->getV();
+                return $this->config->get('core.static') . '/' . $src . '?v=' . $this->getV();
             }
         ));
 
@@ -103,13 +113,9 @@ final class Template implements TemplateInterface
         ));
 
         $this->template->addFunction(new TwigFunction(
-            'url',
+            'internUrl',
             function ($src): string {
-                if ($this->config->get('core.encrypt_url')) {
-                    return $this->config->get('core.base_url') .Helper::encrypt($src, $this->config->get('core.secret'));
-                } else {
-                    return (string) $src;
-                }
+                return $this->generateUrl($src);
             }
         ));
 

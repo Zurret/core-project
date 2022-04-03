@@ -25,13 +25,13 @@
             </div>
             <nav id="nav">
                 <ul>
-                    <li><a href="{{ url('/') }}">Hauptseite</a></li>
+                    <li><a href="{{ internUrl('/') }}">Hauptseite</a></li>
                     {% if auth.isLoggedIn %}
-                    <li><a href="{{ url('/game/maindesk') }}">Game</a></li>
-                    <li><a href="{{ url('/auth/logout/' ~ core_token) }}" onclick="return confirm('Willst du dich wirklich ausloggen?');">Ausloggen</a></li>
+                    <li><a href="{{ internUrl('/game/maindesk') }}">Game</a></li>
+                    <li><a href="{{ internUrl('/auth/logout/' ~ core_token) }}" onclick="return confirm('Willst du dich wirklich ausloggen?');">Ausloggen</a></li>
                     {% else %}
-                    <li><a href="{{ url('/auth/register') }}">Registrieren</a></li>
-                    <li><a href="{{ url('/auth/login') }}">Login</a></li>
+                    <li><a href="{{ internUrl('/auth/register') }}">Registrieren</a></li>
+                    <li><a href="{{ internUrl('/auth/login') }}">Login</a></li>
                     {% endif %}
                 </ul>
                 <div class="clear"></div>
@@ -74,9 +74,9 @@
             <div class="copyright">
                 &copy; 2021 &ndash; {{ "now"|date("Y") }} &bull; Made with <span
                     style="color:#a30000;font-size:10px;">&#10084;</span> |
-                <a href="{{ url('/cookies') }}" class="nav-link">Cookies</a> |
-                <a href="{{ url('/privacy') }}" class="nav-link">Datenschutzerklärung</a> |
-                <a href="{{ url('/imprint') }}" class="nav-link">Impressum</a>
+                <a href="{{ internUrl('/cookies') }}" class="nav-link">Cookies</a> |
+                <a href="{{ internUrl('/privacy') }}" class="nav-link">Datenschutzerklärung</a> |
+                <a href="{{ internUrl('/imprint') }}" class="nav-link">Impressum</a>
             </div>
         </footer>
 

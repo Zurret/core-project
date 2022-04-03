@@ -13,4 +13,6 @@ interface TemplateInterface
     public function isTemplateSet(): bool;
 
     public function parse(): string;
+    
+    public function generateUrl(string $url): string;
 }

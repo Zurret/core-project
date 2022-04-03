@@ -58,7 +58,7 @@ $this->core->setTemplateVar('cy', $y);
     {% for map_field in map %}
     {% if fields == 0 %}<tr>{% endif %}
         {% if map_field.getCy == cy and map_field.getCx == cx %}
-        <td class="field middle" style="background-image: url('/assets/map/{{ map_field.getMapField.getId }}.png')"
+        <td class="field middle" style="background-image: assetsPath('/map/{{ map_field.getMapField.getId }}.png')"
             onclick="generatePopup('{{ map_field.getMapField.getName }}', 'x|y = {{ map_field.getCx }}|{{ map_field.getCy }} - Dein Standort')">
             <div class="scan">
                 <!-- Ship Signature -->
@@ -70,7 +70,7 @@ $this->core->setTemplateVar('cy', $y);
             </div>
         </td>
         {% else %}
-        <td class="field" style="background-image: url('/assets/map/{{ map_field.getMapField.getId }}.png')"
+        <td class="field" style="background-image: assetsPath('/map/{{ map_field.getMapField.getId }}.png')"
             onclick="generatePopup('{{ map_field.getMapField.getName }}', 'x|y = {{ map_field.getCx }}|{{ map_field.getCy }}')">
             <div class="scan">&nbsp;&nbsp;
                 <!-- TEST -->

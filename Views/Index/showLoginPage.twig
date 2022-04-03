@@ -1,7 +1,7 @@
 {% extends "Layout/webLayout.twig" %}
 {% block content %}
 
-<form action="{{ url('/auth/login') }}" method="post" autocomplete="off">
+<form action="{{ internUrl('/auth/login') }}" method="post" autocomplete="off">
     {{ token_form|raw }}
     <div class="form-group">
         <label for="email">Email</label>

@@ -8,7 +8,7 @@ Content of the page...
     <div class="text">{{ news.getShortText }}</div>
     {% if news.getText|length > 200 %}
     <div class="readmore">
-        <a href="{{ url('#{{ news.getId }}') }}">Mehr lesen</a>
+        <a href="{{ internUrl('#{{ news.getId }}') }}">Mehr lesen</a>
     </div>
     {% endif %}
 </div>
