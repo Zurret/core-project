@@ -103,7 +103,7 @@ function generatePopup(title, content, x = null, y = null) {
   popupClose.style.border = '1px solid #8f2821'
   popupClose.style.color = '#a88d8d'
   popupClose.style.fontWeight = 'bold'
-  popupClose.style.padding = '3px 6px'
+  popupClose.style.padding = '3px 10px'
   popupClose.style.marginTop = '-4px'
   popupClose.style.marginRight = '-4px'
   popupClose.style.marginLeft = '10px'

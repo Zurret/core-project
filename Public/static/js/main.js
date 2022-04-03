@@ -72,7 +72,7 @@ function checkRegisterInputs() {
   } else {
     addElementClass('password', 'invalid')
   }
-  if (passwordConfirmation.value.length > 0 && passwordConfirmation.value === password.value) {
+  if (passwordConfirmation.value === password.value) {
     removeElementClass('password_confirm', 'invalid')
     passwordConfirmationValid = true
   } else {

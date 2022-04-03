@@ -171,7 +171,7 @@ final class CoreController implements CoreControllerInterface
 
     public function redirect(string $url): void
     {
-        header('Location: ' . $this->template->generateUrl($url));
+        header('Location: ' . $this->internUrl($url));
         exit;
     }
 
