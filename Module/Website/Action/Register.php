@@ -59,6 +59,13 @@ class Register
             return false;
         }
 
+        // Check if email or email domain is on blacklist
+        if ($this->isEmailBlacklisted($email)) {
+            $this->core->setNotification('E-Mail Adresse ist auf der Blacklist.');
+
+            return false;
+        }
+
         if ($this->userRepository->getByEmail($email)) {
             $this->core->setNotification('E-Mail Adresse bereits vergeben.');
 
@@ -81,5 +88,21 @@ class Register
         $this->userRepository->save($account);
 
         return true;
+    }
+    
+    private function isEmailBlacklisted(string $email): bool
+    {
+        $email_domain = explode('@', $email)[1];
+        $blacklist = $this->core->getConfig('mail.blacklist');
+
+        if (in_array($email, $blacklist)) {
+            return true;
+        }
+
+        if (in_array($email_domain, $blacklist)) {
+            return true;
+        }
+
+        return false;
     }
 }

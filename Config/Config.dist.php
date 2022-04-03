@@ -37,6 +37,12 @@ return [
         'template'      => __DIR__.'/../Views',
         'template_ext'  => '.twig',
     ],
+    'mail' => [
+        'blacklist' => [
+            'example.com',
+            'spam@local.host'
+        ],
+    ],
     'imprint' => [
         'name'        => 'Max Mustermann',
         'address'     => 'Teststreet 1',

@@ -51,37 +51,6 @@ function checkLoginInputs() {
   document.getElementById('login-button').disabled = !(emailValid && passwordValid);
 }
 
-// Check E-Mail, Password and Password Confirmation Length
-function checkRegisterInputs() {
-  const email = document.getElementById('email')
-  const password = document.getElementById('password')
-  const passwordConfirmation = document.getElementById('password_confirm')
-  let emailValid = false
-  let passwordValid = false
-  let passwordConfirmationValid = false
-
-  if (email.value.length > 0 && validateEmail(email.value)) {
-    removeElementClass('email', 'invalid')
-    emailValid = true
-  } else {
-    addElementClass('email', 'invalid')
-  }
-  if (password.value.length > 0) {
-    removeElementClass('password', 'invalid')
-    passwordValid = true
-  } else {
-    addElementClass('password', 'invalid')
-  }
-  if (passwordConfirmation.value === password.value) {
-    removeElementClass('password_confirm', 'invalid')
-    passwordConfirmationValid = true
-  } else {
-    addElementClass('password_confirm', 'invalid')
-  }
-
-  document.getElementById('register-button').disabled = !(emailValid && passwordValid && passwordConfirmationValid);
-}
-
 // Password Visibility
 function togglePasswordVisibility() {
   const password = document.getElementById('password')
