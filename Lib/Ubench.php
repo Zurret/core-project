@@ -52,7 +52,7 @@ class Ubench
      */
     public function end(): static
     {
-        if (! $this->hasStarted()) {
+        if (!$this->hasStarted()) {
             throw new LogicException('You must call start()');
         }
 
@@ -69,11 +69,11 @@ class Ubench
      */
     public function getTime(bool $raw = false, ?string $format = null): float|string
     {
-        if (! $this->hasStarted()) {
+        if (!$this->hasStarted()) {
             throw new LogicException('You must call start()');
         }
 
-        if (! $this->hasEnded()) {
+        if (!$this->hasEnded()) {
             throw new LogicException('You must call end()');
         }
 
@@ -151,7 +151,7 @@ class Ubench
     /**
      * Returns a human readable elapsed time.
      *
-     * @param string|null $format    The format to display (printf format)
+     * @param string|null $format The format to display (printf format)
      */
     public static function readableElapsedTime(float $microtime, ?string $format = null, int $round = 3): string
     {

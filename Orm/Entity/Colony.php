@@ -86,6 +86,7 @@ class Colony implements ColonyInterface
     public function setUser(PlayerInterface $player): ColonyInterface
     {
         $this->player = $player;
+
         return $this;
     }
 
@@ -112,6 +113,7 @@ class Colony implements ColonyInterface
     public function setXSize(int $x_size): Colony
     {
         $this->x_size = $x_size;
+
         return $this;
     }
 
@@ -123,6 +125,7 @@ class Colony implements ColonyInterface
     public function setYSize(int $y_size): Colony
     {
         $this->y_size = $y_size;
+
         return $this;
     }
 

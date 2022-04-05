@@ -41,7 +41,7 @@ final class UserRepository extends EntityRepository implements UserRepositoryInt
     public function getByIdAndSession(int $id, string $session): ?UserInterface
     {
         return $this->findOneBy([
-            'id' => $id,
+            'id'      => $id,
             'session' => $session,
         ]);
     }
@@ -49,7 +49,7 @@ final class UserRepository extends EntityRepository implements UserRepositoryInt
     public function getByIdAndCookie(int $id, string $cookie): ?UserInterface
     {
         return $this->findOneBy([
-            'id' => $id,
+            'id'     => $id,
             'cookie' => $cookie,
         ]);
     }

@@ -50,7 +50,7 @@ class Login
      */
     private function checkLogin(string $email, string $password, bool $save_login): bool
     {
-        if (! checkEmail($email)) {
+        if (!checkEmail($email)) {
             $this->core->setNotification('Email ungültig');
 
             return false;
@@ -61,7 +61,7 @@ class Login
 
             return false;
         }
-        if (! $this->core->Auth()->checkPassword($password, $result->getPassword())) {
+        if (!$this->core->Auth()->checkPassword($password, $result->getPassword())) {
             $this->core->setNotification('Passwort falsch.');
 
             return false;
@@ -75,7 +75,5 @@ class Login
         $this->core->setNotification('Login fehlgeschlagen');
 
         return false;
-
-    
     }
 }

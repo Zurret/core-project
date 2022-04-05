@@ -11,8 +11,9 @@ class Mailer
     private string $subject;
     private string $message;
     private array $templates = [
-    'MailTextFileName',
-];
+        'MailTextFileName',
+    ];
+
     public function setTo(string $email): void
     {
         if (checkEmail($email)) {
@@ -49,14 +50,14 @@ class Mailer
 
     /**
      * TextFile.txt < Hello, {name}!
-     * Example: $this->setMessage('TextFile', ['name' => 'John']);
+     * Example: $this->setMessage('TextFile', ['name' => 'John']);.
      *
      * @param array $variables
      */
     public function setMessage(string $templateName, array $variables): void
     {
         if (in_array($templateName, $this->templates)) {
-            $template = file_get_contents(__DIR__ . '/Text/' . $templateName . '.txt');
+            $template = file_get_contents(__DIR__.'/Text/'.$templateName.'.txt');
             $this->message = strip_tags(str_replace(array_keys($variables), array_values($variables), $template));
         }
     }
@@ -68,12 +69,13 @@ class Mailer
 
     public function send(): bool
     {
-        if (! is_null($this->getTo()) && ! is_null($this->getSubject()) && ! is_null($this->getMessage())) {
-            if (! empty($this->getTo()) && ! empty($this->getSubject()) && ! empty($this->getMessage())) {
+        if (!is_null($this->getTo()) && !is_null($this->getSubject()) && !is_null($this->getMessage())) {
+            if (!empty($this->getTo()) && !empty($this->getSubject()) && !empty($this->getMessage())) {
                 $headers[] = 'MIME-Version: 1.0';
                 $headers[] = 'Content-Type: text/plain; charset=utf-8';
-                $headers[] = 'From: ' . $this->from;
-                $headers[] = 'X-Mailer: PHP/' . phpversion();
+                $headers[] = 'From: '.$this->from;
+                $headers[] = 'X-Mailer: PHP/'.phpversion();
+
                 return mail($this->getTo(), $this->getSubject(), $this->getMessage(), implode("\r\n", $headers));
             }
 

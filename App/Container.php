@@ -31,7 +31,7 @@ use Psr\Container\ContainerInterface;
 
 return [
     ConfigInterface::class => static function (): ConfigInterface {
-        $path = __DIR__ . '/../Config/';
+        $path = __DIR__.'/../Config/';
 
         return new Config(
             [
@@ -57,12 +57,12 @@ return [
 
         $manager = EntityManager::create(
             [
-                'driver' => $config->get('db.driver'),
-                'user' => $config->get('db.user'),
+                'driver'   => $config->get('db.driver'),
+                'user'     => $config->get('db.user'),
                 'password' => $config->get('db.pass'),
-                'dbname' => $config->get('db.name'),
-                'host' => $config->get('db.host'),
-                'charset' => $config->get('db.charset'),
+                'dbname'   => $config->get('db.name'),
+                'host'     => $config->get('db.host'),
+                'charset'  => $config->get('db.charset'),
             ],
             $emConfig
         );
@@ -76,9 +76,9 @@ return [
         return $manager;
     },
     CoreControllerInterface::class => autowire(CoreController::class),
-    TemplateInterface::class => autowire(Template::class),
+    TemplateInterface::class       => autowire(Template::class),
     /**
-     * Repositories (Entity)
+     * Repositories (Entity).
      *
      * @url https://www.doctrine-project.org/
      */

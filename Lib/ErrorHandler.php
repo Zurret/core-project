@@ -31,12 +31,12 @@ if ($config->get('debug.enabled')) {
         $handler->setEditor('vscode');
         $handler->setPageTitle('Error - '.$config->get('core.name'));
         $handler->addDataTable('Core', [
-            'Core Version' => $config->get('core.version'),
-            'Core Name' => $config->get('core.name'),
-            'Core Secret' => $config->get('core.secret'),
-            'Core Root' => $config->get('core.root'),
-            'Core Logs' => $config->get('debug.logs_path'),
-            'Core Cache' => $config->get('core.cache'),
+            'Core Version'  => $config->get('core.version'),
+            'Core Name'     => $config->get('core.name'),
+            'Core Secret'   => $config->get('core.secret'),
+            'Core Root'     => $config->get('core.root'),
+            'Core Logs'     => $config->get('debug.logs_path'),
+            'Core Cache'    => $config->get('core.cache'),
             'Core Template' => $config->get('core.template'),
         ]);
     }
@@ -60,8 +60,8 @@ $whoops->prependHandler(static function (Throwable $e) use ($logger): void {
     $logger->error(
         error_hash($e->getMessage()).' - '.$e->getMessage(),
         [
-            'file' => $e->getFile(),
-            'line' => $e->getLine(),
+            'file'  => $e->getFile(),
+            'line'  => $e->getLine(),
             'trace' => $e->getTrace(),
         ]
     );

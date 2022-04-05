@@ -149,7 +149,7 @@ final class CoreController implements CoreControllerInterface
      */
     public function getTokenInput(): string
     {
-        return '<input type="hidden" name="TOKEN" value="' . $this->getToken() . '" required>';
+        return '<input type="hidden" name="TOKEN" value="'.$this->getToken().'" required>';
     }
 
     public function setTemplateVar(string $key, mixed $variable): void
@@ -159,13 +159,13 @@ final class CoreController implements CoreControllerInterface
 
     public function setTemplateTitle(string $variable): void
     {
-        $this->setTemplateVar('page_title', $variable . ' - ' . $this->getCoreName());
+        $this->setTemplateVar('page_title', $variable.' - '.$this->getCoreName());
         $this->setTemplateVar('site_title', $variable);
     }
 
     public function redirect(string $url): void
     {
-        header('Location: ' . $this->internUrl($url));
+        header('Location: '.$this->internUrl($url));
         exit;
     }
 
@@ -187,8 +187,8 @@ final class CoreController implements CoreControllerInterface
         $this->app->getBenchmark()->end();
 
         return [
-            'executionTime' => $this->app->getBenchmark()->getTime(),
-            'memoryUsage' => $this->app->getBenchmark()->getMemoryUsage(),
+            'executionTime'   => $this->app->getBenchmark()->getTime(),
+            'memoryUsage'     => $this->app->getBenchmark()->getMemoryUsage(),
             'memoryPeakUsage' => $this->app->getBenchmark()->getMemoryPeak(),
         ];
     }
