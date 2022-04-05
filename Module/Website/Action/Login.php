@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Core\Module\Website\Action;
 
-use Core\Lib\Helper;
 use Core\Lib\Request;
 use Core\Module\Core\CoreControllerInterface;
 use Core\Orm\Repository\UserRepositoryInterface;
@@ -55,7 +54,7 @@ class Login
      */
     private function checkLogin(string $email, string $password, bool $save_login): bool
     {
-        if (!Helper::checkEmail($email)) {
+        if (!checkEmail($email)) {
             $this->core->setNotification('Email ungültig');
 
             return false;

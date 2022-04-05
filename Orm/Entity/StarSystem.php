@@ -7,7 +7,7 @@ namespace Core\Orm\Entity;
 /**
  * @Entity(repositoryClass="Core\Orm\Repository\StarSystemRepository")
  * @Table(
- *     name="core_systems",
+ *     name="core_system",
  *     indexes={
  *         @Index(name="coordinate_idx", columns={"cx","cy"})
  *     }

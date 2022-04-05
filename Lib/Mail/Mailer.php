@@ -2,8 +2,6 @@
 
 namespace Core\Lib\Mail;
 
-use Core\Lib\Helper;
-
 class Mailer
 {
     private string $to;
@@ -24,7 +22,7 @@ class Mailer
      */
     public function setTo(string $email): void
     {
-        if (Helper::checkEmail($email)) {
+        if (checkEmail($email)) {
             $this->to = $email;
         }
     }
@@ -43,7 +41,7 @@ class Mailer
      */
     public function setFrom(string $email): void
     {
-        if (Helper::checkEmail($email)) {
+        if (checkEmail($email)) {
             $this->from = $email;
         }
     }

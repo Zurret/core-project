@@ -7,7 +7,7 @@ namespace Core\Orm\Entity;
 /**
  * @Entity(repositoryClass="Core\Orm\Repository\MapFieldRepository")
  * @Table(
- *     name="core_map_fields",
+ *     name="core_map_field",
  *     indexes={
  *          @Index(name="map_fields_type_idx", columns={"type"})
  *     }

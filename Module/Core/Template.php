@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Core\Module\Core;
 
-use Core\Lib\Helper;
 use Noodlehaus\ConfigInterface;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -67,7 +66,7 @@ final class Template implements TemplateInterface
     public function generateUrl(string $url): string
     {
         if ($this->config->get('core.encrypt_url')) {
-            $url = $this->config->get('core.base_url') . Helper::encrypt($url, $this->config->get('core.secret'));
+            $url = $this->config->get('core.base_url') . encrypt($url, $this->config->get('core.secret'));
         } else {
             $url = $this->config->get('core.base_url') . $url;
         }
@@ -91,13 +90,20 @@ final class Template implements TemplateInterface
         ));
 
         $this->template->addFunction(new TwigFunction(
+            '__',
+            function (string $string, ?array $value = null): string {
+                return __($string, $value);
+            }
+        ));
+
+        $this->template->addFunction(new TwigFunction(
             'encrypt',
             function ($src, $key = null): string {
                 if (is_null($key)) {
                     $key = $this->config->get('core.secret');
                 }
 
-                return Helper::encrypt((string) $src, (string) $key);
+                return encrypt((string) $src, (string) $key);
             }
         ));
 
@@ -108,7 +114,7 @@ final class Template implements TemplateInterface
                     $key = $this->config->get('core.secret');
                 }
 
-                return Helper::decrypt((string) $src, (string) $key);
+                return decrypt((string) $src, (string) $key);
             }
         ));
 
@@ -122,21 +128,21 @@ final class Template implements TemplateInterface
         $this->template->addFunction(new TwigFunction(
             'removeHTML',
             function ($src): string {
-                return Helper::removeHTML((string) $src);
+                return removeHTML((string) $src);
             }
         ));
 
         $this->template->addFunction(new TwigFunction(
             'isPositivInteger',
             function ($src): bool {
-                return Helper::isPositivInteger((int) $src);
+                return isPositivInteger((int) $src);
             }
         ));
 
         $this->template->addFunction(new TwigFunction(
             'isNegativeInteger',
             function ($src): bool {
-                return Helper::isNegativeInteger((int) $src);
+                return isNegativeInteger((int) $src);
             }
         ));
     }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Core\Module\Website\Action;
 
-use Core\Lib\Helper;
 use Core\Lib\Request;
 use Core\Module\Core\CoreControllerInterface;
 use Core\Orm\Repository\PlayerRepositoryInterface;
@@ -53,7 +52,7 @@ class Register
 
     private function createAccount(string $email, string $password, string $password_confirm): bool
     {
-        if (!Helper::checkEmail($email)) {
+        if (!checkEmail($email)) {
             $this->core->setNotification('Email ist ungültig.');
 
             return false;

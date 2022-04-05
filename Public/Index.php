@@ -1,6 +1,5 @@
 <?php
 
-use Core\Lib\Helper;
 use Core\Module\Core\CoreControllerInterface;
 
 $app = require_once __DIR__.'/../App/Bootstrap.php';
@@ -18,13 +17,13 @@ $uri = rawurldecode($uri);
 
 if ($app->getConfig('core.encrypt_url')) {
     if ($uri === '/') {
-        $uri = Helper::encrypt('/', $app->getConfig('core.secret'));
+        $uri = encrypt('/', $app->getConfig('core.secret'));
     }
     if (str_starts_with($uri, '/')) {
         $uri = substr($uri, 1);
     }
 
-    $uri = Helper::decrypt($uri, $app->getConfig('core.secret'));
+    $uri = decrypt($uri, $app->getConfig('core.secret'));
 }
 
 $route = $dispatcher->dispatch($httpMethod, $uri);

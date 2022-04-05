@@ -12,6 +12,7 @@ require_once __DIR__ . '/../_vendor/autoload.php';
 $app = new Core\App\App();
 $app->run();
 
-require_once __DIR__ . '/ErrorHandler.php';
+require_once __DIR__ . '/../Lib/ErrorHandler.php';
+require_once __DIR__ . '/../Lib/Helper.php';
 
 return $app;
