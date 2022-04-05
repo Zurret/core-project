@@ -31,23 +31,22 @@ if ($config->get('debug.enabled')) {
         $handler->setEditor('vscode');
         $handler->setPageTitle('Error - '.$config->get('core.name'));
         $handler->addDataTable('Core', [
-            'Core Version'  => $config->get('core.version'),
-            'Core Name'     => $config->get('core.name'),
-            'Core Secret'   => $config->get('core.secret'),
-            'Core Root'     => $config->get('core.root'),
-            'Core Logs'     => $config->get('debug.logs_path'),
-            'Core Cache'    => $config->get('core.cache'),
+            'Core Version' => $config->get('core.version'),
+            'Core Name' => $config->get('core.name'),
+            'Core Secret' => $config->get('core.secret'),
+            'Core Root' => $config->get('core.root'),
+            'Core Logs' => $config->get('debug.logs_path'),
+            'Core Cache' => $config->get('core.cache'),
             'Core Template' => $config->get('core.template'),
         ]);
     }
-
 } else {
     error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
     if (Whoops\Util\Misc::isCommandLine()) {
         $handler = new PlainTextHandler();
     } else {
-        $handler = function (Throwable $e) {
+        $handler = static function (Throwable $e): void {
             // Create a Error HTML page
             echo '<html lang="en"><head><title>Error</title></head><body>';
             echo '<p>'.error_hash($e->getMessage()).' - '.$e->getMessage().'</p>';
@@ -57,12 +56,12 @@ if ($config->get('debug.enabled')) {
 }
 $whoops->prependHandler($handler);
 
-$whoops->prependHandler(function (Throwable $e) use ($logger) {
+$whoops->prependHandler(static function (Throwable $e) use ($logger): void {
     $logger->error(
         error_hash($e->getMessage()).' - '.$e->getMessage(),
         [
-            'file'  => $e->getFile(),
-            'line'  => $e->getLine(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine(),
             'trace' => $e->getTrace(),
         ]
     );

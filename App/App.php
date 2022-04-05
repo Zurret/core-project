@@ -26,6 +26,25 @@ class App
         }
     }
 
+    public function getContainer(): Container
+    {
+        return $this->container;
+    }
+
+    /**
+     * @throws DependencyException
+     * @throws NotFoundException
+     */
+    public function getConfig(string $key): mixed
+    {
+        return $this->getContainer()->get(ConfigInterface::class)->get($key);
+    }
+
+    public function getBenchmark(): Ubench
+    {
+        return $this->benchmark;
+    }
+
     /**
      * @throws Exception
      */
@@ -51,24 +70,5 @@ class App
         $bench = new Ubench();
         $bench->start();
         $this->benchmark = $bench;
-    }
-
-    public function getContainer(): Container
-    {
-        return $this->container;
-    }
-
-    /**
-     * @throws DependencyException
-     * @throws NotFoundException
-     */
-    public function getConfig(string $key): mixed
-    {
-        return $this->getContainer()->get(ConfigInterface::class)->get($key);
-    }
-
-    public function getBenchmark(): Ubench
-    {
-        return $this->benchmark;
     }
 }

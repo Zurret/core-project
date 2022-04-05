@@ -31,7 +31,7 @@ use Psr\Container\ContainerInterface;
 
 return [
     ConfigInterface::class => static function (): ConfigInterface {
-        $path = __DIR__.'/../Config/';
+        $path = __DIR__ . '/../Config/';
 
         return new Config(
             [
@@ -57,12 +57,12 @@ return [
 
         $manager = EntityManager::create(
             [
-                'driver'   => $config->get('db.driver'),
-                'user'     => $config->get('db.user'),
+                'driver' => $config->get('db.driver'),
+                'user' => $config->get('db.user'),
                 'password' => $config->get('db.pass'),
-                'dbname'   => $config->get('db.name'),
-                'host'     => $config->get('db.host'),
-                'charset'  => $config->get('db.charset'),
+                'dbname' => $config->get('db.name'),
+                'host' => $config->get('db.host'),
+                'charset' => $config->get('db.charset'),
             ],
             $emConfig
         );
@@ -76,27 +76,28 @@ return [
         return $manager;
     },
     CoreControllerInterface::class => autowire(CoreController::class),
-    TemplateInterface::class       => autowire(Template::class),
+    TemplateInterface::class => autowire(Template::class),
     /**
      * Repositories (Entity)
+     *
      * @url https://www.doctrine-project.org/
      */
-    UserRepositoryInterface::class => function (ContainerInterface $c): UserRepositoryInterface {
+    UserRepositoryInterface::class => static function (ContainerInterface $c): UserRepositoryInterface {
         return $c->get(EntityManagerInterface::class)->getRepository(User::class);
     },
-    PlayerRepositoryInterface::class => function (ContainerInterface $c): PlayerRepositoryInterface {
+    PlayerRepositoryInterface::class => static function (ContainerInterface $c): PlayerRepositoryInterface {
         return $c->get(EntityManagerInterface::class)->getRepository(Player::class);
     },
-    NewsRepositoryInterface::class => function (ContainerInterface $c): NewsRepositoryInterface {
+    NewsRepositoryInterface::class => static function (ContainerInterface $c): NewsRepositoryInterface {
         return $c->get(EntityManagerInterface::class)->getRepository(News::class);
     },
-    MapRepositoryInterface::class => function (ContainerInterface $c): MapRepositoryInterface {
+    MapRepositoryInterface::class => static function (ContainerInterface $c): MapRepositoryInterface {
         return $c->get(EntityManagerInterface::class)->getRepository(Map::class);
     },
-    MapFieldRepositoryInterface::class => function (ContainerInterface $c): MapFieldRepositoryInterface {
+    MapFieldRepositoryInterface::class => static function (ContainerInterface $c): MapFieldRepositoryInterface {
         return $c->get(EntityManagerInterface::class)->getRepository(MapField::class);
     },
-    StarSystemRepositoryInterface::class => function (ContainerInterface $c): StarSystemRepositoryInterface {
+    StarSystemRepositoryInterface::class => static function (ContainerInterface $c): StarSystemRepositoryInterface {
         return $c->get(EntityManagerInterface::class)->getRepository(StarSystem::class);
     },
 ];

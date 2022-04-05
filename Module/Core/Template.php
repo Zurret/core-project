@@ -55,14 +55,6 @@ final class Template implements TemplateInterface
         return $this->isTemplateSet->render($this->variables);
     }
 
-    private function getV(): string
-    {
-        if (!isset($this->version)) {
-            $this->version = substr(md5($this->config->get('core.version')), 0, 12);
-        }
-        return $this->version;
-    }
-
     public function generateUrl(string $url): string
     {
         if ($this->config->get('core.encrypt_url')) {
@@ -71,6 +63,14 @@ final class Template implements TemplateInterface
             $url = $this->config->get('core.base_url') . $url;
         }
         return $url;
+    }
+
+    private function getV(): string
+    {
+        if (! isset($this->version)) {
+            $this->version = substr(md5($this->config->get('core.version')), 0, 12);
+        }
+        return $this->version;
     }
 
     private function setFilterAndFunction(): void
@@ -91,7 +91,7 @@ final class Template implements TemplateInterface
 
         $this->template->addFunction(new TwigFunction(
             '__',
-            function (string $string, ?array $value = null): string {
+            static function (string $string, ?array $value = null): string {
                 return __($string, $value);
             }
         ));
@@ -127,21 +127,21 @@ final class Template implements TemplateInterface
 
         $this->template->addFunction(new TwigFunction(
             'removeHTML',
-            function ($src): string {
+            static function ($src): string {
                 return removeHTML((string) $src);
             }
         ));
 
         $this->template->addFunction(new TwigFunction(
             'isPositivInteger',
-            function ($src): bool {
+            static function ($src): bool {
                 return isPositivInteger((int) $src);
             }
         ));
 
         $this->template->addFunction(new TwigFunction(
             'isNegativeInteger',
-            function ($src): bool {
+            static function ($src): bool {
                 return isNegativeInteger((int) $src);
             }
         ));

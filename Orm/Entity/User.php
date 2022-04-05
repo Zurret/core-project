@@ -6,18 +6,21 @@ namespace Core\Orm\Entity;
 
 /**
  * @Entity(repositoryClass="Core\Orm\Repository\UserRepository")
+ *
  * @Table(
  *     name="core_user",
  *     indexes={
  *         @Index(name="user_player_idx", columns={"player_id"})
  *     }
  * )
- **/
+ */
 class User implements UserInterface
 {
     /**
      * @Id
+     *
      * @Column(type="integer")
+     *
      * @GeneratedValue(strategy="IDENTITY")
      */
     private int $id;
@@ -45,6 +48,7 @@ class User implements UserInterface
 
     /**
      * @ManyToOne(targetEntity="Player")
+     *
      * @JoinColumn(name="player_id", referencedColumnName="id")
      */
     private PlayerInterface $player;

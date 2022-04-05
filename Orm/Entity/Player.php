@@ -6,17 +6,20 @@ namespace Core\Orm\Entity;
 
 /**
  * @Entity(repositoryClass="Core\Orm\Repository\PlayerRepository")
+ *
  * @Table(
  *     name="core_player",
  *     indexes={
  *     }
  * )
- **/
+ */
 class Player implements PlayerInterface
 {
     /**
      * @Id
+     *
      * @Column(type="integer")
+     *
      * @GeneratedValue(strategy="IDENTITY")
      */
     private int $id;

@@ -27,9 +27,12 @@
         "ext-gettext": "*"
     },
     "config": {
-        "vendor-dir": "_vendor",
+        "vendor-dir": "vendor",
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
         }
+    },
+    "require-dev": {
+        "nunomaduro/phpinsights": "^2.2"
     }
 }

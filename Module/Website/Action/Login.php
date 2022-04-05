@@ -24,8 +24,6 @@ class Login
 
     /**
      * doLogin.
-     *
-     * @return void
      */
     public function doLogin(): void
     {
@@ -49,12 +47,10 @@ class Login
      *
      * @param mixed $email
      * @param mixed $password
-     * @param bool $save_login
-     * @return bool
      */
     private function checkLogin(string $email, string $password, bool $save_login): bool
     {
-        if (!checkEmail($email)) {
+        if (! checkEmail($email)) {
             $this->core->setNotification('Email ungültig');
 
             return false;
@@ -65,7 +61,7 @@ class Login
 
             return false;
         }
-        if (!$this->core->Auth()->checkPassword($password, $result->getPassword())) {
+        if (! $this->core->Auth()->checkPassword($password, $result->getPassword())) {
             $this->core->setNotification('Passwort falsch.');
 
             return false;
@@ -75,10 +71,11 @@ class Login
             $this->core->setNotification('Login erfolgreich');
 
             return true;
-        } else {
-            $this->core->setNotification('Login fehlgeschlagen');
-
-            return false;
         }
+        $this->core->setNotification('Login fehlgeschlagen');
+
+        return false;
+
+    
     }
 }

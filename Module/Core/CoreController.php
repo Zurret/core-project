@@ -163,11 +163,6 @@ final class CoreController implements CoreControllerInterface
         $this->setTemplateVar('site_title', $variable);
     }
 
-    private function getVersion(): string
-    {
-        return $this->getConfig('core.version');
-    }
-
     public function redirect(string $url): void
     {
         header('Location: ' . $this->internUrl($url));
@@ -179,6 +174,11 @@ final class CoreController implements CoreControllerInterface
         return $this->template->generateUrl($url);
     }
 
+    private function getVersion(): string
+    {
+        return $this->getConfig('core.version');
+    }
+
     /**
      * @throws Exception
      */
@@ -187,8 +187,8 @@ final class CoreController implements CoreControllerInterface
         $this->app->getBenchmark()->end();
 
         return [
-            'executionTime'   => $this->app->getBenchmark()->getTime(),
-            'memoryUsage'     => $this->app->getBenchmark()->getMemoryUsage(),
+            'executionTime' => $this->app->getBenchmark()->getTime(),
+            'memoryUsage' => $this->app->getBenchmark()->getMemoryUsage(),
             'memoryPeakUsage' => $this->app->getBenchmark()->getMemoryPeak(),
         ];
     }

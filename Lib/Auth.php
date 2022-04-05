@@ -71,7 +71,7 @@ class Auth
 
     public function getUser(): ?UserInterface
     {
-        if (!$this->user) {
+        if (! $this->user) {
             if ($this->session->getSession('LOGIN') !== null && $user = $this->userRepository->getByIdAndSession($this->session->getSession('ACCOUNT_ID') ?? 0, $this->session->getSession('ACCOUNT_SSTR') ?? '')) {
                 $this->setUser($user);
             }
@@ -82,18 +82,18 @@ class Auth
 
     public function isLoggedIn(): bool
     {
-        if (!$this->getUser()) {
+        if (! $this->getUser()) {
             if ($this->session->getCookie('LOGIN') !== null && $user = $this->userRepository->getByIdandCookie((int) $this->session->getCookie('ACCOUNT_ID') ?? 0, (string) $this->session->getCookie('ACCOUNT_CSTR') ?? '')) {
                 $this->setUser($user);
                 $this->setSession();
             }
         }
-        return !($this->getUser() === null);
+        return ! ($this->getUser() === null);
     }
 
     public function isNotLoggedIn(): bool
     {
-        return !$this->isLoggedIn();
+        return ! $this->isLoggedIn();
     }
 
     public function checkAccessLevel(int $level): bool
@@ -103,7 +103,7 @@ class Auth
 
     public function checkAccessLevelOrDie(int $level): void
     {
-        if (!$this->checkAccessLevel($level)) {
+        if (! $this->checkAccessLevel($level)) {
             exit('Access denied');
         }
     }
@@ -131,7 +131,7 @@ class Auth
         $this->session->setSession('ACCOUNT_ID', $this->getUser()->getId());
         $this->session->setSession('ACCOUNT_SSTR', $session);
         $this->session->setSession('LOGIN', true);
-        
+
         $this->userRepository->save($this->getUser());
     }
 
@@ -140,7 +140,7 @@ class Auth
         $cookie = sha1(random_bytes(32) . $this->getUser()->getId());
         $this->getUser()->setCookieString($cookie);
         $this->setRememberMe($cookie);
-        
+
         $this->userRepository->save($this->getUser());
     }
 }

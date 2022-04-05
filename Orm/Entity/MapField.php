@@ -12,7 +12,7 @@ namespace Core\Orm\Entity;
  *          @Index(name="map_fields_type_idx", columns={"type"})
  *     }
  * )
- **/
+ */
 class MapField implements MapFieldInterface
 {
     /**

@@ -6,17 +6,20 @@ namespace Core\Orm\Entity;
 
 /**
  * @Entity(repositoryClass="Core\Orm\Repository\NewsRepository")
+ *
  * @Table(
  *     name="core_news",
  *     indexes={
  *     }
  * )
- **/
+ */
 class News implements NewsInterface
 {
     /**
      * @Id
+     *
      * @Column(type="integer")
+     *
      * @GeneratedValue(strategy="IDENTITY")
      */
     private int $id;
@@ -38,6 +41,7 @@ class News implements NewsInterface
 
     /**
      * @ManyToOne(targetEntity="Player")
+     *
      * @JoinColumn(name="author_id", referencedColumnName="id")
      */
     private ?PlayerInterface $author;
@@ -61,7 +65,7 @@ class News implements NewsInterface
 
     public function getShortText(int $length = 200): string
     {
-        return (strlen($this->text) > $length) ? substr($this->text, 0, $length).'...' : $this->text;
+        return strlen($this->text) > $length ? substr($this->text, 0, $length).'...' : $this->text;
     }
 
     public function getText(): string

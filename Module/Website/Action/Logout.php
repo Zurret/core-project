@@ -20,12 +20,10 @@ class Logout
      * doLogout.
      *
      * @param mixed $token
-     *
-     * @return void
      */
     public function doLogout(string $token): void
     {
-        if ($this->core->getToken() == $token) {
+        if ($this->core->getToken() === $token) {
             $this->core->setNotification('Logout erfolgreich.');
             $this->core->Auth()->logout();
         } else {

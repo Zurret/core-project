@@ -24,5 +24,4 @@ class ShowRulesPopup
         $this->core->setTemplateTitle('Regeln');
         $this->core->render('_Popup/showRulesPopup');
     }
-
 }

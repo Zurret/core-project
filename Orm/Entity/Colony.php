@@ -13,10 +13,9 @@ namespace Core\Orm\Entity;
  *         @Index(name="colony_system_map_idx", columns={"starsystem_map_id"})
  *     }
  * )
- **/
+ */
 class Colony implements ColonyInterface
 {
-
     /**
      * @Id
      * @Column(type="integer")

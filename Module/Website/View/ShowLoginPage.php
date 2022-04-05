@@ -18,8 +18,6 @@ class ShowLoginPage
 
     /**
      * __invoke.
-     *
-     * @return void
      */
     public function __invoke(): void
     {

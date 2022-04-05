@@ -6,18 +6,21 @@ namespace Core\Orm\Entity;
 
 /**
  * @Entity(repositoryClass="Core\Orm\Repository\StarSystemRepository")
+ *
  * @Table(
  *     name="core_system",
  *     indexes={
  *         @Index(name="coordinate_idx", columns={"cx","cy"})
  *     }
  * )
- **/
+ */
 class StarSystem implements StarSystemInterface
 {
     /**
      * @Id
+     *
      * @Column(type="integer")
+     *
      * @GeneratedValue(strategy="IDENTITY")
      */
     private int $id;

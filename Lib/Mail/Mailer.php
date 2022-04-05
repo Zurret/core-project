@@ -1,25 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Core\Lib\Mail;
 
 class Mailer
 {
     private string $to;
-
     private string $from;
-
     private string $subject;
-
     private string $message;
-
     private array $templates = [
-        'MailTextFileName',
-    ];
-
-    /**
-     * @param string $email
-     * @return void
-     */
+    'MailTextFileName',
+];
     public function setTo(string $email): void
     {
         if (checkEmail($email)) {
@@ -27,18 +20,11 @@ class Mailer
         }
     }
 
-    /**
-     * @return string|null
-     */
     public function getTo(): ?string
     {
         return $this->to ?? null;
     }
 
-    /**
-     * @param string $email
-     * @return void
-     */
     public function setFrom(string $email): void
     {
         if (checkEmail($email)) {
@@ -46,26 +32,16 @@ class Mailer
         }
     }
 
-    /**
-     * @return string|null
-     */
     public function getFrom(): ?string
     {
         return $this->from ?? null;
     }
 
-    /**
-     * @param string $subject
-     * @return void
-     */
     public function setSubject(string $subject): void
     {
         $this->subject = $subject;
     }
 
-    /**
-     * @return string|null
-     */
     public function getSubject(): ?string
     {
         return $this->subject ?? null;
@@ -74,7 +50,7 @@ class Mailer
     /**
      * TextFile.txt < Hello, {name}!
      * Example: $this->setMessage('TextFile', ['name' => 'John']);
-     * @param string $templateName
+     *
      * @param array $variables
      */
     public function setMessage(string $templateName, array $variables): void
@@ -85,26 +61,19 @@ class Mailer
         }
     }
 
-    /**
-     * @return string|null
-     */
     public function getMessage(): ?string
     {
         return $this->message ?? null;
     }
 
-    /**
-     * @return bool
-     */
     public function send(): bool
     {
-        if (!is_null($this->getTo()) && !is_null($this->getSubject()) && !is_null($this->getMessage())) {
-            if (!empty($this->getTo()) && !empty($this->getSubject()) && !empty($this->getMessage())) {
+        if (! is_null($this->getTo()) && ! is_null($this->getSubject()) && ! is_null($this->getMessage())) {
+            if (! empty($this->getTo()) && ! empty($this->getSubject()) && ! empty($this->getMessage())) {
                 $headers[] = 'MIME-Version: 1.0';
                 $headers[] = 'Content-Type: text/plain; charset=utf-8';
                 $headers[] = 'From: ' . $this->from;
                 $headers[] = 'X-Mailer: PHP/' . phpversion();
-
                 return mail($this->getTo(), $this->getSubject(), $this->getMessage(), implode("\r\n", $headers));
             }
 

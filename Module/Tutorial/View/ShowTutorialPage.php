@@ -14,7 +14,7 @@ class ShowTutorialPage
         CoreControllerInterface $core
     ) {
         $this->core = $core;
-        if (!$this->core->Auth()->isLoggedIn()) {
+        if (! $this->core->Auth()->isLoggedIn()) {
             $this->core->redirect('/auth/login');
         }
     }

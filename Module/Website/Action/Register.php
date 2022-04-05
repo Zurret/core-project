@@ -52,7 +52,7 @@ class Register
 
     private function createAccount(string $email, string $password, string $password_confirm): bool
     {
-        if (!checkEmail($email)) {
+        if (! checkEmail($email)) {
             $this->core->setNotification('Email ist ungültig.');
 
             return false;
@@ -88,7 +88,7 @@ class Register
 
         return true;
     }
-    
+
     private function isEmailBlacklisted(string $email): bool
     {
         $email_domain = explode('@', $email)[1];

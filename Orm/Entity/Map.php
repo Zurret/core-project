@@ -6,6 +6,7 @@ namespace Core\Orm\Entity;
 
 /**
  * @Entity(repositoryClass="Core\Orm\Repository\MapRepository")
+ *
  * @Table(
  *     name="core_map",
  *     indexes={
@@ -14,7 +15,7 @@ namespace Core\Orm\Entity;
  *         @Index(name="map_field_type_idx", columns={"field_id"})
  *     }
  * )
- **/
+ */
 class Map implements MapInterface
 {
     /**
