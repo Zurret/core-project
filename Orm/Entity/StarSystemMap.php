@@ -40,6 +40,7 @@ class StarSystemMap implements StarSystemMapInterface
      * @Column(type="integer", nullable=false)
      */
     private int $type;
+
     public function getId(): int
     {
         return $this->id;
@@ -58,6 +59,7 @@ class StarSystemMap implements StarSystemMapInterface
     public function setSx(int $sx): StarSystemMapInterface
     {
         $this->sx = $sx;
+
         return $this;
     }
 
@@ -69,6 +71,7 @@ class StarSystemMap implements StarSystemMapInterface
     public function setSy(int $sy): StarSystemMapInterface
     {
         $this->sy = $sy;
+
         return $this;
     }
 
@@ -80,6 +83,7 @@ class StarSystemMap implements StarSystemMapInterface
     public function setType(int $type): StarSystemMapInterface
     {
         $this->type = $type;
+
         return $this;
     }
 }

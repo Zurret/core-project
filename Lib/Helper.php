@@ -7,9 +7,8 @@ function __(string $string, ?array $value = null): string
     if (is_null($value)) {
         return _($string);
     }
-    return vsprintf(_($string), $value);
 
-    
+    return vsprintf(_($string), $value);
 }
 
 function removeHTML(string $string): string
@@ -37,6 +36,7 @@ function betweenDates(string $date, string $start, string $end): bool
     $date = strtotime($date);
     $start = strtotime($start);
     $end = strtotime($end);
+
     return (bool) $date >= $start && $date <= $end;
 }
 
@@ -65,7 +65,8 @@ function encrypt(string $string, string $key): string|bool
     try {
         $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
         $encrypted = openssl_encrypt($string, 'aes-256-cbc', $key, 0, $iv);
-        return rtrim(strtr(base64_encode($encrypted . '::' . $iv), '+/', '-_'), '=');
+
+        return rtrim(strtr(base64_encode($encrypted.'::'.$iv), '+/', '-_'), '=');
     } catch (Exception) {
         return false;
     }
@@ -76,6 +77,7 @@ function decrypt(string $string, string $key): string|bool
     try {
         $decoded = base64_decode(str_pad(strtr($string, '-_', '+/'), strlen($string) % 4, '='));
         $string = explode('::', $decoded);
+
         return openssl_decrypt($string[0], 'aes-256-cbc', $key, 0, $string[1]);
     } catch (Exception) {
         return false;

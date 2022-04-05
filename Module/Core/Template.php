@@ -42,7 +42,7 @@ final class Template implements TemplateInterface
      */
     public function setTemplate(string $file): void
     {
-        $this->isTemplateSet = $this->getTemplate()->load($file . $this->config->get('core.template_ext'));
+        $this->isTemplateSet = $this->getTemplate()->load($file.$this->config->get('core.template_ext'));
     }
 
     public function isTemplateSet(): bool
@@ -58,18 +58,20 @@ final class Template implements TemplateInterface
     public function generateUrl(string $url): string
     {
         if ($this->config->get('core.encrypt_url')) {
-            $url = $this->config->get('core.base_url') . encrypt($url, $this->config->get('core.secret'));
+            $url = $this->config->get('core.base_url').encrypt($url, $this->config->get('core.secret'));
         } else {
-            $url = $this->config->get('core.base_url') . $url;
+            $url = $this->config->get('core.base_url').$url;
         }
+
         return $url;
     }
 
     private function getV(): string
     {
-        if (! isset($this->version)) {
+        if (!isset($this->version)) {
             $this->version = substr(md5($this->config->get('core.version')), 0, 12);
         }
+
         return $this->version;
     }
 
@@ -78,14 +80,14 @@ final class Template implements TemplateInterface
         $this->template->addFunction(new TwigFunction(
             'assetsPath',
             function ($src): string {
-                return $this->config->get('core.assets') . '/' . $src . '?v=' . $this->getV();
+                return $this->config->get('core.assets').'/'.$src.'?v='.$this->getV();
             }
         ));
 
         $this->template->addFunction(new TwigFunction(
             'staticPath',
             function ($src): string {
-                return $this->config->get('core.static') . '/' . $src . '?v=' . $this->getV();
+                return $this->config->get('core.static').'/'.$src.'?v='.$this->getV();
             }
         ));
 
