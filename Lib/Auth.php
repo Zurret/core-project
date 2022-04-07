@@ -15,6 +15,16 @@ class Auth
 
     private ?UserInterface $user = null;
 
+    protected string $sessionLogin = 'login';
+
+    protected string $sessionAccount = 'account_id';
+
+    protected string $session_string = 'account_sstr';
+
+    protected string $cookie_string = 'account_cstr';
+
+    protected int $cookie_lifetime = 60 * 60 * 24 * 7; // 7 days in seconds (default) 
+
     public function __construct(
         UserRepositoryInterface $userRepository,
         Session $session
@@ -72,7 +82,7 @@ class Auth
     public function getUser(): ?UserInterface
     {
         if (!$this->user) {
-            if ($this->session->getSession('LOGIN') !== null && $user = $this->userRepository->getByIdAndSession($this->session->getSession('ACCOUNT_ID') ?? 0, $this->session->getSession('ACCOUNT_SSTR') ?? '')) {
+            if ($this->session->getSession($this->sessionLogin) !== null && $user = $this->userRepository->getByIdAndSession($this->session->getSession($this->sessionAccount) ?? 0, $this->session->getSession($this->session_string) ?? '')) {
                 $this->setUser($user);
             }
         }
@@ -83,7 +93,7 @@ class Auth
     public function isLoggedIn(): bool
     {
         if (!$this->getUser()) {
-            if ($this->session->getCookie('LOGIN') !== null && $user = $this->userRepository->getByIdandCookie((int) $this->session->getCookie('ACCOUNT_ID') ?? 0, (string) $this->session->getCookie('ACCOUNT_CSTR') ?? '')) {
+            if ($this->session->getCookie($this->sessionLogin) !== null && $user = $this->userRepository->getByIdandCookie((int) $this->session->getCookie($this->sessionAccount) ?? 0, (string) $this->session->getCookie($this->cookie_string) ?? '')) {
                 $this->setUser($user);
                 $this->setSession();
             }
@@ -105,40 +115,40 @@ class Auth
     public function checkAccessLevelOrDie(int $level): void
     {
         if (!$this->checkAccessLevel($level)) {
-            exit('Access denied');
+            exit(__('Access denied'));
         }
     }
 
     public function setRememberMe($cookie): void
     {
-        $this->session->setCookie('LOGIN', true, time() + 60 * 60 * 24 * 7);
-        $this->session->setCookie('ACCOUNT_ID', $this->getUser()->getId(), time() + 60 * 60 * 24 * 7);
-        $this->session->setCookie('ACCOUNT_CSTR', $cookie, time() + 60 * 60 * 24 * 7);
+        $this->session->setCookie($this->sessionLogin, true, time() + $this->cookie_lifetime);
+        $this->session->setCookie($this->sessionAccount, $this->getUser()->getId(), time() + $this->cookie_lifetime);
+        $this->session->setCookie($this->cookie_string, $cookie, time() + $this->cookie_lifetime);
     }
 
     public function unsetRememberMe(): void
     {
-        $this->session->deleteCookie('LOGIN');
-        $this->session->deleteCookie('ACCOUNT_ID');
-        $this->session->deleteCookie('ACCOUNT_CSTR');
+        $this->session->deleteCookie($this->sessionLogin);
+        $this->session->deleteCookie($this->sessionAccount);
+        $this->session->deleteCookie($this->cookie_string);
     }
 
     private function setSession(): void
     {
-        $session = sha1(random_bytes(32).$this->getUser()->getId());
+        $session = sha1(random_bytes(32) . $this->getUser()->getId());
         $this->getUser()->setSessionString($session);
         $this->getUser()->setLastLogin(time());
 
-        $this->session->setSession('ACCOUNT_ID', $this->getUser()->getId());
-        $this->session->setSession('ACCOUNT_SSTR', $session);
-        $this->session->setSession('LOGIN', true);
+        $this->session->setSession($this->sessionAccount, $this->getUser()->getId());
+        $this->session->setSession($this->session_string, $session);
+        $this->session->setSession($this->sessionLogin, true);
 
         $this->userRepository->save($this->getUser());
     }
 
     private function setCookies(): void
     {
-        $cookie = sha1(random_bytes(32).$this->getUser()->getId());
+        $cookie = sha1(random_bytes(32) . $this->getUser()->getId());
         $this->getUser()->setCookieString($cookie);
         $this->setRememberMe($cookie);
 

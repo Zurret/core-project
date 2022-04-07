@@ -31,8 +31,5 @@
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
         }
-    },
-    "require-dev": {
-        "nunomaduro/phpinsights": "^2.2"
     }
 }
