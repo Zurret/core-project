@@ -16,13 +16,13 @@ if (false !== $pos = strpos($uri, '?')) {
 $uri = rawurldecode($uri);
 if ($app->getConfig('core.encrypt_url')) {
     if ($uri === '/') {
-        $uri = encrypt('/', $app->getConfig('core.secret'));
+        $uri = encrypt('/', $app->getConfig('core.secret.key'), $app->getConfig('core.secret.random_iv'));
     }
     if (str_starts_with($uri, '/')) {
         $uri = substr($uri, 1);
     }
 
-    $uri = decrypt($uri, $app->getConfig('core.secret'));
+    $uri = decrypt($uri, $app->getConfig('core.secret.key'));
 }
 
 $route = $dispatcher->dispatch($httpMethod, $uri);

@@ -60,31 +60,42 @@ function isPasswordValid(string $password): bool
     return (bool) preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', $password);
 }
 
-function encrypt(string $string, string $key): string|bool
-{
-    try {
-        $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
-        $encrypted = openssl_encrypt($string, 'aes-256-cbc', $key, 0, $iv);
-
-        return rtrim(strtr(base64_encode($encrypted.'::'.$iv), '+/', '-_'), '=');
-    } catch (Exception) {
-        return false;
-    }
-}
-
-function decrypt(string $string, string $key): string|bool
-{
-    try {
-        $decoded = base64_decode(str_pad(strtr($string, '-_', '+/'), strlen($string) % 4, '='));
-        $string = explode('::', $decoded);
-
-        return openssl_decrypt($string[0], 'aes-256-cbc', $key, 0, $string[1]);
-    } catch (Exception) {
-        return false;
-    }
-}
-
 function clearEmojis(string $string): string
 {
     return preg_replace('/[\x{1F600}-\x{1F64F}]/u', '', $string);
+}
+
+
+/**
+ * Encrypt and decrypt method
+ * Used for Url
+ */
+
+function encrypt(mixed $value, string $key, bool $randomIv = false): string|bool
+{
+    try {
+        if ($randomIv) {
+            $iv = random_bytes(16);
+        } else {
+            $iv = substr(hash('sha256', $key), 0, 16);
+            //$iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
+        }
+        $encrypted = openssl_encrypt($value, 'aes-256-cbc', $key, 0, $iv);
+
+        return rtrim(strtr(base64_encode($encrypted . '::' . $iv), '+/', '-_'), '=');
+    } catch (Exception) {
+        return false;
+    }
+}
+
+function decrypt(mixed $value, string $key): string|bool
+{
+    try {
+        $decoded = base64_decode(str_pad(strtr($value, '-_', '+/'), strlen($value) % 4, '='));
+        $value = explode('::', $decoded);
+
+        return openssl_decrypt($value[0], 'aes-256-cbc', $key, 0, $value[1]);
+    } catch (Exception) {
+        return false;
+    }
 }

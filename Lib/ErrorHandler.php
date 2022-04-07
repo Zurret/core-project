@@ -33,7 +33,7 @@ if ($config->get('debug.enabled')) {
         $handler->addDataTable('Core', [
             'Core Version'  => $config->get('core.version'),
             'Core Name'     => $config->get('core.name'),
-            'Core Secret'   => $config->get('core.secret'),
+            'Core Secret'   => $config->get('core.secret.key'),
             'Core Root'     => $config->get('core.root'),
             'Core Logs'     => $config->get('debug.logs_path'),
             'Core Cache'    => $config->get('core.cache'),

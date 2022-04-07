@@ -58,7 +58,7 @@ final class Template implements TemplateInterface
     public function generateUrl(string $url): string
     {
         if ($this->config->get('core.encrypt_url')) {
-            $url = $this->config->get('core.base_url').encrypt($url, $this->config->get('core.secret'));
+            $url = $this->config->get('core.base_url').encrypt($url, $this->config->get('core.secret.key'), $this->config->get('core.secret.random_iv'));
         } else {
             $url = $this->config->get('core.base_url').$url;
         }
@@ -102,10 +102,10 @@ final class Template implements TemplateInterface
             'encrypt',
             function ($src, $key = null): string {
                 if (is_null($key)) {
-                    $key = $this->config->get('core.secret');
+                    $key = $this->config->get('core.secret.key');
                 }
 
-                return encrypt((string) $src, (string) $key);
+                return encrypt((string) $src, (string) $key, true);
             }
         ));
 
@@ -113,7 +113,7 @@ final class Template implements TemplateInterface
             'decrypt',
             function ($src, $key = null): string {
                 if (is_null($key)) {
-                    $key = $this->config->get('core.secret');
+                    $key = $this->config->get('core.secret.key');
                 }
 
                 return decrypt((string) $src, (string) $key);

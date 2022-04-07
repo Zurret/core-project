@@ -27,7 +27,10 @@ return [
         'name'         => 'Core Test',
         'name_short'   => 'Core',
         'version'      => '1.0.0 dev',
-        'secret'       => 'd4d89w48494g894ht9r&4f89e',
+        'secret'       => [
+            'key' => 'f4ef74r89g41954r89g',
+            'random_iv' => false,
+        ],
         'base_url'     => 'http://localhost/',
         'encrypt_url'  => false,
         'root'         => __DIR__.'/../',
