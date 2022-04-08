@@ -1,0 +1,29 @@
+{% extends "Layout/gameLayout.twig" %}
+{% block content %}
+
+<form action="{{ internUrl('/account/settings') }}" method="post" autocomplete="off">
+    {{ token_form|raw }}
+    Account ID: <input type="number" name="account_id" value="{{account.getId}}" readonly>
+    Player ID:<input type="number" name="player_id" value="{{player.getId}}" readonly>
+
+    <h1>Account</h1>
+    E-Mail Address: <input type="text" name="account_email" value="{{account.getEmail}}">
+
+    Passwört ändern: <input type="password" name="account_password"> 
+                    <input type="password" name="account_password_repeat">
+
+    <h1>Player</h1>
+    Name: <input type="text" name="player_name" value="{{player.getName}}">
+
+    <h1>Settings</h1>
+
+    <input type="checkbox" name="settings_get_emails" {{settings.getEmails ? 'checked' : '' }}> E-Mails erhalten.
+
+    <button type="submit" class="btn btn-primary">Speichern</button>
+    <button type="reset" class="btn btn-default">Zurücksetzen</button>
+</form>
+
+
+
+
+{% endblock %}

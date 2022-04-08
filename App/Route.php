@@ -23,6 +23,11 @@ return FastRoute\simpleDispatcher(static function (RouteCollector $r): void {
         $r->addRoute('POST', '/login', ['Core\Module\Website\Action\Login', 'doLogin']);
         $r->addRoute('GET', '/logout/{token}', ['Core\Module\Website\Action\Logout', 'doLogout']);
     });
+    /* Account */
+    $r->addGroup('/account', static function (RouteCollector $r): void {
+        $r->addRoute('GET', '/settings', 'Core\Module\Account\View\EditAccountSettings');
+        $r->addRoute('POST', '/settings', ['Core\Module\Account\Action\SaveAccountSettings', 'saveAccountSettings']);
+    });
     /* Game */
     $r->addGroup('/game', static function (RouteCollector $r): void {
         $r->addRoute('GET', '/maindesk', 'Core\Module\Maindesk\View\ShowMaindeskPage');

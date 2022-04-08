@@ -96,6 +96,7 @@ class Auth
             if ($this->session->getCookie($this->sessionLogin) !== null && $user = $this->userRepository->getByIdandCookie((int) $this->session->getCookie($this->sessionAccount) ?? 0, (string) $this->session->getCookie($this->cookie_string) ?? '')) {
                 $this->setUser($user);
                 $this->setSession();
+                header('Location: /');
             }
         }
 
