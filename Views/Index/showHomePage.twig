@@ -3,10 +3,8 @@
 
     {% for news in news_list %}
     <article class="uk-article">
-        <h1 class="uk-article-title"><a class="uk-link-reset" href="{{ internUrl('#{{ news.getId }}') }}">{{ news.getTitle }}</a></h1>
-
+        <h3><a class="uk-link-reset" href="{{ internUrl('#{{ news.getId }}') }}">{{ news.getTitle }}</a></h3>
         <p class="uk-article-meta">{% if news.getAuthor %}Von {{ news.getAuthor.getName }} ({{ news.getAuthor.getId }}){% endif %} am {{ news.getCreatedAt|timestampToDate }} Uhr</p>
-
         <p>{{ news.getShortText }}</p>
 
         {% if news.getText|length > 200 %}
