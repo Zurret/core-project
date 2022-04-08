@@ -3,27 +3,27 @@
 
 <form action="{{ internUrl('/auth/login') }}" method="post" autocomplete="off">
     {{ token_form|raw }}
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" name="email" onchange="checkLoginInputs();" placeholder="Email"
-            required>
-    </div>
-
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" name="password" onchange="checkLoginInputs();"
-            placeholder="Password" required>
-    </div>
-
-    <!-- Save Login -->
-    <div class="form-group">
-        <div class="form-check">
-            <label class="form-check-label" for="saveLogin">Login merken</label>
-            <input type="checkbox" class="form-check-input" id="saveLogin" name="saveLogin">
+    <div class="uk-margin">
+        <label class="uk-form-label uk-text-bold" for="email">Email</label>
+        <div class="uk-form-controls">
+            <input type="email" class="uk-input" id="email" name="email" onchange="checkLoginInputs();" placeholder="Email" required>
         </div>
     </div>
 
-    <button type="submit" id="login-button" class="btn btn-primary" disabled>Einloggen</button>
+    <div class="uk-margin">
+        <label class="uk-form-label uk-text-bold" for="password">Password</label>
+        <div class="uk-form-controls">
+            <input type="password" class="uk-input" id="password" name="password" onchange="checkLoginInputs();" placeholder="Password" required>
+        </div>
+    </div>
+
+    <div class="uk-margin">
+        <div class="uk-form-controls">
+            <label><input type="checkbox" class="uk-checkbox" id="saveLogin" name="saveLogin"> Login merken</label>
+        </div>
+    </div>
+
+    <button type="submit" id="login-button" class="uk-button uk-button-primary" disabled>Einloggen</button>
 </form>
 
 {% endblock %}

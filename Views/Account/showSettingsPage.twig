@@ -1,26 +1,57 @@
 {% extends "Layout/gameLayout.twig" %}
 {% block content %}
 
-<form action="{{ internUrl('/account/settings') }}" method="post" autocomplete="off">
-    {{ token_form|raw }}
-    Account ID: <input type="number" name="account_id" value="{{account.getId}}" readonly>
-    Player ID:<input type="number" name="player_id" value="{{player.getId}}" readonly>
+<form action="{{ internUrl('/account/settings') }}" method="post" autocomplete="off"
+    class="uk-form-horizontal uk-margin-large">
 
-    <h1>Account</h1>
-    E-Mail Address: <input type="text" name="account_email" value="{{account.getEmail}}">
+    <div class="uk-margin">
+        <label class="uk-form-label uk-text-bold uk-text-right" for="account_id">Account ID</label>
+        <div class="uk-form-controls">
+            <input class="uk-input uk-form-blank" name="account_id" id="account_id" type="number"
+                value="{{account.getId}}" readonly>
+        </div>
+    </div>
 
-    Passwört ändern: <input type="password" name="account_password"> 
-                    <input type="password" name="account_password_repeat">
+    <div class="uk-margin">
+        <label class="uk-form-label uk-text-bold uk-text-right" for="player_id">Player ID</label>
+        <div class="uk-form-controls">
+            <input class="uk-input uk-form-blank" name="player_id" id="player_id" type="number" value="{{player.getId}}"
+                readonly>
+        </div>
+    </div>
 
-    <h1>Player</h1>
-    Name: <input type="text" name="player_name" value="{{player.getName}}">
+    <h3>Account</h3>
 
-    <h1>Settings</h1>
+    <div class="uk-margin">
+        <label class="uk-form-label uk-text-bold uk-text-right" for="account_email">E-Mail Address</label>
+        <div class="uk-form-controls">
+            <input class="uk-input" type="text" name="account_email" id="account_email" value="{{account.getEmail}}">
+        </div>
+    </div>
 
-    <input type="checkbox" name="settings_get_emails" {{settings.getEmails ? 'checked' : '' }}> E-Mails erhalten.
+    <div class="uk-margin">
+        <label class="uk-form-label uk-text-bold uk-text-right" for="account_password">Passwort ändern</label>
+        <div class="uk-form-controls uk-grid-collapse" uk-grid>
+            <div class="uk-width-1-2@s">
+                <input class="uk-input" type="password" name="account_password">
+            </div>
+            <div class="uk-width-1-2@s">
+                <input class="uk-input" type="password" name="account_password_repeat">
+            </div>
+        </div>
+    </div>
 
-    <button type="submit" class="btn btn-primary">Speichern</button>
-    <button type="reset" class="btn btn-default">Zurücksetzen</button>
+    <h3>Spieler</h3>
+
+    <div class="uk-margin">
+        <label class="uk-form-label uk-text-bold uk-text-right" for="player_name">Name</label>
+        <div class="uk-form-controls">
+            <input class="uk-input" type="text" name="player_name" value="{{player.getName}}">
+        </div>
+    </div>
+
+    <button class="uk-button uk-button-default" type="reset">Verwerfen</button>
+    <button class="uk-button uk-button-primary" type="submit">Speichern</button>
 </form>
 
 

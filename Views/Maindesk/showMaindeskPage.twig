@@ -2,7 +2,7 @@
 {% block content %}
 
 {% if user.player.isNewbie %}
-<div style="display: block;padding: 5px 15px;background-color:#333;border:1px solid #222;margin: 15px 20px;">
+<div uk-alert>
     Willkommen neuer Siedler!<br>
     Wir empfehlen dir das Tutorial zu besuchen, um die Spielmechaniken zu erfahren.<br />
     Solltest du das Tutorial nicht mehr sehen, kannst du es <a href="{{ internUrl('/game/tutorial') }}"

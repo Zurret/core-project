@@ -1,33 +1,29 @@
 {% extends "Layout/webLayout.twig" %}
 {% block content %}
 
-<div style="margin: 15px 25px;">
-    <h1>Anschrift</h1>
-    <article>
+    <h2>Anschrift</h2>
+    <div class="uk-padding-small">
         <strong>{{ IMPRINT_NAME }}</strong><br />
         {{ IMPRINT_ADDRESS }}<br />
         {{ IMPRINT_ZIP }} {{ IMPRINT_CITY }}<br />
-        <em>{{ IMPRINT_COUNTRY }}</em><br /><br />
-    </article>
+        <em>{{ IMPRINT_COUNTRY }}</em>
+    </div>
 
-    <h1>E-Mail-Adresse</h1>
-    <article>
+    <h3>E-Mail-Adresse</h3>
+    <div class="uk-padding-small">
         {{ IMPRINT_EMAIL|raw }} &ndash; <span style="color: #ad3636;">kein Support!</span>
-    </article>
+    </div>
 
-
-    <br />
-    <h1>Hinweis</h1>
-    <article>
+    <h2>Hinweis</h2>
+    <div class="uk-padding-small">
         Dieses Spiel ist ein Hobby-Projekt und nicht profitorientiert.<br />
         Bitte beachtet dazu auch den Copyright Hinweis.<br />
         Sollte sich jemand in seinen Rechten verletzt f&uuml;hlen, so wird eine E-Mail gen&uuml;gen, um sich &uuml;ber
         den jeweiligen Punkt zu einigen und die Seite entsprechend zu korrigieren.
-    </article>
-
-    <br />
-    <h1>Haftung für Inhalte</h1>
-    <article>
+    </div>
+    
+    <h3>Haftung für Inhalte</h3>
+    <div class="uk-padding-small">
         Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen
         Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet,
         übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine
@@ -35,10 +31,9 @@
         nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem
         Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden
         Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.
-    </article>
-    <br />
-    <h1>Haftung für Links</h1>
-    <article>
+    </div>
+    <h3>Haftung für Links</h3>
+    <div class="uk-padding-small">
         Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb
         können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist
         stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum
@@ -46,10 +41,9 @@
         Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete
         Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir
         derartige Links umgehend entfernen.
-    </article>
-    <br />
-    <h1>Urheberrecht</h1>
-    <article>
+    </div>
+    <h3>Urheberrecht</h3>
+    <div class="uk-padding-small">
         Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen
         Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen
         des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und
@@ -58,8 +52,7 @@
         Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam
         werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir
         derartige Inhalte umgehend entfernen.
-    </article>
+    </div>
 
-</div>
 
 {% endblock %}

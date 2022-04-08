@@ -72,17 +72,17 @@ function generatePopup(title, content, x = null, y = null) {
   const popupHeight = popupContent.offsetHeight + 20
   // Set Style for Popup Elements
   // popup
-  popup.style.backgroundColor = '#000000'
-  popup.style.border = '1px solid #333333'
+  popup.style.backgroundColor = '#f8f8f8'
+  popup.style.border = '1px solid #e5e5e5'
   popup.style.boxShadow = '0px 0px 1px #000000'
   popup.style.top = (window.event.y) - (popupHeight / 2) + 'px'
   popup.style.left = (window.event.x) - (popupWidth / 2) + 'px'
   popup.style.minWidth = popupWidth + 'px'
   popup.style.minHeight = popupHeight + 'px'
   // popupTitle
-  popupTitle.style.backgroundColor = '#212121'
-  popupTitle.style.borderBottom = '1px solid #333333'
-  popupTitle.style.color = '#D99D1C'
+  popupTitle.style.backgroundColor = '#222'
+  popupTitle.style.borderBottom = '1px solid #e5e5e5'
+  popupTitle.style.color = '#fff'
   popupTitle.style.padding = '5px'
   popupTitle.style.fontSize = '14px'
   popupTitle.style.fontWeight = 'bold'
@@ -91,17 +91,17 @@ function generatePopup(title, content, x = null, y = null) {
   popupTitle.style.lineHeight = '1.2'
   popupTitle.style.verticalAlign = 'middle'
   // popupContent
-  popupContent.style.backgroundColor = '#000000'
-  popupContent.style.color = '#a1a1a1'
+  popupContent.style.backgroundColor = '#fff'
+  popupContent.style.color = '#666'
   popupContent.style.padding = '5px'
   popupContent.style.fontSize = '12px'
   popupContent.style.display = 'block'
   // popupClose
   popupClose.style.cursor = 'pointer'
   popupClose.style.float = 'right'
-  popupClose.style.backgroundColor = '#73241f'
-  popupClose.style.border = '1px solid #8f2821'
-  popupClose.style.color = '#a88d8d'
+  popupClose.style.backgroundColor = '#f0506e'
+  popupClose.style.border = '1px solid #d13b56'
+  popupClose.style.color = '#fff'
   popupClose.style.fontWeight = 'bold'
   popupClose.style.padding = '3px 10px'
   popupClose.style.marginTop = '-4px'
@@ -109,14 +109,14 @@ function generatePopup(title, content, x = null, y = null) {
   popupClose.style.marginLeft = '10px'
   // Set Event Listeners
   popupClose.onmouseover = function () {
-    popupClose.style.backgroundColor = '#8f2d27'
-    popupClose.style.border = '1px solid #962018'
-    popupClose.style.color = '#fafafa'
+    popupClose.style.backgroundColor = '#d13b56'
+    popupClose.style.border = '1px solid #d13b56'
+    popupClose.style.color = '#fff'
   }
   popupClose.onmouseout = function () {
-    popupClose.style.backgroundColor = '#73241f'
-    popupClose.style.border = '1px solid #8f2821'
-    popupClose.style.color = '#a88d8d'
+    popupClose.style.backgroundColor = '#f0506e'
+    popupClose.style.border = '1px solid #d13b56'
+    popupClose.style.color = '#fff'
   }
   popupClose.onclick = function () {
     document.getElementById(popupIdName).remove()

@@ -10,6 +10,7 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
+use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 final class Template implements TemplateInterface
@@ -77,6 +78,14 @@ final class Template implements TemplateInterface
 
     private function setFilterAndFunction(): void
     {
+        // Filter Timestamp to Date
+        $this->getTemplate()->addFilter(new TwigFilter(
+            'timestampToDate',
+            function ($timestamp) {
+                return date('d.m.Y H:i:s', $timestamp);
+            }
+        ));
+
         $this->template->addFunction(new TwigFunction(
             'assetsPath',
             function ($src): string {

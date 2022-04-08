@@ -1,31 +1,27 @@
 <html lang="de">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <title>{{ page_title }}</title>
 
-    <title>{{ page_title }}</title>
+        <link rel="stylesheet" type="text/css" href="{{ staticPath('css/uikit.min.css') }}" />
+        <link type="text/css" href="{{ staticPath('css/main.css') }}" />
 
-    <link type="text/css" href="{{ staticPath('css/normalize.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ staticPath('css/main.css') }}" />
-    
-    <script type="text/javascript" src="{{ staticPath('js/main.js') }}"></script>
-    <script type="text/javascript" src="{{ staticPath('js/popup.js') }}"></script>
-</head>
-
-<body>
-    <div id="wrap">
-        <header id="header">
-            <div class="top">
-                &nbsp; v.{{ core_version }}
-            </div>
-            <div class="title">
-                {{ core_name }}
-                <div class="subtitle">Derzeit in der Entwicklung!</div>
-            </div>
-            <nav id="nav">
-                <ul>
+        <script type="text/javascript" src="{{ staticPath('js/uikit.min.js') }}"></script>
+        <script type="text/javascript" src="{{ staticPath('js/uikit-icons.min.js') }}"></script>
+        <script type="text/javascript" src="{{ staticPath('js/main.js') }}"></script>
+        <script type="text/javascript" src="{{ staticPath('js/popup.js') }}"></script>
+    </head>
+    <body>
+        <nav class="uk-background-secondary uk-light" uk-navbar>
+            <div class="uk-navbar-left">
+                <ul class="uk-navbar-nav">
                     <li><a href="{{ internUrl('/') }}">Hauptseite</a></li>
+                </ul>
+            </div>
+            <div class="uk-navbar-right">
+                <ul class="uk-navbar-nav">
                     {% if auth.isLoggedIn %}
                     <li><a href="{{ internUrl('/game/maindesk') }}">Game</a></li>
                     <li><a href="{{ internUrl('/auth/logout/' ~ core_token) }}" onclick="return confirm('Willst du dich wirklich ausloggen?');">Ausloggen</a></li>
@@ -34,56 +30,42 @@
                     <li><a href="{{ internUrl('/auth/login') }}">Login</a></li>
                     {% endif %}
                 </ul>
-                <div class="clear"></div>
-            </nav>
-        </header>
-
-        <section id="content">
-            <h1>{{ site_title }}</h1>
+            </div>
+        </nav>
+        
+        <main class="uk-container uk-container-small uk-margin-small-top">
+            <noscript>
+                <div class="uk-alert-danger" uk-alert>
+                    Bitte aktiviere JavaScript in deinem Browser.
+                </div>
+            </noscript>
             {% if infos %}
-            <div style="background-color: #3f3f3f; color: #cacaca; padding: 10px 15px;">
+            <div class="uk-margin-small-bottom" uk-alert>
                 {% for info in infos %}
                 <div>{{ info|e }}</div>
                 {% endfor %}
             </div>
             {% endif %}
-            <noscript>
-                <div class="alert alert-error">
-                    Bitte aktiviere JavaScript in deinem Browser.
-                </div>
-            </noscript>
-            {% block content %} ... {% endblock %}
-        </section>
-
-        <aside id="sidebar">
-            <div class="panel">
-                <h3>Status</h3>
-                <div style="text-align: center;" class="gamestate gamestate_1">
-                    <span>Online</span>
+            <div class="uk-section-muted">
+                <h2 class="uk-heading-bullet"><span>{{ site_title }}</span></h2>
+                <div class="uk-padding-small">
+                {% block content %} ... {% endblock %}
                 </div>
             </div>
-            {% if auth.isLoggedIn %}
-            <div class="panel">
-                <h3>Eingeloggt</h3>
-                <p>Hallo {{ user.player.getName }}</p>
-            </div>
-            {% endif %}
-        </aside>
+        </main>
 
-        <footer id="footer">
+        <footer class="uk-container uk-container-small uk-margin-small-top">
             <div class="copyright">
-                &copy; 2021 &ndash; {{ "now"|date("Y") }} &bull; Made with <span
+                &copy; 2021 &ndash; {{ "now"|date("Y") }} &bull; v.{{ core_version }} &bull; Made with <span
                     style="color:#a30000;font-size:10px;">&#10084;</span> |
                 <a href="{{ internUrl('/cookies') }}" class="nav-link">Cookies</a> |
                 <a href="{{ internUrl('/privacy') }}" class="nav-link">Datenschutzerklärung</a> |
                 <a href="{{ internUrl('/imprint') }}" class="nav-link">Impressum</a>
             </div>
+            <div id="debug" style="text-align:center;color:#333333;font-size:9px;margin-top:15px;">
+                Rendered in {{ benchmark.executionTime }} - Memory usage: {{ benchmark.memoryPeakUsage }}
+            </div>
         </footer>
 
-        <div id="debug" style="text-align:center;color:#333333;font-size:9px;margin-top:15px;">
-            Rendered in {{ benchmark.executionTime }} - Memory usage: {{ benchmark.memoryPeakUsage }}
-        </div>
-    </div>
-</body>
-
+    </body>
 </html>
