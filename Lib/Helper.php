@@ -76,9 +76,9 @@ function encrypt(mixed $value, string $key, bool $randomIv = false): string|bool
     try {
         if ($randomIv) {
             $iv = random_bytes(16);
+            //$iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
         } else {
             $iv = substr(hash('sha256', $key), 0, 16);
-            //$iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
         }
         $encrypted = openssl_encrypt($value, 'aes-256-cbc', $key, 0, $iv);
 
