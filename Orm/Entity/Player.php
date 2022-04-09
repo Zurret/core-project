@@ -125,6 +125,6 @@ class Player implements PlayerInterface
 
     public function isNewbie(): bool
     {
-        return (bool) $this->level < 1;
+        return (bool) $this->level < 10; // Todo: Tutorial is not implemented yet
     }
 }
