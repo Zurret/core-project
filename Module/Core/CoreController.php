@@ -51,6 +51,7 @@ final class CoreController implements CoreControllerInterface
         /**
          * Global variable.
          */
+        $this->setTemplateVar('core', $this);
         $this->setTemplateVar('core_name', $this->getCoreName());
         $this->setTemplateVar('core_version', $this->getVersion());
         $this->setTemplateVar('auth', $this->Auth());
@@ -176,6 +177,13 @@ final class CoreController implements CoreControllerInterface
 
     private function getVersion(): string
     {
+        // if shell_exec is available, use it
+        if (function_exists('shell_exec')) {
+            $version = shell_exec('git describe --tags --always');
+            if ($version) {
+                return $version;
+            }
+        }
         return $this->getConfig('core.version');
     }
 
