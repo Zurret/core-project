@@ -8,6 +8,7 @@ use Core\Lib\Auth;
 use Core\Lib\Request;
 use Core\Lib\Session;
 use Core\Orm\Entity\AccountInterface;
+use Core\Orm\Entity\PlayerInterface;
 use Exception;
 use Noodlehaus\ConfigInterface;
 
@@ -55,7 +56,8 @@ final class CoreController implements CoreControllerInterface
         $this->setTemplateVar('core_name', $this->getCoreName());
         $this->setTemplateVar('core_version', $this->getVersion());
         $this->setTemplateVar('auth', $this->Auth());
-        $this->setTemplateVar('user', $this->getAccount());
+        $this->setTemplateVar('account', $this->getAccount());
+        $this->setTemplateVar('account_player', $this->getPlayer());
         $this->setTemplateVar('core_token', $this->getToken());
         $this->setTemplateVar('token_form', $this->getTokenInput());
         $this->setTemplateVar('benchmark', $this->getBenchmarkResult());
@@ -78,6 +80,14 @@ final class CoreController implements CoreControllerInterface
     public function getAccount(): ?AccountInterface
     {
         return $this->Auth()->getAccount();
+    }
+
+    public function getPlayer(): ?PlayerInterface
+    {
+        if($this->getAccount() === null) {
+            return null;
+        }
+        return $this->getAccount()->getPlayer();
     }
 
     public function Session(): Session
