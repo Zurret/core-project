@@ -81,32 +81,16 @@ function emblemPreview(input) {
   const file = input.files[0]
 
   // check file size and width and height
-  if (file.size > 200000) {
+  if (file.size > 1000000) {
     alert('File size is too big!')
-    input.value = null;
+    input.value = ''
     return
   }
   if (file.type !== 'image/png') {
     alert('File type is not supported!')
-    input.value = null;
+    input.value = ''
     return
   }
 
-  console.log(file);
-
-  const reader = new FileReader()
-  reader.onload = function () {
-    var image = new Image();
-    image.src = reader.result;
-
-    image.onload = function () {
-      if (file.image.width > 150 || file.image.height > 150) {
-        alert('Image size is too big!')
-        input.value = null;
-        return
-      }
-    };
-    preview.src = image.src
-  }
-  reader.readAsDataURL(file)
+  preview.src = URL.createObjectURL(file);
 }
