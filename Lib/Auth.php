@@ -108,18 +108,6 @@ class Auth
         return !$this->isLoggedIn();
     }
 
-    public function checkAccessLevel(int $level): bool
-    {
-        return $this->getAccount()->getAccessLevel() >= $level;
-    }
-
-    public function checkAccessLevelOrDie(int $level): void
-    {
-        if (!$this->checkAccessLevel($level)) {
-            exit(__('Access denied'));
-        }
-    }
-
     public function setRememberMe($cookie): void
     {
         $this->session->setCookie($this->sessionLogin, true, time() + $this->cookie_lifetime);
@@ -154,5 +142,33 @@ class Auth
         $this->setRememberMe($cookie);
 
         $this->accountRepository->save($this->getAccount());
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->checkAccessLevelOrDie(90);
+    }
+
+    public function isModerator(): bool
+    {
+        return $this->checkAccessLevelOrDie(80);
+    }
+
+    public function isUser(): bool
+    {
+        return $this->checkAccessLevelOrDie(10);
+    }
+
+    public function checkAccessLevel(int $level): bool
+    {
+        return $this->getAccount()->getAccessLevel() >= $level;
+    }
+
+    public function checkAccessLevelOrDie(int $level): bool
+    {
+        if (!$this->checkAccessLevel($level)) {
+            exit(__('Access denied'));
+        }
+        return true;
     }
 }
