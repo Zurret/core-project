@@ -13,6 +13,23 @@
         </div>
     </div>
 
+    <div class="uk-margin">
+        <label class="uk-form-label uk-text-right" for="player_name">
+            <span class="uk-text-bold">Emblem/Logo</span><br />
+            <span class="uk-text-muted">PNG | 150px</span>
+        </label>
+        <div class="uk-form-controls">
+            <div uk-form-custom="target: true">
+                <input type="file">
+                {% if not player.getEmblem %}
+                    <img src="/uploads/emblem/default.png" alt="">
+                {% else %}
+                    <img src="/uploads/emblem/{{ player.getEmblem }}" alt="">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
     <h3>Account (ID: {{account.getId}})</h3>
 
     <div class="uk-margin">

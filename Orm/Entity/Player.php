@@ -26,6 +26,9 @@ class Player implements PlayerInterface
 
     /** @Column(type="string", length=255, options={"default" : "Kolonist"}) */
     private string $name = 'Kolonist';
+    
+    /** @Column(type="string", length=255, nullable=true, options={"default" : null}) */
+    private ?string $emblem = null;
 
     /** @Column(type="integer", options={"default" : 0}) */
     private int $level = 0;
@@ -109,6 +112,17 @@ class Player implements PlayerInterface
     public function getReputation(): int
     {
         return $this->external_reputation + $this->internal_reputation;
+    }
+
+    public function getEmblem(): ?string
+    {
+        return $this->emblem;
+    }
+
+    public function setEmblem(string $emblem): PlayerInterface
+    {
+        $this->emblem = substr(hash('sha256', $this->getName()), 0, 16) . '_' . $this->getId() . '.png';
+        return $this;
     }
 
     public function isNpc(): bool
