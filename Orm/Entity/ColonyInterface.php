@@ -18,7 +18,7 @@ interface ColonyInterface
 
     public function getStarsystemMapId(): int;
 
-    public function getPlanetMapId(): int;
+    public function getColonyMapId(): int;
 
     public function getXSize(): int;
 

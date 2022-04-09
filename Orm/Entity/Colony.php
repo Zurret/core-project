@@ -57,10 +57,10 @@ class Colony implements ColonyInterface
     private StarSystemMapInterface $starsystemMap;
 
     /**
-     * @ManyToOne(targetEntity="PlanetMap", inversedBy="colonies")
+     * @ManyToOne(targetEntity="ColonyMap", inversedBy="colonies")
      * @JoinColumn(name="planet_map_id", referencedColumnName="id", onDelete="CASCADE")
      */
-    private PlanetMapInterface $planetMap;
+    private ColonyMapInterface $colonyMap;
 
     /**
      * @ManyToOne(targetEntity="ColonyType", inversedBy="colonies")
@@ -100,7 +100,7 @@ class Colony implements ColonyInterface
         return $this->starsystem_map_id;
     }
 
-    public function getPlanetMapId(): int
+    public function getColonyMapId(): int
     {
         return $this->planet_map_id;
     }

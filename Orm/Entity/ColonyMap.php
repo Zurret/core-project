@@ -8,12 +8,12 @@ namespace Core\Orm\Entity;
  * @Entity(repositoryClass="Core\Orm\Repository\MapRepository")
  *
  * @Table(
- *     name="core_planet_map",
+ *     name="core_colony_map",
  *     indexes={
  *     }
  * )
  */
-class PlanetMap
+class ColonyMap implements ColonyMapInterface
 {
     /**
      * @Id
@@ -23,6 +23,9 @@ class PlanetMap
      * @GeneratedValue(strategy="IDENTITY")
      */
     private int $id;
+
+    /** @Column(type="string", length=255) */
+    private string $map; // JSON?
 
     /**
      * @ManyToOne(targetEntity="Colony", inversedBy="maps")

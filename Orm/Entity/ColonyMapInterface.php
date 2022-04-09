@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Core\Orm\Entity;
 
-interface PlanetMapInterface
+interface ColonyMapInterface
 {
     public function getId(): int;
 }
