@@ -74,3 +74,39 @@ function setGeneratedPassword() {
     passwordVisibility.innerHTML = 'Hide'
   }
 }
+
+// Emblem / Logo upload preview
+function emblemPreview(input) {
+  const preview = document.getElementById('emblem-preview')
+  const file = input.files[0]
+
+  // check file size and width and height
+  if (file.size > 200000) {
+    alert('File size is too big!')
+    input.value = null;
+    return
+  }
+  if (file.type !== 'image/png') {
+    alert('File type is not supported!')
+    input.value = null;
+    return
+  }
+
+  console.log(file);
+
+  const reader = new FileReader()
+  reader.onload = function () {
+    var image = new Image();
+    image.src = reader.result;
+
+    image.onload = function () {
+      if (file.image.width > 150 || file.image.height > 150) {
+        alert('Image size is too big!')
+        input.value = null;
+        return
+      }
+    };
+    preview.src = image.src
+  }
+  reader.readAsDataURL(file)
+}

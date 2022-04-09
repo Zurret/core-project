@@ -9,7 +9,7 @@
     <div class="uk-margin">
         <label class="uk-form-label uk-text-bold uk-text-right" for="player_name">Name</label>
         <div class="uk-form-controls">
-            <input class="uk-input" type="text" name="player_name" value="{{player.getName}}">
+            <input class="uk-input" type="text" name="player_name" value="{{player.getName}}" required>
         </div>
     </div>
 
@@ -20,11 +20,11 @@
         </label>
         <div class="uk-form-controls">
             <div uk-form-custom="target: true">
-                <input type="file">
+                <input type="file" name="player_emblem" onchange="emblemPreview(this)">
                 {% if not player.getEmblem %}
-                    <img src="/uploads/emblem/default.png" alt="">
+                    <img src="/uploads/emblem/default.png" alt="" id="emblem-preview">
                 {% else %}
-                    <img src="/uploads/emblem/{{ player.getEmblem }}" alt="">
+                    <img src="/uploads/emblem/{{ player.getEmblem }}" alt="" id="emblem-preview">
                 {% endif %}
             </div>
         </div>
@@ -35,7 +35,7 @@
     <div class="uk-margin">
         <label class="uk-form-label uk-text-bold uk-text-right" for="account_email">E-Mail Address</label>
         <div class="uk-form-controls">
-            <input class="uk-input" type="text" name="account_email" id="account_email" value="{{account.getEmail}}">
+            <input class="uk-input" type="text" name="account_email" id="account_email" value="{{account.getEmail}}" required>
         </div>
     </div>
 

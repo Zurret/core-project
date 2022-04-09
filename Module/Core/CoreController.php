@@ -191,7 +191,7 @@ final class CoreController implements CoreControllerInterface
         if (function_exists('shell_exec')) {
             $version = shell_exec('git describe --tags --always');
             if ($version) {
-                return $version;
+                return str_replace("\n", '', $version);
             }
         }
         return $this->getConfig('core.version');
