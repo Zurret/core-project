@@ -26,8 +26,8 @@ class EditAccountSettings
     public function __invoke(): void
     {
         $this->core->setTemplateTitle('Einstellungen');
-        $this->core->setTemplateVar('account', $this->core->Auth()->getUser());
-        $this->core->setTemplateVar('player', $this->core->Auth()->getUser()->getPlayer());
+        $this->core->setTemplateVar('account', $this->core->Auth()->getAccount());
+        $this->core->setTemplateVar('player', $this->core->Auth()->getAccount()->getPlayer());
         $this->core->render('Account/showSettingsPage');
     }
 }

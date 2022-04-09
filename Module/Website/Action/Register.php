@@ -7,24 +7,24 @@ namespace Core\Module\Website\Action;
 use Core\Lib\Request;
 use Core\Module\Core\CoreControllerInterface;
 use Core\Orm\Repository\PlayerRepositoryInterface;
-use Core\Orm\Repository\UserRepositoryInterface;
+use Core\Orm\Repository\AccountRepositoryInterface;
 use Exception;
 
 class Register
 {
     private CoreControllerInterface $core;
 
-    private UserRepositoryInterface $userRepository;
+    private AccountRepositoryInterface $accountRepository;
 
     private PlayerRepositoryInterface $playerRepository;
 
     public function __construct(
         CoreControllerInterface $core,
-        UserRepositoryInterface $userRepository,
+        AccountRepositoryInterface $accountRepository,
         PlayerRepositoryInterface $playerRepository
     ) {
         $this->core = $core;
-        $this->userRepository = $userRepository;
+        $this->accountRepository = $accountRepository;
         $this->playerRepository = $playerRepository;
     }
 
@@ -65,7 +65,7 @@ class Register
             return false;
         }
 
-        if ($this->userRepository->getByEmail($email)) {
+        if ($this->accountRepository->getByEmail($email)) {
             $this->core->setNotification('E-Mail Adresse bereits vergeben.');
 
             return false;
@@ -77,14 +77,14 @@ class Register
             return false;
         }
 
-        $account = $this->userRepository->prototype();
+        $account = $this->accountRepository->prototype();
         $player = $this->playerRepository->prototype();
         $account->setEmail($email);
         $account->setPassword($this->core->Auth()->hashPassword($password));
         $player->setName('Kolonist');
         $this->playerRepository->save($player);
         $account->setPlayer($player);
-        $this->userRepository->save($account);
+        $this->accountRepository->save($account);
 
         return true;
     }

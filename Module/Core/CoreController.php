@@ -7,7 +7,7 @@ namespace Core\Module\Core;
 use Core\Lib\Auth;
 use Core\Lib\Request;
 use Core\Lib\Session;
-use Core\Orm\Entity\UserInterface;
+use Core\Orm\Entity\AccountInterface;
 use Exception;
 use Noodlehaus\ConfigInterface;
 
@@ -21,7 +21,7 @@ final class CoreController implements CoreControllerInterface
 
     private Session $session;
 
-    private ?UserInterface $user = null;
+    private ?AccountInterface $account = null;
 
     private array $notification = [];
 
@@ -55,7 +55,7 @@ final class CoreController implements CoreControllerInterface
         $this->setTemplateVar('core_name', $this->getCoreName());
         $this->setTemplateVar('core_version', $this->getVersion());
         $this->setTemplateVar('auth', $this->Auth());
-        $this->setTemplateVar('user', $this->getUser());
+        $this->setTemplateVar('user', $this->getAccount());
         $this->setTemplateVar('core_token', $this->getToken());
         $this->setTemplateVar('token_form', $this->getTokenInput());
         $this->setTemplateVar('benchmark', $this->getBenchmarkResult());
@@ -75,9 +75,9 @@ final class CoreController implements CoreControllerInterface
         return $this->auth;
     }
 
-    public function getUser(): ?UserInterface
+    public function getAccount(): ?AccountInterface
     {
-        return $this->Auth()->getUser();
+        return $this->Auth()->getAccount();
     }
 
     public function Session(): Session

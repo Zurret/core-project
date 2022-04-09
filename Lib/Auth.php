@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Core\Lib;
 
-use Core\Orm\Entity\UserInterface;
-use Core\Orm\Repository\UserRepositoryInterface;
+use Core\Orm\Entity\AccountInterface;
+use Core\Orm\Repository\AccountRepositoryInterface;
 
 class Auth
 {
-    private UserRepositoryInterface $userRepository;
+    private AccountRepositoryInterface $accountRepository;
 
     private Session $session;
 
-    private ?UserInterface $user = null;
+    private ?AccountInterface $account = null;
 
     protected string $sessionLogin = 'login';
 
@@ -26,10 +26,10 @@ class Auth
     protected int $cookie_lifetime = 60 * 60 * 24 * 7; // 7 days in seconds (default) 
 
     public function __construct(
-        UserRepositoryInterface $userRepository,
+        AccountRepositoryInterface $accountRepository,
         Session $session
     ) {
-        $this->userRepository = $userRepository;
+        $this->accountRepository = $accountRepository;
         $this->session = $session;
     }
 
@@ -45,17 +45,17 @@ class Auth
 
     public function login(string $email, string $password, bool $remember = false): bool
     {
-        $user = $this->userRepository->getByEmail($email);
+        $account = $this->accountRepository->getByEmail($email);
 
-        if ($user && $this->checkPassword($password, $user->getPassword())) {
-            $this->setUser($user);
+        if ($account && $this->checkPassword($password, $account->getPassword())) {
+            $this->setAccount($account);
             $this->setSession();
 
             if ($remember) {
                 $this->setCookies();
             }
 
-            $this->userRepository->save($this->getUser());
+            $this->accountRepository->save($this->getAccount());
 
             return true;
         }
@@ -65,42 +65,42 @@ class Auth
 
     public function logout(): void
     {
-        $this->getUser()->setSessionString(null);
-        $this->getUser()->setCookieString(null);
-        $this->userRepository->save($this->getUser());
+        $this->getAccount()->setSessionString(null);
+        $this->getAccount()->setCookieString(null);
+        $this->accountRepository->save($this->getAccount());
         $this->session->deleteAllSessions();
         $this->unsetRememberMe();
-        $this->user = null;
+        $this->account = null;
         header('Location: /');
     }
 
-    public function setUser(UserInterface $user): void
+    public function setAccount(AccountInterface $account): void
     {
-        $this->user = $user;
+        $this->account = $account;
     }
 
-    public function getUser(): ?UserInterface
+    public function getAccount(): ?AccountInterface
     {
-        if (!$this->user) {
-            if ($this->session->getSession($this->sessionLogin) !== null && $user = $this->userRepository->getByIdAndSession($this->session->getSession($this->sessionAccount) ?? 0, $this->session->getSession($this->session_string) ?? '')) {
-                $this->setUser($user);
+        if (!$this->account) {
+            if ($this->session->getSession($this->sessionLogin) !== null && $account = $this->accountRepository->getByIdAndSession($this->session->getSession($this->sessionAccount) ?? 0, $this->session->getSession($this->session_string) ?? '')) {
+                $this->setAccount($account);
             }
         }
 
-        return $this->user;
+        return $this->account;
     }
 
     public function isLoggedIn(): bool
     {
-        if (!$this->getUser()) {
-            if ($this->session->getCookie($this->sessionLogin) !== null && $user = $this->userRepository->getByIdandCookie((int) $this->session->getCookie($this->sessionAccount) ?? 0, (string) $this->session->getCookie($this->cookie_string) ?? '')) {
-                $this->setUser($user);
+        if (!$this->getAccount()) {
+            if ($this->session->getCookie($this->sessionLogin) !== null && $account = $this->accountRepository->getByIdandCookie((int) $this->session->getCookie($this->sessionAccount) ?? 0, (string) $this->session->getCookie($this->cookie_string) ?? '')) {
+                $this->setAccount($account);
                 $this->setSession();
                 header('Location: /');
             }
         }
 
-        return !($this->getUser() === null);
+        return !($this->getAccount() === null);
     }
 
     public function isNotLoggedIn(): bool
@@ -110,7 +110,7 @@ class Auth
 
     public function checkAccessLevel(int $level): bool
     {
-        return $this->getUser()->getAccessLevel() >= $level;
+        return $this->getAccount()->getAccessLevel() >= $level;
     }
 
     public function checkAccessLevelOrDie(int $level): void
@@ -123,7 +123,7 @@ class Auth
     public function setRememberMe($cookie): void
     {
         $this->session->setCookie($this->sessionLogin, true, time() + $this->cookie_lifetime);
-        $this->session->setCookie($this->sessionAccount, $this->getUser()->getId(), time() + $this->cookie_lifetime);
+        $this->session->setCookie($this->sessionAccount, $this->getAccount()->getId(), time() + $this->cookie_lifetime);
         $this->session->setCookie($this->cookie_string, $cookie, time() + $this->cookie_lifetime);
     }
 
@@ -136,23 +136,23 @@ class Auth
 
     private function setSession(): void
     {
-        $session = sha1(random_bytes(32) . $this->getUser()->getId());
-        $this->getUser()->setSessionString($session);
-        $this->getUser()->setLastLogin(time());
+        $session = sha1(random_bytes(32) . $this->getAccount()->getId());
+        $this->getAccount()->setSessionString($session);
+        $this->getAccount()->setLastLogin(time());
 
-        $this->session->setSession($this->sessionAccount, $this->getUser()->getId());
+        $this->session->setSession($this->sessionAccount, $this->getAccount()->getId());
         $this->session->setSession($this->session_string, $session);
         $this->session->setSession($this->sessionLogin, true);
 
-        $this->userRepository->save($this->getUser());
+        $this->accountRepository->save($this->getAccount());
     }
 
     private function setCookies(): void
     {
-        $cookie = sha1(random_bytes(32) . $this->getUser()->getId());
-        $this->getUser()->setCookieString($cookie);
+        $cookie = sha1(random_bytes(32) . $this->getAccount()->getId());
+        $this->getAccount()->setCookieString($cookie);
         $this->setRememberMe($cookie);
 
-        $this->userRepository->save($this->getUser());
+        $this->accountRepository->save($this->getAccount());
     }
 }

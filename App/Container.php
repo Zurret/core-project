@@ -12,13 +12,13 @@ use Core\Orm\Entity\MapField;
 use Core\Orm\Entity\News;
 use Core\Orm\Entity\Player;
 use Core\Orm\Entity\StarSystem;
-use Core\Orm\Entity\User;
+use Core\Orm\Entity\Account;
 use Core\Orm\Repository\MapFieldRepositoryInterface;
 use Core\Orm\Repository\MapRepositoryInterface;
 use Core\Orm\Repository\NewsRepositoryInterface;
 use Core\Orm\Repository\PlayerRepositoryInterface;
 use Core\Orm\Repository\StarSystemRepositoryInterface;
-use Core\Orm\Repository\UserRepositoryInterface;
+use Core\Orm\Repository\AccountRepositoryInterface;
 use function DI\autowire;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\Configuration;
@@ -82,8 +82,8 @@ return [
      *
      * @url https://www.doctrine-project.org/
      */
-    UserRepositoryInterface::class => static function (ContainerInterface $c): UserRepositoryInterface {
-        return $c->get(EntityManagerInterface::class)->getRepository(User::class);
+    AccountRepositoryInterface::class => static function (ContainerInterface $c): AccountRepositoryInterface {
+        return $c->get(EntityManagerInterface::class)->getRepository(Account::class);
     },
     PlayerRepositoryInterface::class => static function (ContainerInterface $c): PlayerRepositoryInterface {
         return $c->get(EntityManagerInterface::class)->getRepository(Player::class);

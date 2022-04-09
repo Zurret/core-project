@@ -6,19 +6,19 @@ namespace Core\Module\Website\Action;
 
 use Core\Lib\Request;
 use Core\Module\Core\CoreControllerInterface;
-use Core\Orm\Repository\UserRepositoryInterface;
+use Core\Orm\Repository\AccountRepositoryInterface;
 
 class Login
 {
     private CoreControllerInterface $core;
 
-    private UserRepositoryInterface $userRepository;
+    private AccountRepositoryInterface $accountRepository;
 
     public function __construct(
-        UserRepositoryInterface $userRepository,
+        AccountRepositoryInterface $accountRepository,
         CoreControllerInterface $core
     ) {
-        $this->userRepository = $userRepository;
+        $this->accountRepository = $accountRepository;
         $this->core = $core;
     }
 
@@ -55,7 +55,7 @@ class Login
 
             return false;
         }
-        $result = $this->userRepository->getByEmail($email);
+        $result = $this->accountRepository->getByEmail($email);
         if ($result === null) {
             $this->core->setNotification('E-Mail Adresse nicht gefunden.');
 

@@ -83,7 +83,7 @@ class Colony implements ColonyInterface
         return $this->player;
     }
 
-    public function setUser(PlayerInterface $player): ColonyInterface
+    public function setAccount(PlayerInterface $player): ColonyInterface
     {
         $this->player = $player;
 

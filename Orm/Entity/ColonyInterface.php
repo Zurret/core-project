@@ -12,7 +12,7 @@ interface ColonyInterface
 
     public function getPlayer(): PlayerInterface;
 
-    public function setUser(PlayerInterface $player): ColonyInterface;
+    public function setAccount(PlayerInterface $player): ColonyInterface;
 
     public function getTypeId(): int;
 

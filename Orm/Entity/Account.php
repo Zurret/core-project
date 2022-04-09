@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Core\Orm\Entity;
 
 /**
- * @Entity(repositoryClass="Core\Orm\Repository\UserRepository")
+ * @Entity(repositoryClass="Core\Orm\Repository\AccountRepository")
  *
  * @Table(
- *     name="core_user",
+ *     name="core_account",
  *     indexes={
  *         @Index(name="user_player_idx", columns={"player_id"})
  *     }
  * )
  */
-class User implements UserInterface
+class Account implements AccountInterface
 {
     /**
      * @Id
@@ -63,7 +63,7 @@ class User implements UserInterface
         return $this->email;
     }
 
-    public function setEMail(string $email): UserInterface
+    public function setEMail(string $email): AccountInterface
     {
         $this->email = $email;
 
@@ -75,7 +75,7 @@ class User implements UserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): UserInterface
+    public function setPassword(string $password): AccountInterface
     {
         $this->password = $password;
 
@@ -87,7 +87,7 @@ class User implements UserInterface
         return $this->session;
     }
 
-    public function setSessionString(?string $session): UserInterface
+    public function setSessionString(?string $session): AccountInterface
     {
         $this->session = $session;
 
@@ -99,7 +99,7 @@ class User implements UserInterface
         return $this->cookie;
     }
 
-    public function setCookieString(?string $cookie): UserInterface
+    public function setCookieString(?string $cookie): AccountInterface
     {
         $this->cookie = $cookie;
 
@@ -111,7 +111,7 @@ class User implements UserInterface
         return $this->player;
     }
 
-    public function setPlayer(PlayerInterface $player): UserInterface
+    public function setPlayer(PlayerInterface $player): AccountInterface
     {
         $this->player = $player;
 
@@ -123,7 +123,7 @@ class User implements UserInterface
         return $this->access_level;
     }
 
-    public function setAccessLevel(int $access_level): UserInterface
+    public function setAccessLevel(int $access_level): AccountInterface
     {
         $this->access_level = $access_level;
 
@@ -135,7 +135,7 @@ class User implements UserInterface
         return $this->last_login;
     }
 
-    public function setLastLogin(int $last_login): UserInterface
+    public function setLastLogin(int $last_login): AccountInterface
     {
         $this->last_login = $last_login;
 

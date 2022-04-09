@@ -4,23 +4,16 @@
 <form action="{{ internUrl('/account/settings') }}" method="post" autocomplete="off"
     class="uk-form-horizontal uk-margin-large">
 
+    <h3>Spieler (ID: {{player.getId}})</h3>
+
     <div class="uk-margin">
-        <label class="uk-form-label uk-text-bold uk-text-right" for="account_id">Account ID</label>
+        <label class="uk-form-label uk-text-bold uk-text-right" for="player_name">Name</label>
         <div class="uk-form-controls">
-            <input class="uk-input uk-form-blank" name="account_id" id="account_id" type="number"
-                value="{{account.getId}}" readonly>
+            <input class="uk-input" type="text" name="player_name" value="{{player.getName}}">
         </div>
     </div>
 
-    <div class="uk-margin">
-        <label class="uk-form-label uk-text-bold uk-text-right" for="player_id">Player ID</label>
-        <div class="uk-form-controls">
-            <input class="uk-input uk-form-blank" name="player_id" id="player_id" type="number" value="{{player.getId}}"
-                readonly>
-        </div>
-    </div>
-
-    <h3>Account</h3>
+    <h3>Account (ID: {{account.getId}})</h3>
 
     <div class="uk-margin">
         <label class="uk-form-label uk-text-bold uk-text-right" for="account_email">E-Mail Address</label>
@@ -38,15 +31,6 @@
             <div class="uk-width-1-2@s">
                 <input class="uk-input" type="password" name="account_password_repeat">
             </div>
-        </div>
-    </div>
-
-    <h3>Spieler</h3>
-
-    <div class="uk-margin">
-        <label class="uk-form-label uk-text-bold uk-text-right" for="player_name">Name</label>
-        <div class="uk-form-controls">
-            <input class="uk-input" type="text" name="player_name" value="{{player.getName}}">
         </div>
     </div>
 
