@@ -68,8 +68,8 @@ function generatePopup(title, content, x = null, y = null) {
   popupContent.innerHTML = contentHtml
   const popupClose = document.getElementsByClassName('popup-close')[0]
   // Set Popup Width and Height
-  const popupWidth = popupContent.offsetWidth + 20
-  const popupHeight = popupContent.offsetHeight + 20
+  const popupWidth = popupContent.offsetWidth
+  const popupHeight = popupContent.offsetHeight
   // Set Style for Popup Elements
   // popup
   popup.style.backgroundColor = '#f8f8f8'
@@ -90,12 +90,6 @@ function generatePopup(title, content, x = null, y = null) {
   popupTitle.style.display = 'block'
   popupTitle.style.lineHeight = '1.2'
   popupTitle.style.verticalAlign = 'middle'
-  // popupContent
-  popupContent.style.backgroundColor = '#fff'
-  popupContent.style.color = '#666'
-  popupContent.style.padding = '5px'
-  popupContent.style.fontSize = '12px'
-  popupContent.style.display = 'block'
   // popupClose
   popupClose.style.cursor = 'pointer'
   popupClose.style.float = 'right'
@@ -106,7 +100,14 @@ function generatePopup(title, content, x = null, y = null) {
   popupClose.style.padding = '3px 10px'
   popupClose.style.marginTop = '-4px'
   popupClose.style.marginRight = '-4px'
-  popupClose.style.marginLeft = '10px'
+  popupClose.style.marginLeft = '50px'
+  // popupContent
+  popupContent.style.backgroundColor = '#fff'
+  popupContent.style.color = '#666'
+  popupContent.style.fontSize = '12px'
+  popupContent.style.display = 'block'
+  popupContent.style.width = '100%'
+  popupContent.style.height = '100%'
   // Set Event Listeners
   popupClose.onmouseover = function () {
     popupClose.style.backgroundColor = '#d13b56'
