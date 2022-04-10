@@ -52,7 +52,6 @@ final class CoreController implements CoreControllerInterface
         /**
          * Global variable.
          */
-        $this->setTemplateVar('core', $this);
         $this->setTemplateVar('core_name', $this->getCoreName());
         $this->setTemplateVar('core_version', $this->getVersion());
         $this->setTemplateVar('auth', $this->Auth());
