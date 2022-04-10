@@ -41,6 +41,9 @@ return [
         'template_ext' => '.twig',
     ],
     'mail' => [
+        'enabled' => false,
+        'from'    => 'mail@host.local',
+        'from_name' => 'Localhost',
         'blacklist' => [
             'example.com',
             'spam@local.host',
