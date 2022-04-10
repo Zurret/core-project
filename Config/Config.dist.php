@@ -31,7 +31,7 @@ return [
             'key' => 'f4ef74r89g41954r89g',
             'random_iv' => false,
         ],
-        'base_url'     => 'http://localhost/',
+        'base_url'     => 'http://localhost',
         'encrypt_url'  => false,
         'root'         => __DIR__.'/../',
         'assets'       => '/assets',
