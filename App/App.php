@@ -45,6 +45,16 @@ class App
         return $this->benchmark;
     }
 
+    public function setUri(string $uri): void
+    {
+        $this->getContainer()->set('uri', $uri);
+    }
+
+    public function getUri(): string
+    {
+        return $this->getContainer()->get('uri');
+    }
+
     /**
      * @throws Exception
      */

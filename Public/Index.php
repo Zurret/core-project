@@ -25,6 +25,7 @@ if ($app->getConfig('core.encrypt_url')) {
     $uri = decrypt($uri, $app->getConfig('core.secret.key'));
 }
 
+$app->setUri($uri);
 $route = $dispatcher->dispatch($httpMethod, $uri);
 switch ($route[0]) {
     case FastRoute\Dispatcher::NOT_FOUND:

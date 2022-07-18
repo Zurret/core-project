@@ -61,6 +61,7 @@ final class CoreController implements CoreControllerInterface
         $this->setTemplateVar('token_form', $this->getTokenInput());
         $this->setTemplateVar('benchmark', $this->getBenchmarkResult());
         $this->setTemplateVar('infos', $this->getNotification());
+        $this->setTemplateVar('uri', $this->getUri());
 
         /**
          * Render page.
@@ -87,6 +88,11 @@ final class CoreController implements CoreControllerInterface
             return null;
         }
         return $this->getAccount()->getPlayer();
+    }
+
+    public function getUri(): string
+    {
+        return $this->app->getUri();
     }
 
     public function Session(): Session
